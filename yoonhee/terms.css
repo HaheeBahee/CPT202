@@ -1,0 +1,102 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    padding: 20px;
+}
+
+header h1 {
+    margin: 0 0 30px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #333;
+    margin-top: 0;
+    margin-bottom: 20px;
+    width : 100%; /*선의 길이를 부모 요소의 설정*/
+    margin-left: 0; /*선을 중앙에 정렬*/  
+}
+
+main {
+    position: relative; /* 상대 위치 설정 */
+    width: 80%;
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: white;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h3 {
+    position: absolute; /* 절대 위치 설정 */
+    top: -50px; /* main 상단에서 40px 위 */
+    left: 0; /* main 왼쪽에서 30px 떨어진 곳 */
+    color: rgb(112, 112, 112);
+    padding: 0 10px; /* 좌우 패딩 추가 */
+}
+
+.account-creation p {
+    font-family: Western;
+}
+
+
+.account-creation h2 {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 40px; /*terms~~ - 동의란 거리*/
+}
+
+
+.terms-group {
+    margin: 20px 0;
+    margin-left : 50px;
+}
+
+.terms-group label {
+    margin-left: 10px;
+}
+
+.terms-group input[type="checkbox"] {
+    accent-color: #0056b3;
+}
+
+.form-group {
+    text-align: center;
+    margin-top: 45px;
+    margin-bottom: 30px;
+
+}
+
+.form-group button {
+    padding: 10px 15px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
+
+}
+
+.form-group button:hover {
+    background-color: #004299;
+    box-shadow: 4px 8px 12px rgba(0,0,0,0.3);
+
+}
+
+
+
+
+
+
+
+
+
+
+
