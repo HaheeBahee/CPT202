@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Form</title>
+    <link href="/static/appointment.css" rel="stylesheet" type="text/css" >
+</head>
+<body>
+
+<nav id="navbar">
+    <div id="logo-container">
+        <img src="/static/image/img_1.png" id="logo" alt="logo">
+    </div>
+    <ul>
+        <li><a href="/home">Home Page</a></li>
+        <li><a href="/appointment">Appointment</a></li>
+        <li><a href="/change">Change appointmment</a></li>
+        <li><a href="/view">View appointmment</a></li>
+    </ul>
+    <img id="nav-control" onclick="toggleNavbar()"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAARUlEQVR4nO3TOwoAIAwE0dz/WHqoTSptJYWIhR+YB+kCW40ZcEJIbbxnhl2q+Wf1XKq3hsv2MLAt6DihY/wn6DihY8AmOrJBLqA7C45ZAAAAAElFTkSuQmCC">
+</nav>
+<div id="appointment">
+    <h1>Appointment now!</h1>
+    <div id="error-message"></div>
+    <form id="appointment-form">
+        <div id="trainer">
+            <label for="trainer">Trainer:</label>
+            <select name="trainer" id="trainer" required>
+                <option value="trainer1">trainer1</option>
+                <option value="trainer2">trainer2</option>
+                <option value="trainer3">trainer3</option>
+            </select>
+        </div>
+        <div id="time">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+        </div>
+        <div id="submit">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</div>
+
+<script>
+    function generateUniqueId() {
+        return 'id-' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // 设置表单元素的ID
+    document.getElementById('trainer').id = generateUniqueId();
+    document.getElementById('time').id = generateUniqueId();
+    localStorage.getItem("username");
+    document.getElementById('appointment-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // 阻止默认的表单提交行为
+
+        var form = document.getElementById('appointment-form');
+        var formData = new FormData(form);
+
+        var json = {};
+        formData.forEach(function(value, key) {
+            // 检查键是否为日期或时间
+            if (key === 'date' || key === 'time') {
+                json[key] = value;
+            } else {
+                json[key] = value;
+            }
+        });
+
+        // 从本地存储获取 username
+        var username = localStorage.getItem("username");
+
+        // 将 username 添加到 JSON 对象中
+        json["username"] = username;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/appointments/create', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    alert('Appointment created successfully!');
+                    // form.reset(); // 清空表单
+                } else {
+                    document.getElementById('error-message').textContent = 'Failed to create appointment. Please try again later.';
+                }
+            }
+        };
+        xhr.send(JSON.stringify(json));
+    });
+</script>

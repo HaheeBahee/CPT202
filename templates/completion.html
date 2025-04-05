@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account - Fitness</title>
+    <script>
+      window.onload = function () {
+        // Check if coming from a 'reload' or not, if not then manipulate the history
+        if (
+          window.performance &&
+          window.performance.navigation.type !==
+            window.performance.navigation.TYPE_RELOAD
+        ) {
+          window.history.replaceState(null, null, "/agreement");
+          window.history.pushState(null, null, "/completion");
+        }
+        // Handle the back button by redirecting to the agreement page
+        window.onpopstate = function (event) {
+          window.location.href = "/agreement";
+        };
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+      header {
+        padding: 20px;
+      }
+      header h1 {
+        margin: 0 0 30px;
+      }
+      hr {
+        border: 0;
+        height: 1px;
+        background-color: #333;
+        margin-top: 0;
+        margin-bottom: 20px;
+      }
+
+      .container {
+        width: 80%;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 30px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .container h1 {
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 45px;
+      }
+
+      .sign-in-prompt {
+        text-align: center;
+      }
+
+      .sign-in-button::before {
+        content: "\2192\00a0";
+        display: inline-block;
+        margin-right: 4px;
+      }
+
+      .sign-in-button {
+        display: inline-block;
+        padding: 10px 17px;
+        margin-bottom: 4px;
+        font-size: 1em;
+        color: #fff;
+        background-color: rgb(231, 76, 60);
+        border: none;
+        cursor: pointer;
+        text-decoration: none; /* Remove underline from anchors */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+        margin-bottom: 40px;
+      }
+
+      .sign-in-button:hover {
+        background-color: rgb(0, 0, 0);
+      }
+      .progress-container {
+        font-family: Arial, sans-serif;
+      }
+
+      .progressbar {
+        counter-reset: step;
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .progressbar li {
+        position: relative; /*가상 요소를 상대적으로 배치*/
+        flex: 1;
+        text-align: center;
+        font-size: 11px;
+      }
+
+      .progressbar li:before {
+        content: counter(step);
+        counter-increment: step;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        display: block; /* Changed to block to allow for margin adjustments */
+        margin: 0 auto 5px auto; /* Added bottom margin to push the text down */
+        border: 2px solid rgb(231, 76, 60);
+        background-color: white;
+        z-index: 2;
+        position: relative;
+        font-size: 9px;
+      }
+
+      .progressbar li:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background-color: rgb(185, 185, 185);
+        left: 50%; /* Changed to 50% to start from the middle */
+        z-index: 1;
+        top: 10px; /* Adjust this value as needed to align with the middle of the circle */
+        /* This will center the line with respect to the circle */
+      }
+
+      .progressbar li.completed {
+        /*텍스트*/
+        color: rgb(231, 76, 60);
+      }
+      .progressbar li.active {
+        color: rgb(231, 76, 60);
+      }
+      .progressbar li.nonactive {
+        color: rgb(185, 185, 185);
+      }
+
+      .progressbar li:last-child:after {
+        content: none;
+      }
+
+      .progressbar li.completed:before {
+        /*박스*/
+
+        border-color: rgb(231, 76, 60);
+        background-color: rgb(231, 76, 60);
+        color: white;
+      }
+
+      .progressbar li.active:before {
+        border-color: rgb(231, 76, 60);
+        background-color: #fff;
+        color: rgb(231, 76, 60);
+      }
+
+      .progressbar li.nonactive:before {
+        border-color: rgb(185, 185, 185);
+        color: rgb(185, 185, 185);
+      }
+      .progressbar li.completed:after {
+        /*선*/
+        background-color: rgb(231, 76, 60);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Fitness</h1>
+      <hr />
+    </header>
+    <div class="container">
+      <div class="progress-container">
+        <ul class="progressbar">
+          <li class="completed">Role Selection</li>
+          <li class="completed">Agreement</li>
+          <li class="completed">Account Creation</li>
+        </ul>
+      </div>
+      <h1>Sign-up complete</h1>
+      <div class="sign-in-prompt">
+        <a href="/login" class="sign-in-button"> Sign in to start</a>
+      </div>
+    </div>
+  </body>
+</html>

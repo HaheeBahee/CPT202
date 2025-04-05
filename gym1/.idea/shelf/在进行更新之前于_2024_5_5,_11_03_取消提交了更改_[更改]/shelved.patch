@@ -1,0 +1,224 @@
+Index: src/main/java/com/gym1/gym1/Model/Appointment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.gym1.gym1.Model;\r\nimport java.time.LocalDateTime;\r\n\r\n\r\nimport com.gym1.gym1.Model.Trainer;\r\nimport com.gym1.gym1.Model.User;\r\nimport jakarta.persistence.*;\r\n\r\n@Entity\r\npublic class Appointment {\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = \"appointgene\")\r\n    @SequenceGenerator(sequenceName = \"appointgene\", name=\"appointgene\", allocationSize=1)\r\n    private int id;\r\n    @ManyToOne\r\n    @JoinColumn(name = \"userId\")\r\n    private User user;\r\n    @ManyToOne\r\n    @JoinColumn(name = \"trainerId\")\r\n    private Trainer trainer;\r\n    private int status; // 0 - new, 1 - completed, 2 - cancelled\r\n    private int rating;\r\n\r\n    private LocalDateTime appointmentTime;\r\n    private int duration;   //in minutes\r\n    private LocalDateTime createTime;\r\n\r\n    @Column(name = \"appointmentEndTime\")\r\n    private  LocalDateTime appointmentEndTime;\r\n\r\n\r\n    public Appointment() {\r\n    }\r\n\r\n\r\n\r\n\r\n    public Appointment(int id, User user, Trainer trainer, int status, int rating, LocalDateTime appointmentTime,\r\n                       int duration, LocalDateTime createTime) {\r\n        System.out.println(appointmentTime);\r\n        this.id = id;\r\n        this.user = user;\r\n        this.trainer = trainer;\r\n        this.status = status;\r\n        this.rating = rating;\r\n        this.appointmentTime = appointmentTime;\r\n        this.duration = duration;\r\n        this.createTime = createTime;\r\n\r\n    }\r\n\r\n\r\n\r\n\r\n    public int getId() {\r\n        return id;\r\n    }\r\n\r\n\r\n    public void setId(int id) {\r\n        this.id = id;\r\n    }\r\n\r\n\r\n    public User getUser() {\r\n        return user;\r\n    }\r\n\r\n\r\n    public void setUser(User user) {\r\n        this.user = user;\r\n    }\r\n\r\n\r\n    public Trainer getTrainer() {\r\n        return trainer;\r\n    }\r\n\r\n\r\n    public void setTrainer(Trainer trainer) {\r\n        this.trainer = trainer;\r\n    }\r\n\r\n\r\n    public int getStatus() {\r\n        return status;\r\n    }\r\n\r\n    public String getStatusText() {\r\n        if(this.status==0){\r\n            return \"UNCOMPLETED\";\r\n        }\r\n        else if(this.status==1){\r\n            return \"COMPLETED\";\r\n        }\r\n        else if(this.status==2){\r\n            return \"CANCELLED\";\r\n        }\r\n        return \"ERROR\";\r\n    }\r\n\r\n\r\n    public void setStatus(int status) {\r\n        this.status = status;\r\n    }\r\n\r\n\r\n    public int getRating() {\r\n        return rating;\r\n    }\r\n\r\n\r\n    public void setRating(int rating) {\r\n        this.rating = rating;\r\n    }\r\n\r\n\r\n    public LocalDateTime getAppointmentTime() {\r\n\r\n        return appointmentTime;\r\n    }\r\n\r\n\r\n    public void setAppointmentTime(LocalDateTime appointmentTime) {\r\n\r\n        this.appointmentTime = appointmentTime;\r\n    }\r\n\r\n\r\n    public int getDuration() {\r\n\r\n\r\n        return duration;\r\n    }\r\n\r\n\r\n    public void setDuration(int duration) {\r\n        this.duration = duration;\r\n        this.appointmentEndTime = this.appointmentTime.plusMinutes(this.duration);\r\n    }\r\n\r\n\r\n    public LocalDateTime getAppointmentEndTime(){\r\n        return this.appointmentTime.plusMinutes(this.duration);\r\n    }\r\n\r\n\r\n    public LocalDateTime getCreateTime() {\r\n        return createTime;\r\n    }\r\n\r\n\r\n    public void setCreateTime(LocalDateTime createTime) {\r\n        this.createTime = createTime;\r\n    }\r\n    public void setAppointmentEndTime(LocalDateTime appointmentEndTime){\r\n        this.appointmentEndTime=appointmentEndTime;\r\n    }\r\n    public void getAppointmentEndTime(LocalDateTime appointmentEndTime){\r\n        this.appointmentEndTime=appointmentEndTime;\r\n    }\r\n\r\n\r\n\r\n//    private void updateAppointmentEndTime() {\r\n//        this.appointmentEndTime = this.appointmentTime.plusMinutes(this.duration);\r\n//    }\r\n\r\n\r\n\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/gym1/gym1/Model/Appointment.java b/src/main/java/com/gym1/gym1/Model/Appointment.java
+--- a/src/main/java/com/gym1/gym1/Model/Appointment.java	(revision 5c244d1d1e5892bd720973c5ada90065442cc338)
++++ b/src/main/java/com/gym1/gym1/Model/Appointment.java	(date 1714877851491)
+@@ -25,8 +25,8 @@
+     private int duration;   //in minutes
+     private LocalDateTime createTime;
+ 
+-    @Column(name = "appointmentEndTime")
+-    private  LocalDateTime appointmentEndTime;
++//    @Column(name = "appointmentEndTime")
++//    private  LocalDateTime appointmentEndTime;
+ 
+ 
+     public Appointment() {
+@@ -136,7 +136,7 @@
+ 
+     public void setDuration(int duration) {
+         this.duration = duration;
+-        this.appointmentEndTime = this.appointmentTime.plusMinutes(this.duration);
++//        this.appointmentEndTime = this.appointmentTime.plusMinutes(this.duration);
+     }
+ 
+ 
+@@ -153,12 +153,12 @@
+     public void setCreateTime(LocalDateTime createTime) {
+         this.createTime = createTime;
+     }
+-    public void setAppointmentEndTime(LocalDateTime appointmentEndTime){
+-        this.appointmentEndTime=appointmentEndTime;
+-    }
+-    public void getAppointmentEndTime(LocalDateTime appointmentEndTime){
+-        this.appointmentEndTime=appointmentEndTime;
+-    }
++//    public void setAppointmentEndTime(LocalDateTime appointmentEndTime){
++//        this.appointmentEndTime=appointmentEndTime;
++//    }
++//    public void getAppointmentEndTime(LocalDateTime appointmentEndTime){
++//        this.appointmentEndTime=appointmentEndTime;
++//    }
+ 
+ 
+ 
+Index: src/main/java/com/gym1/gym1/Repository/AppointmentRepo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.gym1.gym1.Repository;\r\n\r\nimport com.gym1.gym1.Model.Appointment;\r\nimport com.gym1.gym1.Model.Trainer;\r\nimport com.gym1.gym1.Model.User;\r\nimport org.springframework.data.jpa.repository.JpaRepository;\r\nimport org.springframework.data.jpa.repository.Query;\r\nimport org.springframework.stereotype.Repository;\r\n\r\nimport java.time.LocalDateTime;\r\nimport java.util.List;\r\nimport java.util.Optional;\r\n\r\n\r\n@Repository\r\npublic interface AppointmentRepo extends JpaRepository<Appointment, Integer> {\r\n    @Query(\"SELECT a FROM Appointment a WHERE a.id = ?1\")\r\n    List<Appointment> findAppointmentByid(Integer id);\r\n\r\n    @Query(\"SELECT a FROM Appointment a WHERE a.user.userId = ?1\")\r\n    List<Appointment> findAppointmentByuserid(Integer id);\r\n\r\n\r\n    @Query(\"SELECT a FROM Appointment a WHERE a.user = :user AND a.appointmentTime BETWEEN :start AND :end AND a.appointmentEndTime BETWEEN :start AND :end\")\r\n\r\n    List<Appointment> findByUserAndAppointmentTimeBetween(User user, LocalDateTime start, LocalDateTime end);\r\n\r\n    @Query(\"SELECT a FROM Appointment a WHERE a.user = :user AND :time between a.appointmentTime AND a.appointmentEndTime\")\r\n    List<Appointment> findByUserAndAppointmentTimeBetween(User user, LocalDateTime time);\r\n\r\n    @Query(\"SELECT a FROM Appointment a WHERE a.trainer = :trainer AND a.appointmentTime BETWEEN :start AND :end AND a.appointmentEndTime BETWEEN :start AND :end\")\r\n    List<Appointment> findByTrainerAndAppointmentTimeBetween(Trainer trainer, LocalDateTime start, LocalDateTime end);\r\n\r\n\r\n    @Query(\"SELECT a FROM Appointment a WHERE a.trainer = :trainer AND :time between a.appointmentTime AND a.appointmentEndTime\")\r\n    List<Appointment> findByTrainerAndAppointmentTimeBetween(Trainer trainer, LocalDateTime time);\r\n\r\n    @Query(\"SELECT a from Appointment a where a.user= :user and a.appointmentTime between :start and :end\")\r\n    List<Appointment> findByUserAppointmentTimesame(User user,LocalDateTime start, LocalDateTime end);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/gym1/gym1/Repository/AppointmentRepo.java b/src/main/java/com/gym1/gym1/Repository/AppointmentRepo.java
+--- a/src/main/java/com/gym1/gym1/Repository/AppointmentRepo.java	(revision 5c244d1d1e5892bd720973c5ada90065442cc338)
++++ b/src/main/java/com/gym1/gym1/Repository/AppointmentRepo.java	(date 1714877889671)
+@@ -21,20 +21,23 @@
+     List<Appointment> findAppointmentByuserid(Integer id);
+ 
+ 
+-    @Query("SELECT a FROM Appointment a WHERE a.user = :user AND a.appointmentTime BETWEEN :start AND :end AND a.appointmentEndTime BETWEEN :start AND :end")
+-
+-    List<Appointment> findByUserAndAppointmentTimeBetween(User user, LocalDateTime start, LocalDateTime end);
++//    @Query("SELECT a FROM Appointment a WHERE a.user = :user AND a.appointmentTime BETWEEN :start AND :end AND a.appointmentEndTime BETWEEN :start AND :end")
++//
++//    List<Appointment> findByUserAndAppointmentTimeBetween(User user, LocalDateTime start, LocalDateTime end);
++//
++//    @Query("SELECT a FROM Appointment a WHERE a.user = :user AND :time between a.appointmentTime AND a.appointmentEndTime")
++//    List<Appointment> findByUserAndAppointmentTimeBetween(User user, LocalDateTime time);
++//
++//    @Query("SELECT a FROM Appointment a WHERE a.trainer = :trainer AND a.appointmentTime BETWEEN :start AND :end AND a.appointmentEndTime BETWEEN :start AND :end")
++//    List<Appointment> findByTrainerAndAppointmentTimeBetween(Trainer trainer, LocalDateTime start, LocalDateTime end);
++//
++//
++//    @Query("SELECT a FROM Appointment a WHERE a.trainer = :trainer AND :time between a.appointmentTime AND a.appointmentEndTime")
++//    List<Appointment> findByTrainerAndAppointmentTimeBetween(Trainer trainer, LocalDateTime time);
++//
++//    @Query("SELECT a from Appointment a where a.user= :user and a.appointmentTime between :start and :end")
++//    List<Appointment> findByUserAppointmentTimesame(User user,LocalDateTime start, LocalDateTime end);
+ 
+-    @Query("SELECT a FROM Appointment a WHERE a.user = :user AND :time between a.appointmentTime AND a.appointmentEndTime")
+-    List<Appointment> findByUserAndAppointmentTimeBetween(User user, LocalDateTime time);
+-
+-    @Query("SELECT a FROM Appointment a WHERE a.trainer = :trainer AND a.appointmentTime BETWEEN :start AND :end AND a.appointmentEndTime BETWEEN :start AND :end")
+-    List<Appointment> findByTrainerAndAppointmentTimeBetween(Trainer trainer, LocalDateTime start, LocalDateTime end);
+-
+-
+-    @Query("SELECT a FROM Appointment a WHERE a.trainer = :trainer AND :time between a.appointmentTime AND a.appointmentEndTime")
+-    List<Appointment> findByTrainerAndAppointmentTimeBetween(Trainer trainer, LocalDateTime time);
+-
+-    @Query("SELECT a from Appointment a where a.user= :user and a.appointmentTime between :start and :end")
+-    List<Appointment> findByUserAppointmentTimesame(User user,LocalDateTime start, LocalDateTime end);
++    @Query("SELECT a.appointmentTime, a.duration FROM Appointment a")
++    List<Object[]> getAppointmentTimeAndDuration();
+ }
+Index: src/main/java/com/gym1/gym1/Controller/AppointmentController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.gym1.gym1.Controller;\n\nimport com.gym1.gym1.Model.Appointment;\nimport com.gym1.gym1.Model.Trainer;\nimport com.gym1.gym1.Repository.AppointmentRepo;\nimport com.gym1.gym1.Repository.userRepo;\nimport com.gym1.gym1.Service.*;\nimport org.springframework.beans.factory.annotation.Autowired;\nimport org.springframework.http.HttpStatus;\nimport org.springframework.http.ResponseEntity;\nimport org.springframework.web.bind.annotation.*;\n\nimport java.util.List;\nimport java.util.Optional;\n\n@RestController\n@RequestMapping(\"/api\")\npublic class AppointmentController {\n\n    @Autowired\n    private AppointmentRepo appointmentRepo;\n    @Autowired\n    private AppointmentService appointmentService;\n    @Autowired\n    private PlanService planService;\n    @Autowired\n    private TrainerService trainerServicel;\n    @Autowired\n    private UserAndPlanService userAndPlanService;\n    @Autowired\n    private UseService useService;\n@Autowired\nprivate userRepo userrepo;\n    @PostMapping(\"/submit\")\n    public ResponseEntity<?> createAppointment(@RequestBody Appointment appointment) {\n//        System.out.println(\"appointment time\"+appointment.getAppointmentTime());\n//\n//        appointment.setCreateTime(LocalDateTime.now());\n//        System.out.println(\"Create time\"+appointment.getCreateTime());\n        try{\n        Appointment createdAppointment = appointmentService.createAppointment(appointment);\n        return ResponseEntity.ok(createdAppointment);}\n        catch (Exception e){\n            String errorMessage = \"无法创建预约：\" + e.getMessage();\n            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);\n        }\n    }\n\n    @GetMapping(\"/rating/{email}\")\n    public ResponseEntity<?> getRatingFromEmail(@PathVariable String email) {\n    Integer rating= planService.getratingfromemail(email);\n        return ResponseEntity.ok(rating);\n    }\n\n    @GetMapping(\"/idid/{email}\")\n    public ResponseEntity<?> getidfromid(@PathVariable String email){\n     Integer id= userAndPlanService.getidFromid(userrepo.getUserIdByEmail(email));\n        return ResponseEntity.ok(id);\n    }\n\n    @GetMapping(\"/trainer/{rating}\")\n    public List<Trainer> gettrainerbyrating(@PathVariable Integer rating){\n        return trainerServicel.getTrainersByrating(rating);\n    }\n   @GetMapping(\"/trainerbyemail/{email}\")\n    public List<Trainer> gettrainerbyemail(@PathVariable String email){\n       return trainerServicel.getTrainersByrating(planService.getratingfromemail(email));\n    }\n    @GetMapping(\"/getall/{id}\")\n    public List<Appointment> getallbyid(@PathVariable Integer id){\n        return appointmentService.getAppointmentByuserId(id);\n    }\n    @PostMapping(\"/updateappointment\")\n    public ResponseEntity<?> updateAppointment(@RequestBody Appointment appointmentDTO) {\n        // 检查是否存在该预约信息\n        Optional<Appointment> existingAppointment = appointmentRepo.findById(appointmentDTO.getId());\n        if (existingAppointment.isPresent()) {\n            // 存在该预约信息，调用服务层方法更新预约信息\n\n            appointmentService.updateAppointment(appointmentDTO);\n            return ResponseEntity.ok(\"预约信息已成功更新\");\n        } else {\n            // 不存在该预约信息，返回错误响应\n            return ResponseEntity.ok(\"appointment not found\"+appointmentDTO.getId());\n        }\n\n    }\n    @DeleteMapping(\"/delete/{id}\")\n    public ResponseEntity<Void> deleteAppointment(\n            @PathVariable(\"id\") int id) {\n        appointmentService.deleteAppointment(id);\n        return ResponseEntity.ok().build();\n    }\n}\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/gym1/gym1/Controller/AppointmentController.java b/src/main/java/com/gym1/gym1/Controller/AppointmentController.java
+--- a/src/main/java/com/gym1/gym1/Controller/AppointmentController.java	(revision 5c244d1d1e5892bd720973c5ada90065442cc338)
++++ b/src/main/java/com/gym1/gym1/Controller/AppointmentController.java	(date 1714878235418)
+@@ -72,6 +72,7 @@
+     }
+     @PostMapping("/updateappointment")
+     public ResponseEntity<?> updateAppointment(@RequestBody Appointment appointmentDTO) {
++       time= appointmentDTO.getAppointmentTime();
+         // 检查是否存在该预约信息
+         Optional<Appointment> existingAppointment = appointmentRepo.findById(appointmentDTO.getId());
+         if (existingAppointment.isPresent()) {
+Index: src/main/java/com/gym1/gym1/Service/AppointmentServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.gym1.gym1.Service;\n\nimport com.gym1.gym1.Model.Appointment;\nimport com.gym1.gym1.Model.User;\nimport com.gym1.gym1.Repository.AppointmentRepo;\nimport com.gym1.gym1.Repository.trainerrepo;\nimport com.gym1.gym1.Repository.userRepo;\nimport org.springframework.beans.factory.annotation.Autowired;\nimport org.springframework.stereotype.Service;\n\nimport java.time.LocalDateTime;\nimport java.util.List;\nimport java.util.Optional;\n@Service\npublic class AppointmentServiceImpl implements AppointmentService {\n\n    @Autowired\n    private AppointmentRepo appointmentRepository;\n    @Autowired\n    private userRepo userepo;\n    @Autowired\n    private trainerrepo trainerRepo;\n\n    @Override\n    public List<Appointment> getAllAppointments() {\n        return appointmentRepository.findAll();\n    }\n\n    @Override\n    public List<Appointment> getAppointmentByuserId(Integer id) {\n        return appointmentRepository.findAppointmentByuserid(id);\n    }\n\n    @Override\n    public Appointment createAppointment(Appointment appointment) {\n        try{\n\n        LocalDateTime start = appointment.getAppointmentTime();\n        LocalDateTime end = start.plusMinutes(appointment.getDuration());\n        int userid=appointment.getUser().getuserId();\n        int trainerid=appointment.getTrainer().gettrainerId();\n        List<Appointment> conflictingAppointments = appointmentRepository.findByUserAndAppointmentTimeBetween(appointment.getUser(), start, end);\n        List<Appointment> conflictingAppointments2 = appointmentRepository.findByTrainerAndAppointmentTimeBetween(appointment.getTrainer(), start,end);\n        List<Appointment> conflictingAppointments3 = appointmentRepository.findByUserAndAppointmentTimeBetween(appointment.getUser(), start);\n        List<Appointment> conflictingAppointments4 = appointmentRepository.findByTrainerAndAppointmentTimeBetween(appointment.getTrainer(), start);\n        List<Appointment> conflictingAppointments5 = appointmentRepository.findByUserAndAppointmentTimeBetween(appointment.getUser(), end);\n        List<Appointment> conflictingAppointments6 = appointmentRepository.findByTrainerAndAppointmentTimeBetween(appointment.getTrainer(), end);\n            List<Appointment> existingAppointments7 = appointmentRepository.findByUserAppointmentTimesame(appointment.getUser(),start, end);\n            if(!existingAppointments7.isEmpty()){\n                throw new RuntimeException(\"预约时间与现有预约冲突，请选择其他时间。\");\n            }\n        if (!conflictingAppointments.isEmpty()||!conflictingAppointments2.isEmpty()||!conflictingAppointments3.isEmpty()||!conflictingAppointments4.isEmpty()||!conflictingAppointments5.isEmpty()||!conflictingAppointments6.isEmpty()) {\n            throw new RuntimeException(\"预约时间与现有预约冲突，请选择其他时间。\");\n        }\n        }\n        catch (Exception e){\n            throw new RuntimeException(\"预约时间与现有预约冲突，请选择其他时间。\");\n        }\n\n        return appointmentRepository.save(appointment);\n    }\n\n\n\n\n\n    @Override\n    public void deleteAppointment(int id) {\n        Optional<Appointment> appointmentOptional = appointmentRepository.findById(id);\n        if (appointmentOptional.isPresent()) {\n            appointmentRepository.delete(appointmentOptional.get());\n            System.out.println(\"预约已删除\");\n        } else {\n            // 如果预约不存在，抛出异常或提供其他反馈\n            throw new RuntimeException(\"找不到指定的预约\");\n        }\n    }\n\n\n    @Override\n    public void updateAppointment(Appointment updatedAppointment) {\n   int id= updatedAppointment.getId();\n        updatedAppointment.setUser(appointmentRepository.findById(id).get().getUser());\n   updatedAppointment.setCreateTime(appointmentRepository.findById(id).get().getCreateTime());\n   updatedAppointment.setRating(appointmentRepository.findById(id).get().getRating());\n try {\n\n     deleteAppointment(updatedAppointment.getId());\n     createAppointment(updatedAppointment);\n }\n    catch (Exception e) {\n        throw new RuntimeException(\"找不到指定的预约\");\n    }\n    }\n\n\n\n\n    @Override\n    public List<Appointment> getAppointmentsByid(Integer id) {\n        return appointmentRepository.findAppointmentByid(id);\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/gym1/gym1/Service/AppointmentServiceImpl.java b/src/main/java/com/gym1/gym1/Service/AppointmentServiceImpl.java
+--- a/src/main/java/com/gym1/gym1/Service/AppointmentServiceImpl.java	(revision 5c244d1d1e5892bd720973c5ada90065442cc338)
++++ b/src/main/java/com/gym1/gym1/Service/AppointmentServiceImpl.java	(date 1714877829622)
+@@ -14,6 +14,7 @@
+ @Service
+ public class AppointmentServiceImpl implements AppointmentService {
+ 
++
+     @Autowired
+     private AppointmentRepo appointmentRepository;
+     @Autowired
+@@ -33,32 +34,66 @@
+ 
+     @Override
+     public Appointment createAppointment(Appointment appointment) {
+-        try{
+ 
+-        LocalDateTime start = appointment.getAppointmentTime();
+-        LocalDateTime end = start.plusMinutes(appointment.getDuration());
+-        int userid=appointment.getUser().getuserId();
+-        int trainerid=appointment.getTrainer().gettrainerId();
+-        List<Appointment> conflictingAppointments = appointmentRepository.findByUserAndAppointmentTimeBetween(appointment.getUser(), start, end);
+-        List<Appointment> conflictingAppointments2 = appointmentRepository.findByTrainerAndAppointmentTimeBetween(appointment.getTrainer(), start,end);
+-        List<Appointment> conflictingAppointments3 = appointmentRepository.findByUserAndAppointmentTimeBetween(appointment.getUser(), start);
+-        List<Appointment> conflictingAppointments4 = appointmentRepository.findByTrainerAndAppointmentTimeBetween(appointment.getTrainer(), start);
+-        List<Appointment> conflictingAppointments5 = appointmentRepository.findByUserAndAppointmentTimeBetween(appointment.getUser(), end);
+-        List<Appointment> conflictingAppointments6 = appointmentRepository.findByTrainerAndAppointmentTimeBetween(appointment.getTrainer(), end);
+-            List<Appointment> existingAppointments7 = appointmentRepository.findByUserAppointmentTimesame(appointment.getUser(),start, end);
+-            if(!existingAppointments7.isEmpty()){
+-                throw new RuntimeException("预约时间与现有预约冲突，请选择其他时间。");
+-            }
+-        if (!conflictingAppointments.isEmpty()||!conflictingAppointments2.isEmpty()||!conflictingAppointments3.isEmpty()||!conflictingAppointments4.isEmpty()||!conflictingAppointments5.isEmpty()||!conflictingAppointments6.isEmpty()) {
+-            throw new RuntimeException("预约时间与现有预约冲突，请选择其他时间。");
+-        }
+-        }
+-        catch (Exception e){
+-            throw new RuntimeException("预约时间与现有预约冲突，请选择其他时间。");
+-        }
++            LocalDateTime start = appointment.getAppointmentTime();
++            LocalDateTime end = start.plusMinutes(appointment.getDuration());
++            List<Object[]> appointmentTimeAndDuration = appointmentRepository.getAppointmentTimeAndDuration();
++            try {
++                for (Object[] row : appointmentTimeAndDuration) {
++                    LocalDateTime appointmentTime = (LocalDateTime) row[0];
++                    int duration = (int) row[1];
++
++                    // 计算结束时间
++                    LocalDateTime endTime = appointmentTime.plusMinutes(duration);
++
++                    if (start.isBefore(appointmentTime) && end.isAfter(endTime)) {
++                        throw new RuntimeException("预约时间与现有预约冲突，请选择其他时间。");
++                    }
++                    if (appointmentTime.isBefore(start) && endTime.isAfter(start)) {
++                        throw new RuntimeException("预约时间与现有预约冲突，请选择其他时间。");
++                    }
++                    if (start.isBefore(appointmentTime) && end.isAfter(appointmentTime)) {
++                        throw new RuntimeException("预约时间与现有预约冲突，请选择其他时间。");
++                    }
++                    if (start.isBefore(endTime) && end.isAfter(endTime)) {
++                        throw new RuntimeException("预约时间与现有预约冲突，请选择其他时间。");
++                    }
+ 
+-        return appointmentRepository.save(appointment);
++
++                }
++                return appointmentRepository.save(appointment);
++            } catch (Exception e) {
++                throw new RuntimeException("预约时间与现有预约冲突，请选择其他时间。");
++            }
++
++
++
+     }
++
++
++
++//        int userid=appointment.getUser().getuserId();
++//        int trainerid=appointment.getTrainer().gettrainerId();
++//        List<Appointment> conflictingAppointments = appointmentRepository.findByUserAndAppointmentTimeBetween(appointment.getUser(), start, end);
++//        List<Appointment> conflictingAppointments2 = appointmentRepository.findByTrainerAndAppointmentTimeBetween(appointment.getTrainer(), start,end);
++//        List<Appointment> conflictingAppointments3 = appointmentRepository.findByUserAndAppointmentTimeBetween(appointment.getUser(), start);
++//        List<Appointment> conflictingAppointments4 = appointmentRepository.findByTrainerAndAppointmentTimeBetween(appointment.getTrainer(), start);
++//        List<Appointment> conflictingAppointments5 = appointmentRepository.findByUserAndAppointmentTimeBetween(appointment.getUser(), end);
++//        List<Appointment> conflictingAppointments6 = appointmentRepository.findByTrainerAndAppointmentTimeBetween(appointment.getTrainer(), end);
++//            List<Appointment> existingAppointments7 = appointmentRepository.findByUserAppointmentTimesame(appointment.getUser(),start, end);
++//            if(!existingAppointments7.isEmpty()){
++//                throw new RuntimeException("预约时间与现有预约冲突，请选择其他时间。");
++//            }
++//        if (!conflictingAppointments.isEmpty()||!conflictingAppointments2.isEmpty()||!conflictingAppointments3.isEmpty()||!conflictingAppointments4.isEmpty()||!conflictingAppointments5.isEmpty()||!conflictingAppointments6.isEmpty()) {
++//            throw new RuntimeException("预约时间与现有预约冲突，请选择其他时间。");
++//        }
++//        }
++//        catch (Exception e){
++//            throw new RuntimeException("预约时间与现有预约冲突，请选择其他时间。");
++//        }
++//
++//        return appointmentRepository.save(appointment);
++//    }
+ 
+ 
+ 

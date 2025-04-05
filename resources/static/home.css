@@ -1,0 +1,331 @@
+
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    text-align: left;
+    animation: slideInDown 0.5s ease-out; /* 将动画应用到导航栏 */
+}
+@keyframes slideInDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+#navbar ul {
+    list-style: none;
+    padding: 0;
+}
+
+#navbar li {
+    display: inline;
+    margin-right: 20px;
+}
+
+#navbar li:last-child {
+    margin-right: 0;
+}
+
+#navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+#navbar {
+    position: fixed; /* 固定在顶部 */
+    top: 0;
+    left: 0;
+    width: 100%; /* 撑满整个宽度 */
+    background-color: #333; /* 导航栏背景色 */
+    padding: 10px 20px; /* 上下左右边距 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    z-index: 2; /* 确保在其他元素上方 */
+    text-align: left;
+
+}
+
+#navbar ul {
+    list-style: none;
+    padding: 0;
+}
+
+#navbar li {
+    display: inline;
+    margin-right: 20px; /* 调整间距 */
+}
+
+#navbar li:last-child {
+    margin-right: 0; /* 最后一个菜单项不留右边距 */
+}
+
+#navbar a {
+    color: #fff; /* 链接文字颜色 */
+    text-decoration: none; /* 去掉下划线 */
+    font-weight: bold; /* 文字加粗 */
+}
+
+/* 用户账户样式 */
+#account {
+
+    position: fixed; /* 固定在顶部 */
+    top: 10px;
+    right: 20px;
+    z-index: 3;
+
+
+}
+#account .routerdirect {
+    color: #fff; /* 设置链接颜色为白色 */
+}
+
+#account ul {
+
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#account li {
+    display: inline;
+    margin-left: 10px; /* 调整间距 */
+}
+
+
+/* logo样式 */
+#logo {
+    width: 50px; /* logo宽度，根据需要调整 */
+    height: auto; /* 高度自适应 */
+}
+
+/* 可选：调整logo的外边距 */
+#logo-container .logo {
+    margin-right: 1px; /* 调整logo与其他内容之间的距离 */
+}
+
+
+#front{
+
+background-image: url("/static/image/img_2.png");
+    background-size: 120%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    filter: brightness(0.7); /* 调整亮度，值在0~1之间，越小越暗 */
+    color: white; /* 或其他对比度更高的颜色 */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* 阴影效果 */
+
+
+
+}
+/* 欢迎语样式 */
+#welcome1 {
+
+    padding: 80px;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center; /* 居中对齐 */
+    margin-top: 90px; /* 调整与导航栏的距离 */
+    animation: fadeIn 3s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* 新闻部分样式 */
+#news {
+    margin-top: 40px; /* 调整与欢迎语的距离 */
+    background-color: #f4f4f4; /* 背景色 */
+    padding: 20px; /* 内边距 */
+    border-radius: 5px; /* 圆角边框 */
+    animation: slideInRightToLeft 1s ease forwards;
+}
+@keyframes slideInRightToLeft {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+@keyframes slideInLeftToRight {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+
+#news li{
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+.welcome2{
+    text-align: left;
+    font-size: 40px;
+    width: auto;
+    font-weight: bold;
+
+}
+
+.readmore {
+    position: relative;
+    top:0;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* 关于我们部分样式 */
+#aboutus {
+    margin-top: 40px; /* 调整与新闻部分的距离 */
+    padding: 20px; /* 内边距 */
+    background-color: #f9f9f9; /* 背景色 */
+    border-radius: 5px; /* 圆角边框 */
+    animation: slideInLeftToRight 1s ease forwards;
+}
+
+
+/* 我们的设施和服务部分样式 */
+#intro {
+    margin: 40px auto 20px; /* 外边距上、下各 40px，左右自动 */
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px; /* 增加圆角 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+    overflow: hidden; /* 防止内容溢出 */
+    animation: slideInRightToLeft 1s ease forwards;
+
+
+}
+
+.paragraph-with-image {
+    margin-bottom: 20px;
+    overflow: hidden; /* 清除浮动 */
+    font-size: 30px;
+    font-family: Arial, sans-serif; /* 更改字体 */
+}
+
+.paragraph-with-image img {
+    float: left;
+    margin-right: 15px; /* 图片右侧留出一些间距 */
+    width: 300px; /* 设置图片宽度 */
+    height: 300px; /* 设置图片高度 */
+    object-fit: cover; /* 保持图片比例并填充整个容器 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加图片阴影效果 */
+    transition: transform 0.3s ease; /* 添加过渡效果 */
+}
+.paragraph-with-image img:hover {
+    transform: scale(1.1); /* 鼠标悬停时放大图片 */
+}
+
+
+
+/* 添加一个简单的渐变背景 */
+body {
+    background: linear-gradient(to bottom, #2c3e50, #f4f4f4);
+    /* 更改页面背景颜色为白色至 #f4f4f4 的渐变 */
+}
+
+/* 我们的使命部分样式 */
+#mission {
+    margin-top: 40px; /* 调整与设施和服务部分的距离 */
+    padding: 20px; /* 内边距 */
+    background-color: #f9f9f9; /* 背景色 */
+    border-radius: 5px; /* 圆角边框 */
+    animation: slideInLeftToRight 1s ease forwards;
+}
+
+
+/* 加入我们部分样式 */
+#joinus {
+    margin-top: 40px; /* 调整与使命部分的距离 */
+    padding: 20px; /* 内边距 */
+    background-color: #f4f4f4; /* 背景色 */
+    border-radius: 5px; /* 圆角边框 */
+    padding-bottom: 200px;
+}
+
+/* 联系信息样式 */
+#contact {
+    margin-top: 20px; /* 调整与加入我们部分的距离 */
+    padding: 20px; /* 内边距 */
+    background-color: #f9f9f9; /* 背景色 */
+    border-radius: 5px; /* 圆角边框 */
+    text-align: left;
+    width: 300px;
+    animation: slideInBottomToTop 1s ease forwards;
+}
+@keyframes slideInBottomToTop {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+
+#contact p {
+    margin: 5px 0; /* 调整段落之间的距离 */
+}
+
+/* 定义动画 */
+@keyframes slideInBottomToTop {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.slide-from-bottom {
+    opacity: 0; /* 初始状态隐藏 */
+}
+/* 底部区域样式 */
+footer {
+    background-color: #333; /* 底部背景色 */
+    color: #fff; /* 文字颜色 */
+    padding: 130px 0; /* 上下内边距 */
+    text-align: center; /* 文字居中 */
+   font-size: 30px;
+
+}
+
+/* 链接样式 */
+footer a {
+    color: #fff; /* 链接文字颜色 */
+    text-decoration: none; /* 去除下划线 */
+    margin: 10px 20px; /* 链接之间的水平间距 */
+
+}
+
+/* 链接悬停样式 */
+footer a:hover {
+    text-decoration: underline; /* 悬停时显示下划线 */
+}
+
+
+
+

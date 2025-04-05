@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account - Fitness</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+      header {
+        padding: 20px;
+      }
+      header h1 {
+        margin: 0 0 30px;
+      }
+      hr {
+        border: 0;
+        height: 1px;
+        background-color: #333;
+        margin-top: 0;
+        margin-bottom: 20px;
+      }
+      .container {
+        width: 80%;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 30px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .container h1 {
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 45px;
+      }
+      .main {
+        padding-left: 65px;
+        padding-right: 65px;
+      }
+
+      .main-hr {
+        width: 50%;
+        border: 0;
+        height: 1px;
+        background-color: #b9b9b9;
+        margin-top: 30px;
+        margin-bottom: 30px; 
+      }
+
+      .form-field {
+        margin-bottom: 20px;
+        position: relative;
+        
+      }
+
+      .form-field label {
+        display: inline-block;
+        text-align: right;
+        margin-bottom: 4px;
+        font-size: 0.8em;
+      }
+      .optional-text {
+        color: grey;
+      }
+
+      .form-field input[type="email"],
+      .form-field input[type="password"],
+      .form-field input[type ="number"],
+      .form-field input[type="text"]{
+        width: calc(
+          100% - 20px
+        ); /* Adjust the width as needed, the 20px accounts for padding */
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      
+
+      .email-verify-group {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        gap: 8px; /* This adds space between your email input and verify button */
+      }
+
+      .email-verify-group input[type="email"] {
+        flex-grow: 2;
+        margin-right: 10px;
+      }
+
+      .email-status {
+        display: block; /* Ensures it takes up the full width beneath the email field */
+        font-size: 0.8em; /* Adjust the font size as desired */
+        margin-top: 5px; /* Adds a small space between the input field and the message */
+        height: 1px; 
+      }
+
+      .password-error {
+        display: block; /* Ensures it takes up the full width beneath the email field */
+        font-size: 0.8em; /* Adjust the font size as desired */
+        margin-top: 5px; /* Adds a small space between the input field and the message */
+        height: 1px;
+        color: red;
+      }
+
+      .confirm-password-error {
+        display: block; 
+        font-size: 0.8em; 
+        margin-top: 5px; 
+        height: 1px; 
+        color: red;
+      }
+
+      .verify-btn {
+        padding: 10px 20px;
+        background-color: rgb(228, 51, 39);
+        color: white;
+        border: none;
+        cursor: pointer;
+        box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      .verify-btn:hover {
+        background-color: rgb(216, 50, 28);
+        box-shadow: 4px 8px 10px rgba(0, 0, 0, 0.1);
+      }
+      .form-group {
+        text-align: center;
+        margin-top: 45px;
+        margin-bottom: 30px;
+      }
+
+      .form-group button {
+        width: 50%;
+        padding: 10px 15px;
+        background-color: rgb(228, 51, 39);
+        color: white;
+        border: none;
+        cursor: pointer;
+        box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      .form-group button:hover {
+        background-color: rgb(216, 50, 28);
+        box-shadow: 4px 8px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .progress-container {
+        font-family: Arial, sans-serif;
+      }
+
+      .progressbar {
+        counter-reset: step;
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .progressbar li {
+        position: relative;
+        flex: 1;
+        text-align: center;
+        font-size: 11px;
+      }
+
+      .progressbar li:before {
+        content: counter(step);
+        counter-increment: step;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        display: block; /* Changed to block to allow for margin adjustments */
+        margin: 0 auto 5px auto; /* Added bottom margin to push the text down */
+        border: 2px solid rgb(231, 76, 60);
+        background-color: white;
+        z-index: 2;
+        position: relative;
+        font-size: 9px;
+      }
+
+      .progressbar li:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background-color: rgb(185, 185, 185);
+        left: 50%;
+        z-index: 1;
+        top: 10px; 
+        
+      }
+
+      .progressbar li.completed {
+        color: rgb(231, 76, 60); 
+      }
+      .progressbar li.active {
+
+        color: rgb(231, 76, 60);
+      }
+      .progressbar li.nonactive {
+    
+        color: rgb(185, 185, 185);
+      }
+
+      .progressbar li:last-child:after {
+        content: none;
+      }
+
+      .progressbar li.completed:before {/*박스*/
+    
+        border-color: rgb(231, 76, 60);
+        background-color: rgb(231, 76, 60);
+        color: white;
+      }
+
+      .progressbar li.active:before {
+        border-color: rgb(231, 76, 60); 
+        background-color: #fff; 
+        color: rgb(231, 76, 60);
+      }
+
+      .progressbar li.nonactive:before {
+        border-color: rgb(185, 185, 185); 
+        color: rgb(185, 185, 185); 
+      }
+      .progressbar li.completed:after { /*선*/
+        background-color: rgb(231, 76, 60); 
+
+      }
+    </style>
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Fitness</h1>
+      <hr />
+    </header>
+    <div class="container">
+      <div class="progress-container">
+        <ul class="progressbar">
+          <li class="completed">Role Selection</li>
+          <li class="completed">Agreement</li>
+          <li class="active">Account Creation</li>
+        </ul>
+      </div>
+
+      <h1>Create your account</h1>
+      <div class="main">
+        <form
+          id="create-account-form"
+          action="/accountCreation"
+          method="post"
+          onsubmit="return validateForm()"
+        >
+          <div class="form-field required">
+            <label for="email">Email Address</label>
+            <div class="email-verify-group">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="email@example.com"
+                
+              />
+              <button type="button" id="verify-btn" class="verify-btn">
+                Verify
+              </button>
+            </div>
+            <span id="email-status" class="email-status"></span>
+          </div>
+
+          <div class="form-field required">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="At least 8 characters"
+              
+            />
+            <span id="password-error" class="password-error"></span>
+          </div>
+          <div class="form-field required">
+            <label for="confirm-password">Confirm Password</label>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              placeholder="Re-enter password"
+              
+            />
+            <span id="confirm-password-error" class="password-error"></span>
+          </div>
+          <div class="form-field required">
+            <label for="userName">Name</label>
+            <input type="text" id="userName" name="userName" placeholder="Full name" />
+          </div>
+
+          <div class="form-field required">
+            <label for="userAge">Age</label>
+            <input type="number" id="userAge" name="userAge" placeholder="Your age" min="1" />
+          </div>
+
+          <input type="hidden" id="emailValidationStatus" name="emailValidationStatus" value="">
+
+
+          <div class="form-group">
+            <button type="submit">Sign Up</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("verify-btn")
+        .addEventListener("click", function () {
+          var email = document.getElementById("email").value;
+          if (email) {
+            fetch("/verify-email", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email: email }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                var emailStatus = document.getElementById("email-status");
+                var emailValidationInput = document.getElementById("emailValidationStatus");
+
+                if (data.status === "available") {
+                  emailStatus.innerHTML =
+                    "<span style='color: green;'>&#10004;</span> Email is available";
+
+                  emailStatus.style.color = "green";
+                  emailValidationInput.value = "available";
+
+                  sessionStorage.setItem("emailValidationStatus", "available");
+                } else if (data.status === "used") {
+                  emailStatus.innerHTML =
+                    "<span style='color: red;'>&#10006;</span> Email is already in use";
+                  emailStatus.style.color = "red";
+                  emailValidationInput.value = "used";
+
+                  sessionStorage.setItem("emailValidationStatus", "used");
+                } else {
+                  emailStatus.innerHTML =
+                    "<span style='color: red;'>&#10006;</span> Email format : example@example.com";
+                  emailStatus.style.color = "red";
+                  emailValidationInput.value = ""; 
+
+                  sessionStorage.removeItem("emailValidationStatus");
+                }
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+                
+              });
+          }
+        });
+      document
+        .getElementById("password")
+        .addEventListener("blur", validatePasswordLength);
+      document
+        .getElementById("confirm-password")
+        .addEventListener("blur", validatePasswordMatch);
+
+        function validatePasswordLength() {
+        const password = document.getElementById("password").value;
+        const passwordError = document.getElementById("password-error");
+        if(password.length < 8) {
+          passwordError.innerHTML = "<span style='color: red;'>&#10006;</span> Password must be at least 8 characters long";
+          passwordError.style.display = "block";
+        } else {
+          passwordError.innerHTML = "";
+          passwordError.style.display = "none";
+        }
+      }
+
+      function validatePasswordMatch() {
+      const confirmPassword = document.getElementById("confirm-password").value;
+      const password = document.getElementById("password").value;
+      const confirmPasswordError = document.getElementById("confirm-password-error");
+
+      if(confirmPassword !== password) {
+        confirmPasswordError.innerHTML = "<span style='color: red;'>&#10006;</span> Passwords do not match";
+        confirmPasswordError.style.display = "block";
+      } else {
+        confirmPasswordError.innerHTML = "";
+        confirmPasswordError.style.display = "none";
+      }
+}
+
+
+      function validateForm() {
+        var email = document.getElementById("email").value
+        var emailValidated =
+          sessionStorage.getItem("emailValidationStatus") === "available";
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm-password").value;
+        var userName = document.getElementById("userName").value;
+        var userAge = document.getElementById("userAge").value;
+
+        if (email.length<=0){
+          alert("Please verify your email before signing up.");
+          return false;
+        }
+        if (!emailValidated) {
+          alert("Please verify your email before signing up.");
+          return false;
+        }
+        if (password.length < 8) {
+          alert("Password must be at least 8 characters long");
+          return false;
+        }
+        if (password !== confirmPassword) {
+          alert("Passwords do not match");
+          return false;
+        }
+        if (userName.length === 0) {
+          alert("Please enter your name.");
+          return false;
+      }
+        if (userAge.length === 0) {
+          alert("Please enter your age.");
+          return false;
+    }
+        return true; // Only submit form if all checks are passed
+      }
+
+    </script>
+  </body>
+</html>

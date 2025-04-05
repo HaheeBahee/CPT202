@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bbf98ea9-ed18-40fa-8b8d-08b1947d6208" name="更改" comment="Update for viewing trainer list, ShopManager-side">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gym1/gym1/Controller/redirect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gym1/gym1/Controller/redirect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/Home/Home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/Home/Home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/main_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/main_page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/Home/Home.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/Home/Home.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" show_ignored="true">
+    <option name="groupingKeys">
+      <option value="directory" />
+      <option value="module" />
+    </option>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <branch-grouping />
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="YTLee22 &lt;yutsunglee22@student.xjtlu.edu.cn&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;wjwwjww&quot;
+  }
+}</component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="57747795-f1c8-46e6-b614-4a2e428a5528" />
+        <option name="url" value="https://github.com/wjwwjww/CPT202.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2fktrvw8GbiT4GF5V9XM0So1Qvv" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.Gym1Application.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/wangjiawei/Documents/gym1/CPT202/gym1/src/main/java/com/gym1/gym1/Repository&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Java&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/gym1/gym1/Repository" />
+      <recent name="$PROJECT_DIR$/src/main/java/com/gym1/gym1/Model" />
+      <recent name="$PROJECT_DIR$/src/main/resources/templates" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/resources/templates/manager" />
+      <recent name="$PROJECT_DIR$/src/main/resources/templates" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Gym1Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="gym1" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.gym1.gym1.Gym1Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-openjdk-21.0.2-f644763e9732-a81d5c7c" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="bbf98ea9-ed18-40fa-8b8d-08b1947d6208" name="更改" comment="" />
+      <created>1714357107536</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714357107536</updated>
+      <workItem from="1714357108859" duration="294000" />
+      <workItem from="1714357569469" duration="735000" />
+      <workItem from="1714361273139" duration="7790000" />
+      <workItem from="1714381160960" duration="1539000" />
+      <workItem from="1714384337833" duration="197000" />
+      <workItem from="1714384537088" duration="303000" />
+      <workItem from="1714384842827" duration="103000" />
+      <workItem from="1714384948249" duration="46020000" />
+      <workItem from="1714641189442" duration="2269000" />
+      <workItem from="1714719857303" duration="4262000" />
+      <workItem from="1714724656368" duration="25197000" />
+      <workItem from="1714835487125" duration="4248000" />
+      <workItem from="1714878703484" duration="7369000" />
+      <workItem from="1715065111003" duration="12512000" />
+      <workItem from="1715080751207" duration="113000" />
+      <workItem from="1715080867299" duration="2082000" />
+      <workItem from="1715083245754" duration="614000" />
+      <workItem from="1715147640467" duration="4028000" />
+      <workItem from="1715158905283" duration="78000" />
+      <workItem from="1715158986257" duration="89000" />
+      <workItem from="1715159079447" duration="914000" />
+      <workItem from="1715160145595" duration="9960000" />
+      <workItem from="1715177283745" duration="3391000" />
+    </task>
+    <task id="LOCAL-00001" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1714361573100</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714361573100</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1714365054400</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714365054400</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1714376455504</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1714376455504</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1714381013683</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1714381013683</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1714381201746</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1714381201746</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1714385457711</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1714385457711</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1714389754941</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1714389754941</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1714443708560</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1714443708560</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1714466875289</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1714466875289</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1714835984039</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1714835984039</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1714878646528</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1714878646528</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1714880068698</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1714880068698</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1715080709109</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1715080709109</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1715080782393</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1715080782393</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1715083260008</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1715083260008</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1715148249585</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1715148249585</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1715150148874</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1715150148874</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1715158758256</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1715158758256</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1715158810074</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1715158810074</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Update for viewing trainer list, ShopManager-side">
+      <option name="closed" value="true" />
+      <created>1715159465187</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1715159465187</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ID_WIDTH">
+                <map>
+                  <entry key="Table.Space.CommitStatus.ColumnIdWidth" value="45" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Update for viewing trainer list, ShopManager-side" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update for viewing trainer list, ShopManager-side" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

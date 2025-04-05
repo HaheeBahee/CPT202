@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Online Booking System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .container h2 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background-color: #555;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/static/home.css">
+</head>
+<body>
+
+<nav id="navbar">
+    <div id="logo-container">
+        <img src="/static/image/img_1.png" id="logo">
+    </div>
+    <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/appointment">Appointment</a></li>
+        <li><a href="/trainer">Trainers</a></li>
+        <!-- Add other navigation items as needed -->
+    </ul>
+</nav>
+
+<!--    <navigate/>-->
+<div id="account">
+    <div id="username_display"></div>
+    <button id="logout" onclick="logout()" style="display:none;">Logout</button>
+</div>
+
+<script>
+    function logout() {
+        // 从 localStorage 中删除令牌信息
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        // 重定向到登录页面
+        window.location.href = "/login";
+        // 进行其他注销操作，如重定向到登录页面等
+    }
+
+    // 从本地存储中获取用户名
+    var username = localStorage.getItem("username");
+    // 将用户名显示在页面上
+    document.getElementById("username_display").innerText = "Welcome, " + username;
+</script>
+
+<div class="container">
+    <header>
+        <h1>Gym Online Booking System</h1>
+    </header>
+    <div class="container">
+        <h2>Sign In as User</h2>
+        <form action="/userLogin" method="POST">
+            <div class="form-group">
+                <label for="userEmail">Email:</label>
+                <input type="email" id="userEmail" name="userEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="userPassword">Password:</label>
+                <input type="password" id="userPassword" name="userPassword" required>
+            </div>
+            <button type="submit" class="btn">Sign In</button>
+        </form>
+        <p>Don't have an account? <a href="/add_User" class="btn">Sign Up</a></p>
+    </div>
+
+    <div class="container">
+        <h2>Sign In As Trainer</h2>
+        <form action="/trainerLogin" method="POST">
+            <div class="form-group">
+                <label for="trainerEmail">Email:</label>
+                <input type="email" id="trainerEmail" name="trainerEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="trainerPassword">Password:</label>
+                <input type="password" id="trainerPassword" name="trainerPassword" required>
+            </div>
+            <button type="submit" class="btn">Sign In</button>
+        </form>
+        <p>Don't have an account? <a href="/add_Trainer" class="btn">Trainer's Sign Up</a></p>
+    </div>
+
+    <div class="container">
+        <button onclick="window.location.href='/shopManagerlogin'" class="btn">Are you a shop manager?</button>
+    </div>
+</div>
+
+<footer>
+    <div>
+        <p>© 2024 CPT202Group37. All rights reserved.</p>
+    </div>
+    <div>
+        <a href="#">Contact Us</a>
+        <a href="#">White Paper</a>
+    </div>
+    <br>
+    <div>
+        <!-- 如果有社交媒体链接，可以在这里添加 -->
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+    </div>
+</footer>
+
+<script>
+    function checkLoginStatus() {
+        var username = localStorage.getItem("username");
+        if (username) {
+            // 用户已登录，显示用户名，并隐藏登录按钮和注册按钮，显示注销按钮
+            document.getElementById("username_display").innerText = "Welcome, " + username;
+            document.getElementById("tologin").style.display = "none";
+            document.getElementById("toregister").style.display = "none";
+            document.getElementById("logout").style.display = "block";
+        } else {
+            // 用户未登录，显示登录按钮和注册按钮，隐藏注销按钮
+            document.getElementById("username_display").innerText = "";
+            document.getElementById("tologin").style.display = "block";
+            document.getElementById("toregister").style.display = "block";
+            document.getElementById("logout").style.display = "none";
+        }
+    }
+    checkLoginStatus();
+</script>
+
+</body>
+</html>

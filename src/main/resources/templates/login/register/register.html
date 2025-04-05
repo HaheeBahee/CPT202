@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        .step {
+            display: none;
+            transition: opacity 0.5s ease-in-out; /* 添加过渡效果 */
+            opacity: 0; /* 初始透明度为0 */
+        }
+
+        .step.active {
+            display: block;
+            opacity: 1; /* 最终透明度为1 */
+        }
+    </style>
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style3.css">
+    <link rel="stylesheet" href="passwordStyle.css">
+
+
+
+</head>
+<body>
+
+<div class="step" id="step1">
+    <header>
+        <h1>Fitness</h1>
+        <hr>
+    </header>
+
+    <main>
+        <h3>Create Account</h3>
+        <section class="account-creation">
+            <p>1/3 step</p>
+            <h2>Terms and Conditions</h2>
+
+            <form id="terms-form">
+                <div class="terms-group">
+                    <input type="checkbox" id="term1" name="term1" required>
+                    <label for="term1">I've agree to the Fitness Center's Terms of Service.
+                    </label>
+                </div>
+                <div class="terms-group">
+                    <input type="checkbox" id="term2" name="term2">
+                    <label for="term2">I consent to the collection, use, and disclosure of my personal information in accordance with the Privacy Policy, which I have read and understood.
+                    </label>
+                </div>
+                <div class="terms-group">
+                    <input type="checkbox" id="term3" name="term3">
+                    <label for="term3">I agree to receive promotional information about products, services, and events offered by Fitness Center via email, SMS, or other forms of communication.
+                    </label>
+                </div>
+                <div class="form-group">
+                    <button type="button" onclick="nextStep()">Agree and Continue</button>
+                </div>
+            </form>
+
+        </section>
+    </main>
+</div>
+
+<div class="step" id="step2">
+    <header>
+        <h1>Fitness</h1>
+        <hr>
+    </header>
+    <main>
+
+
+        <h3>Create Account</h3>
+        <section class="email-verification">
+            <p>2/3 step</p>
+            <h2>Email Verification</h2>
+
+            <form id="email-verification-form">
+                <div class="enter-group email-group">
+                    <input type="email" id="email" name="email" placeholder="Enter your email Address"  required>
+                    <button type="button" id="send-code">Send Code</button>
+                </div>
+                <div class="enter-group code-group">
+                    <input type="text" id="verification-code" name="verification-code" placeholder ="Enter verification code" required>
+                    <button type="button" id="verify">Verify</button>
+                </div>
+                <div class="form-group">
+                    <button type="button" onclick="prevStep()">上一步</button>
+                    <button type="button" id="continue" onclick="nextStep()">Continue</button>
+                </div>
+            </form>
+        </section>
+    </main>
+</div>
+
+<div class="step" id="step3">
+    <header>
+        <h1>Fitness</h1>
+        <hr>
+    </header>
+    <main>
+        <h3>Create Account</h3>
+
+        <section class="create-password">
+            <p>3/3 step</p>
+            <h2>Create Password </h2>
+
+            <form id="create-password-form">
+                <div class="enter-username">
+                    <label for="username">Enter your username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter Username" required>
+                </div>
+                <div class="enter-password newpassword">
+                    <label for="password">Create your password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter Password"  required>
+                    <p class="password-requirements">Password must : <br>
+                        * Be at least 8 characters long<br>
+                        * Include<br>
+                        - An uppercase letter<br>
+                        - A lowercase character<br>
+                        - A number<br>
+                        - A special character.</p>
+                </div>
+
+                <div class="enter-password confirm">
+                    <label for="confirm-password">Confirm your password</label>
+                    <input type="password" id ="confirm-password" name="confrim-password" placeholder ="Confirm Password" required>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" id="continue">Continue</button>
+                    <button onclick="prevStep()">上一步</button>
+                    <button onclick="register()">完成注册</button>
+                </div>
+
+            </form>
+
+        </section>
+    </main>
+
+</div>
+
+<script>
+    let currentStep = 1;
+
+    function showStep(stepNumber) {
+        document.querySelectorAll('.step').forEach(step => {
+            step.classList.remove('active'); // 移除所有步骤的active类
+        });
+        document.getElementById(`step${stepNumber}`).classList.add('active'); // 为当前步骤添加active类
+    }
+
+    function nextStep() {
+        if (currentStep < 3) {
+            currentStep++;
+            showStep(currentStep);
+        }
+    }
+
+    function prevStep() {
+        if (currentStep > 1) {
+            currentStep--;
+            showStep(currentStep);
+        }
+    }
+
+    function sendVerificationCode() {
+        // 在这里实现发送验证码的逻辑
+        alert('验证码已发送到您的邮箱，请查收！');
+    }
+
+    function register() {
+        const username = document.getElementById('username').value; // 获取用户名字段的值
+        const email = document.getElementById('email').value; // 获取邮箱字段的值
+        const password = document.getElementById('password').value; // 获取密码字段的值
+        fetch('/auth/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                email: email,
+                password: password
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to register');
+                }
+                // 处理注册成功的情况
+
+                window.location.href = 'login.html';
+            })
+            .catch(error => {
+                // 处理注册失败的情况
+                console.error('Failed to register:', error);
+            });
+
+    }
+
+    showStep(currentStep); // 显示第一个步骤
+</script>
+
+</body>
+</html>

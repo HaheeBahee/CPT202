@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View All Trainers</title>
+    <style>
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            text-align: left;
+            animation: slideInDown 0.5s ease-out; /* 将动画应用到导航栏 */
+        }
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        #navbar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #navbar li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        #navbar li:last-child {
+            margin-right: 0;
+        }
+
+        #navbar a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        #navbar {
+            position: fixed; /* 固定在顶部 */
+            top: 0;
+            left: 0;
+            width: 100%; /* 撑满整个宽度 */
+            background-color: #333; /* 导航栏背景色 */
+            padding: 10px 20px; /* 上下左右边距 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+            z-index: 2; /* 确保在其他元素上方 */
+            text-align: left;
+
+        }
+        #logo {
+             width: 50px; /* logo宽度，根据需要调整 */
+             height: auto; /* 高度自适应 */
+         }
+
+        /* 可选：调整logo的外边距 */
+        #logo-container .logo {
+            margin-right: 1px; /* 调整logo与其他内容之间的距离 */
+        }
+
+        #main {
+            display: flex;
+
+            width: 100%;
+            height: auto;
+        }
+
+        #display {
+
+            position: absolute; /* 相对于最近的具有定位属性的祖先元素进行定位 */
+            top: 50%; /* 相对于父元素顶部50%处 */
+            left: 50%; /* 相对于父元素左侧50%处 */
+            transform: translate(-50%, -50%); /* 将自身向左上方移动50%的宽度和高度，实现居中 */
+            padding-top: 180px; /* 保留原有的上边距 */
+            width: auto; /* 宽度自适应 */
+            height: auto; /* 高度自适应 */
+
+        }
+
+        #trainers {
+            display: flex; /* 使用 Flexbox 布局 */
+            flex-wrap: wrap; /* 当空间不足时换行 */
+            top: 180px;
+            width: 100%;
+            justify-content: space-around; /* 均匀分布每个元素 */
+            overflow-y: auto; /* 增加垂直滚动条 */
+        }
+
+        .trainer {
+            width: 30%; /* 每个 trainer 的宽度 */
+            margin-bottom: 20px; /* 底部外边距，增加间隔 */
+            /* 其他样式保持不变 */
+        }
+
+        .trainer {
+            border: 1px solid #ccc; /* 添加边框 */
+            border-radius: 8px; /* 圆角边框 */
+            padding: 20px; /* 添加内边距 */
+            margin-bottom: 20px; /* 底部外边距，增加间隔 */
+            background-color: #f9f9f9; /* 背景色 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+            transition: transform 0.3s ease; /* 添加过渡效果 */
+        }
+
+        .trainer:hover {
+            transform: translateY(-5px); /* 悬停时上移 */
+        }
+
+        .trainer p {
+            margin-bottom: 10px; /* 段落之间增加间距 */
+            font-size: 16px; /* 字体大小 */
+            color: #333; /* 文字颜色 */
+        }
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+<div id="main">
+<nav id="navbar">
+    <div id="logo-container">
+        <img th:src="@{/image/img_1.png}" id="logo">
+    </div>
+    <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/appointment">Appointment</a></li>
+        <li><a href="/trainer">Trainers</a></li>
+        <!-- Add other navigation items as needed -->
+    </ul>
+</nav>
+
+<div id="display">
+<h1>所有培训师</h1>
+<div id="trainers">
+</div>
+</div>
+
+
+<script>
+
+    const trainersDiv = document.getElementById('trainers');
+
+    fetch('/api/alltrainer')
+        .then(response => response.json())
+        .then(trainers => {
+            trainers.forEach(trainer => {
+                const trainerDiv = document.createElement('div');
+                trainerDiv.classList.add('trainer');
+
+                // const image = document.createElement('img');
+                // image.src = trainer.image;
+                // trainerDiv.appendChild(image);
+
+                const name = document.createElement('p');
+                name.textContent ="name:"+ trainer.trainerName;
+                trainerDiv.appendChild(name);
+
+                const ranking=document.createElement('p');
+                ranking.textContent="ranking:"+trainer.trainerRanking;
+                trainerDiv.appendChild(ranking);
+
+                const introduction=document.createElement('p');
+                introduction.textContent="Introduction:"+trainer.trainerIntroduction;
+                trainerDiv.appendChild(introduction);
+
+                const email = document.createElement('p');
+                email.textContent ="Email:"+ trainer.trainerEmail;
+                trainerDiv.appendChild(email);
+
+                trainersDiv.appendChild(trainerDiv);
+            });
+        });
+
+</script>
+</div>
+</body>
+</html>

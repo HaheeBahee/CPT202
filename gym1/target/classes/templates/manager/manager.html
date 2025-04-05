@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Manager Functions</title>
+    <style>
+        /* Styles from your CSS */
+        /* Styles for the main container */
+        #manage {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Styles for form inputs */
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Styles for buttons */
+        button,
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover,
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styles for tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th,
+        table td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+        }
+
+        /* Styles for lists */
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+        }
+
+        /* Additional custom styles */
+        .bucket1 {
+            background-color: #2c3e50;
+            padding: 10px;
+            margin: 40px;
+            border-radius: 5px;
+        }
+
+        #appomodify {
+            color: #cccccc;
+        }
+
+        .bucket2 {
+            color: #cccccc;
+            margin: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="manage">
+    <div>
+        <p>Links to shop manager functions:</p>
+        <ul>
+            <li><a href="#appomodify" @click="showForm = !showForm">Appointments management</a></li>
+            <li><a href="#">Trainer management</a></li>
+            <li><a href="#">Notification</a></li>
+            <li><a href="#">Statistical report</a></li>
+        </ul>
+
+        <div class="bucket1">
+            <div class="bucket2">
+                <h1 id="appomodify">Appointments Modification:</h1>
+                <form id="appointmentForm" v-if="showForm" @submit.prevent="submitForm">
+                    Appointment ID: <input type="text" v-model="appointmentId" /><br />
+                    Customer: <input type="text" v-model="customer" /><br />
+                    Trainer: <input type="text" v-model="trainer" /><br />
+                    Status: <input type="text" v-model="status" /><br />
+                    Rating: <input type="text" v-model="rating" /><br />
+                    Time: <input type="text" v-model="time" /><br />
+                    <button type="submit">APPLY</button>
+                </form>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="bucket1">
+            <div class="bucket2">
+                <h1 @click="management = !management">Appointments Management</h1>
+                <div v-if="management">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Overall details:</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Total Number of Appointments in Recent One Month:</td>
+                            <td>"amount"</td>
+                        </tr>
+                        <tr>
+                            <td>Average Number of Appointments Per Trainer in Recent One Month:</td>
+                            <td>"amount"</td>
+                        </tr>
+                        <tr>
+                            <td>Average Rating in Recent One Month</td>
+                            <td>"average star"</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p>Details:</p>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Appointment ID</th>
+                            <th>Customer</th>
+                            <th>Trainer</th>
+                            <th>Status</th>
+                            <th>Rating</th>
+                            <th>Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>A0001</td>
+                            <td>customer1</td>
+                            <td>trainer1</td>
+                            <th>COMPLETE</th>
+                            <td>5</td>
+                            <td>Feb 30 2024 12:00~13:00</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="bucket1">
+            <div class="bucket2">
+                <h1 @click="rankmodify = !rankmodify">Trainer Ranking Modification:</h1>
+                <div v-if="rankmodify">
+                    <form>
+                        Trainer ID: <input type="text" /><br />
+                        Modification Type:
+                        <select name="Modification Type">
+                            <option value="Promote">Promote</option>
+                            <option value="Demote">Demote</option>
+                        </select><br />
+                        Target Rating:
+                        <select name="Target Rating">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select><br />
+                        <input type="submit" value="APPLY" />
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="bucket1">
+            <div class="bucket2">
+                <p @click="recent = !recent">Trainer's Recent Appointments:</p>
+                <div v-if="recent">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Appointment ID</th>
+                            <th>Customer</th>
+                            <th>Trainer</th>
+                            <th>Status</th>
+                            <th>Rating</th>
+                            <th>Time</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>A0001</td>
+                            <td>customer1</td>
+                            <td>trainer1</td>
+                            <th>COMPLETE</th>
+                            <td>5</td>
+                            <td>Feb 30 2024 12:00~13:00</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    const app = new Vue({
+        el: '#manage',
+        data: {
+            showForm: false,
+            management: false,
+            recent: false,
+            rankmodify: false,
+            appointmentId: '',
+            customer: '',
+            trainer: '',
+            status: '',
+            rating: '',
+            time: ''
+        },
+        methods: {
+            submitForm() {
+                // Handle form submission
+                console.log('Form submitted');
+            }
+        }
+    });
+</script>
+</body>
+</html>

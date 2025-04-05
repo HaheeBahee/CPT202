@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Form</title>
+
+    <link th:href="@{/appointment.css}" rel="stylesheet" type="text/css" >
+</head>
+<body>
+
+<nav id="navbar">
+    <div id="logo-container">
+        <img th:src="@{/image/img_1.png}" id="logo" alt="logo">
+    </div>
+    <ul>
+        <li><a href="/home">Home Page</a></li>
+        <li><a href="/appointment">Appointment</a></li>
+        <!--        <li><a href="/change">Change appointmment</a></li>-->
+        <li><a href="/view">View appointmment</a></li>
+        <li><a href="/account">Account</a></li>
+    </ul>
+    <img id="nav-control" onclick="toggleNavbar()" alt="imgicon"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAARUlEQVR4nO3TOwoAIAwE0dz/WHqoTSptJYWIhR+YB+kCW40ZcEJIbbxnhl2q+Wf1XKq3hsv2MLAt6DihY/wn6DihY8AmOrJBLqA7C45ZAAAAAElFTkSuQmCC">
+</nav>
+<div id="appointment">
+
+
+    <h1>Appointment now!</h1>
+    <h3>User Email: <span id="user-email"></span></h3>
+    <div id="error-message"></div>
+    <form id="appointment-form">
+        <div id="trainers">
+            <label for="choosetrainer">Trainer:</label>
+            <select name="trainer" id="trainer" required>
+                <option value="trainer1">trainer1</option>
+                <option value="trainer2">trainer2</option>
+                <option value="trainer3">trainer3</option>
+            </select>
+        </div>
+        <div id="datetimes">
+            <label for="datetime">Date:</label>
+            <input type="date" id="myDate">
+            <!--            <input type="datetime-local" id="datetime" name="datetime" required>-->
+        </div>
+
+        <div id="appointment-scheduler">
+            <h2>Scheduler</h2>
+            <div id="timeselecr">
+                <button id="choosetime" onclick="openModal()">choose time</button>
+
+            </div>
+
+        </div>
+
+
+        <div id="submit">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>选择时间段</h2>
+            <label for="startTimeSelect">选择开始时间：</label>
+            <select id="startTimeSelect">
+                <option value="09:00">09:00</option>
+                <option value="10:00">10:00</option>
+                <option value="11:00">11:00</option>
+                <option value="12:00">12:00</option>
+                <option value="13:00">13:00</option>
+                <option value="14:00">14:00</option>
+                <option value="15:00">15:00</option>
+                <option value="16:00">16:00</option>
+                <option value="17:00">17:00</option>
+                <!-- 添加更多时间选项 -->
+            </select>
+
+            <label for="durationSelect">选择持续时间：</label>
+            <select id="durationSelect">
+<!--                <option value="0.5">0.5小时</option>-->
+                <option value="1">1小时</option>
+                <option value="2">2小时</option>
+                <option value="3">3小时</option>
+                <!-- 添加更多持续时间选项 -->
+            </select>
+
+            <button id="modalconfirm" onclick="updateButton()">确认</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("choosetime").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevents the default form submission behavior
+            openModal(); // Call the openModal function
+        });
+        // 获取模态框元素
+        var modal = document.getElementById("myModal");
+
+        // 获取触发模态框显示的按钮
+        var btn = document.querySelector("button");
+        modal.style.display= "none";
+
+        // 获取关闭模态框的 <span> 元素
+        var span = document.getElementsByClassName("close")[0];
+
+        // 当用户点击按钮时打开模态框
+        function openModal() {
+            modal.style.display = "block";
+        }
+
+        // 当用户点击 <span> (x)，关闭模态框
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // 当用户点击确认按钮时更新按钮文本为所选时间段
+        function updateButton() {
+            var startTime = document.getElementById("startTimeSelect").value;
+            var duration = parseInt(document.getElementById("durationSelect").value);
+            var startHour = parseInt(startTime.split(":")[0]);
+            var startMinute = parseInt(startTime.split(":")[1]);
+            var endHour = startHour + duration;
+            var endMinute = startMinute;
+            var timeSlot = startTime + " - ";
+            if (endHour < 10) {
+                timeSlot += "0";
+            }
+            timeSlot += endHour + ":" + (endMinute < 10 ? "0" : "") + endMinute;
+            // btn.innerText = "选择时间段：" + timeSlot;
+            btn.innerText = timeSlot;
+            closeModal(); // 关闭模态框
+        }
+    </script>
+</div>
+
+<script>
+    // 获取当前日期
+    var today = new Date().toISOString().split('T')[0];
+
+    // 设置输入框的最小日期为当前日期
+    document.getElementById("myDate").setAttribute("min", today);
+
+    function getCurrentDateTime() {
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = (now.getMonth() + 1).toString().padStart(2, '0'); // Months are zero based
+        var day = now.getDate().toString().padStart(2, '0');
+        var hours = now.getHours().toString().padStart(2, '0');
+        var minutes = now.getMinutes().toString().padStart(2, '0');
+
+        // Format: YYYY-MM-DDTHH:MM
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+    let ranking;
+
+    fetch('/getUserData')
+        .then(response => response.json()) // Parse JSON response
+        .then(data => {
+            const userEmail=data.userEmail;
+            document.getElementById('user-email').textContent=userEmail
+            // 在这里继续执行获取训练师数据的逻辑
+            fetch('/api/trainerbyemail/' + userEmail)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch trainers');
+                    }
+                    return response.json();
+                })
+                .then(trainers => {
+                    // 获取到训练师数据后，填充到<select>元素中
+                    const trainerSelect = document.getElementById('trainer');
+                    trainerSelect.innerHTML = ''; // 清空原有的选项
+
+                    // 循环遍历训练师数组，并将每个训练师信息添加到<select>元素中
+                    trainers.forEach(trainer => {
+                         ranking = trainer.trainerRanking;
+                        const option = document.createElement('option');
+                        option.value = trainer.trainerId; // 使用trainerId作为值
+                        option.textContent = trainer.trainerName; // 使用trainerName作为显示文本
+                        trainerSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching trainers:', error);
+                });
+
+            // 处理获取到的用户数据
+            getUserByEmail(data.userEmail)
+                .then(user => { // 处理获取到的用户对象
+                    // 在这里执行基于用户对象的操作
+                    document.getElementById('appointment-form').addEventListener('submit', function (event) {
+                        event.preventDefault(); // 阻止表单默认提交行为
+
+
+                        // var selectedTrainerId = document.getElementById('trainer').value;
+
+                        // 获取表单中的值
+                        var trainerId = document.getElementById('trainer').value;
+
+                        // 获取日期和时间
+                        var date = document.getElementById("myDate").value;
+                        var timeSlot = btn.innerText; // 获取选择的时间段
+                        console.log("date is"+date);
+                        if (!date) {
+                            alert("Please select a date.");
+                            return;
+                        }
+                        console.log("timeSlot is"+timeSlot);
+                        if(timeSlot==="choose time"){
+                            alert("please choose time");
+                            return;
+                        }
+
+                        // 分割时间段字符串，得到起始时间和结束时间
+                        var timeParts = timeSlot.split(" - ");
+                        var startTime = timeParts[0];
+                        var endTime = timeParts[1];
+
+// 计算持续时间
+                        var startHour = parseInt(startTime.split(":")[0]);
+                        var startMinute = parseInt(startTime.split(":")[1]);
+                        var endHour = parseInt(endTime.split(":")[0]);
+                        var endMinute = parseInt(endTime.split(":")[1]);
+
+// 计算持续时间（单位：分钟）
+                        duration = (endHour - startHour) * 60 + (endMinute - startMinute);
+
+                        console.log("开始时间：", startTime);
+                        console.log("持续时间（分钟）：", duration);
+                        var dateTimeString = date + "T" + startTime;
+
+                        var dateTime = new Date(dateTimeString);
+
+// 获取年、月、日、小时和分钟
+                        var year = dateTime.getFullYear();
+                        var month = (dateTime.getMonth() + 1).toString().padStart(2, '0'); // 月份从 0 开始，需要加 1
+                        var day = dateTime.getDate().toString().padStart(2, '0');
+                        var hours = dateTime.getHours().toString().padStart(2, '0');
+                        var minutes = dateTime.getMinutes().toString().padStart(2, '0');
+
+// 格式化为指定格式的日期时间字符串
+                        var formattedDateTimeString = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+                        console.log("Formatted date time:", formattedDateTimeString);
+
+
+
+                        gettrainerByid(trainerId)
+                            .then(trainer => {
+
+                                document.getElementById("appointment-form").addEventListener("submit", function(event) {
+                                    event.preventDefault(); // 阻止表单默认提交行为
+
+
+
+                                });
+                                // var datetime = document.getElementById('datetime').value;
+                                // var localDatetimeString = datetime.toLocaleString();
+                                // var duration = parseInt(document.getElementById('duration_input').value);
+
+                                // 构建表单数据
+                                var formData = {
+                                    user: user,
+                                    trainer: trainer, // 使用选择的训练师ID
+                                    appointmentTime: formattedDateTimeString,
+                                    duration: duration, // 将持续时间和单位合并
+                                    createTime: getCurrentDateTime(), // Add create-time with current time
+                                    rating: 0,
+                                    status:0
+                                };
+                                console.log(formData);
+//                                 // 检查appointmentTime是否为空
+//                                 if (!formData.appointmentTime) {
+//                                     alert('Please select appointment time.');
+//                                     return;
+//                                 }
+//
+// // 检查duration是否为空
+//                                 if (!formData.duration) {
+//                                     alert('Please specify appointment duration.');
+//                                     return;
+//                                 }
+
+
+
+                                // 发送 POST 请求将数据提交给服务器
+                                fetch('/api/submit', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify(formData)
+                                })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            // 处理成功响应
+                                            console.log('Appointment submitted successfully!');
+                                            alert('Appointment submitted successfully!');
+                                            // 在此处可以添加一些反馈或重定向用户到其他页面
+                                        } else {
+                                            throw new Error('Appointment submission failed');
+
+                                        }
+                                    })
+                                    .catch(error => {
+                                        // 处理错误情况
+                                        console.error('Error creating appointment:', error.message);
+                                        alert('time conflict');
+                                    });
+
+
+
+                            });
+                    })
+                })
+                .catch(error => {
+                    console.error('Error fetching user:', error);
+                    alert('Error fetching user: ' + error.message)
+                    window.location.href = '/login'; // 假设登录页面的 URL 是 '/login.html'
+                });
+        })
+
+
+    fetch('/trainerbyemail/' + userEmail)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch trainers');
+            }
+            return response.json();
+        })
+        .then(trainers => {
+            // 获取到训练师数据后，填充到<select>元素中
+            const trainerSelect = document.getElementById('trainer');
+            trainerSelect.innerHTML = ''; // 清空原有的选项
+
+            // 循环遍历训练师数组，并将每个训练师信息添加到<select>元素中
+            trainers.forEach(trainer => {
+                const option = document.createElement('option');
+                option.value = trainer.trainerId; // 使用trainerId作为值
+                option.textContent = trainer.trainerName; // 使用trainerName作为显示文本
+                trainerSelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching trainers:', error);
+        });
+
+
+    function gettrainerByid(id) {
+        console.log('Fetching trainer by ID:', id)
+        return new Promise((resolve, reject) => {
+            fetch('/gettrainerbyid/' + id)
+                .then(response => response.json())
+                .then(trainer => {
+                    // console.log('User data:', user);
+                    resolve(trainer); // 返回解析后的用户数据
+                })
+                .catch(error => {
+                    reject('Error fetching user: ' + error);
+                });
+        });
+    }
+
+
+
+    function getUserByEmail(email) {
+        return new Promise((resolve, reject) => {
+            fetch('/getUserByEmail/' + email)
+                .then(response => response.json())
+                .then(user => {
+                    // console.log('User data:', user);
+                    resolve(user); // 返回解析后的用户数据
+                })
+                .catch(error => {
+                    reject('Error fetching user: ' + error);
+                });
+        });
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+/* logo样式 */
+#logo {
+    width: 50px; /* logo宽度，根据需要调整 */
+    height: auto; /* 高度自适应 */
+}
+
+/* 可选：调整logo的外边距 */
+#logo-container .logo {
+    margin-right: 1px; /* 调整logo与其他内容之间的距离 */
+}
+#navbar {
+    top:0;
+    left: 0;
+    height: 2000px;
+    position: fixed;
+    background-color: #333; /* 设置导航栏背景颜色 */
+    overflow: hidden; /* 清除浮动 */
+    width: 300px; /* 设置导航栏宽度 */
+    float: left; /* 将导航栏放在左侧 */
+    animation: slideFromRight 0.5s ease-out forwards;
+
+
+}
+@keyframes slideFromRight {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+
+#navbar ul {
+    list-style-type: none; /* 移除列表样式 */
+    padding: 0;
+}
+
+#navbar ul li {
+    margin: 10px 0; /* 设置导航项之间的垂直间距 */
+}
+
+#navbar ul li a {
+    display: block;
+    color: white; /* 设置导航项文本颜色 */
+    text-decoration: none; /* 移除下划线 */
+    padding: 10px; /* 设置导航项内边距 */
+}
+
+/* 展开时显示按钮 */
+@media screen and (max-width: 768px) {
+    .navbar-toggle {
+        display: block;
+        float: right;
+        margin-top: 10px;
+        margin-right: 15px;
+    }
+
+    #navbar ul {
+        display: none; /* 初始隐藏 */
+    }
+
+    #navbar ul.show {
+        display: block; /* 展开时显示 */
+    }
+}
+#nav-control{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+#navbar ul li a:hover {
+    background-color: #555; /* 设置鼠标悬停时的背景颜色 */
+}
+
+#logo-container {
+    padding: 10px; /* 设置 logo 容器内边距 */
+}
+
+#logo {
+    width: 100px; /* 设置 logo 宽度 */
+}
+
+
+
+
+#appointment {
+    margin-left: 300px;
+    width: 400px; /* 设置约会表单的宽度 */
+    background: gainsboro;
+    padding: 20px;
+    border: 1px solid #ccc; /* 添加边框 */
+    border-radius: 5px; /* 圆角边框 */
+}
+
+h1 {
+    text-align: center; /* 标题居中 */
+    color: #333; /* 设置标题颜色 */
+}
+
+form {
+    margin-top: 20px; /* 设置表单与标题之间的间距 */
+}
+
+#trainer select {
+    width: 100%; /* 使下拉列表宽度与父元素相等 */
+    padding: 8px; /* 添加内边距 */
+    margin-bottom: 10px; /* 设置下拉列表与其他元素之间的间距 */
+}
+
+#time {
+    margin-bottom: 10px; /* 设置时间输入框与其他元素之间的间距 */
+}
+
+label {
+    display: block; /* 设置标签为块级元素，使其单独显示一行 */
+}
+
+input[type="datetime-local"] {
+    width: 100%; /* 使时间输入框宽度与父元素相等 */
+    padding: 8px; /* 添加内边距 */
+    box-sizing: border-box; /* 设置盒模型为border-box，使内边距和边框不会增加元素的实际宽度 */
+}
+
+#submit input[type="submit"] {
+    width: 100%; /* 使提交按钮宽度与父元素相等 */
+    padding: 10px; /* 添加内边距 */
+    background-color: #007bff; /* 设置按钮背景色 */
+    color: #fff; /* 设置文字颜色 */
+    border: none; /* 移除边框 */
+    border-radius: 5px; /* 圆角边框 */
+    cursor: pointer; /* 设置鼠标悬停样式为手型 */
+}
+
+#submit input[type="submit"]:hover {
+    background-color: #0056b3; /* 设置鼠标悬停时按钮背景色 */
+}
+
+

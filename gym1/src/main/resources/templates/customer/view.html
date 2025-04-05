@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/view.css}" rel="stylesheet" type="text/css" >
+    <link rel="icon" type="image/x-icon" th:href="@{/image/img_1.png}" />
+
+
+
+</head>
+<body>
+<nav id="navbar">
+    <div id="logo-container">
+        <img th:src="@{/image/img_1.png}" id="logo" alt="logo">
+    </div>
+    <ul>
+        <li><a href="/home">Home Page</a></li>
+        <li><a href="/appointment">Appointment</a></li>
+        <li><a href="/view">View appointment</a></li>
+        <li><a href="/account">Account</a></li>
+    </ul>
+</nav>
+
+
+<script>
+    function searchAppointments() {
+        // 获取搜索框输入的关键字
+        var input = document.getElementById("searchInput");
+        var filter = input.value.toUpperCase();
+
+        // 获取表格中的所有行
+        var appointmentBody = document.getElementById("appointmentBody");
+        var rows = appointmentBody.getElementsByTagName("tr");
+
+        // 循环遍历每一行，并根据搜索关键字过滤显示
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var dataCells = row.getElementsByTagName("td");
+            var shouldShow = false;
+
+            // 检查每一行中的每一列，如果有任何一列包含搜索关键字，则显示该行
+            for (var j = 0; j < dataCells.length; j++) {
+                var cell = dataCells[j];
+                if (cell) {
+                    var textValue = cell.textContent || cell.innerText;
+                    if (textValue.toUpperCase().indexOf(filter) > -1) {
+                        shouldShow = true;
+                        break;
+                    }
+                }
+            }
+
+            // 根据 shouldShow 变量来决定是否显示当前行
+            if (shouldShow) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        }
+    }
+</script>
+
+<div id="container1">
+    <h2>My Appointments</h2>
+    <table class="appointment-table" id="appointmentTable">
+        <thead>
+        <tr onclick="reverseOrder()">
+            <th>Start time</th>
+            <th>Duration</th>
+            <th>End time</th>
+            <th>trainer</th>
+            <th>action</th>
+            <th>delete</th>
+            <th>status</th>
+            <th>comment</th>
+        </tr>
+        </thead>
+        <tbody id="appointmentBody">
+        <input type="text" id="searchInput" onkeyup="searchAppointments()" placeholder="Search for appointments...">
+
+        <script>
+            function searchAppointments() {
+                // 获取搜索框输入的关键字
+                var input = document.getElementById("searchInput");
+                var filter = input.value.toUpperCase();
+
+                // 获取表格中的所有行
+                var appointmentBody = document.getElementById("appointmentBody");
+                var rows = appointmentBody.getElementsByTagName("tr");
+
+                // 循环遍历每一行，并根据搜索关键字过滤显示
+                for (var i = 0; i < rows.length; i++) {
+                    var row = rows[i];
+                    var dataCells = row.getElementsByTagName("td");
+                    var shouldShow = false;
+
+                    // 检查每一行中的每一列，如果有任何一列包含搜索关键字，则显示该行
+                    for (var j = 0; j < dataCells.length; j++) {
+                        var cell = dataCells[j];
+                        if (cell) {
+                            var textValue = cell.textContent || cell.innerText;
+                            if (textValue.toUpperCase().indexOf(filter) > -1) {
+                                shouldShow = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    // 根据 shouldShow 变量来决定是否显示当前行
+                    if (shouldShow) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            }
+        </script>
+        <!-- Appointment items will be added here using JavaScript -->
+        </tbody>
+    </table>
+</div>
+
+
+
+<div class="modal" id="editAppointmentModal" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Appointment</h5>
+                <button type="button" class="close" data-dismiss="modal" id="X" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editAppointmentForm">
+                    <div id="trainers">
+                        <label for="choosetrainer">Trainer:</label>
+                        <select name="trainer" id="trainer1" required>
+                            <option value="trainer1">trainer1</option>
+                            <option value="trainer2">trainer2</option>
+                            <option value="trainer3">trainer3</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editStartDateTime">Start Date</label>
+                        <input type="date" id="myDate1">
+                        <br>
+                        <label for="editStartDateTime">Start Time</label>
+
+                        <select id="startTimeSelect">
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                            <!-- 添加更多时间选项 -->
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="editDuration">Duration (in minutes):</label>
+                        <select id="durationSelect1">
+                            <!--                <option value="0.5">0.5小时</option>-->
+                            <option value="1">1 hour</option>
+                            <option value="2">2 hour</option>
+                            <option value="3">3 hour</option>
+                            <!-- 添加更多持续时间选项 -->
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="saveEditAppointmentBtn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal2" id="commentModal">
+<div class="modal-dialog2">
+        <div class="modal-content2">
+            <div class="modal-header2">
+                <h5 class="modal-title2">Appointment rating</h5>
+                <button type="button" class="close1" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body2">
+               <p>choose rating:</p>
+                <select name="Target Rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select><br />
+                <input id="applyButton" type="submit" value="APPLY"  />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var cancelButton1=  document.getElementById("X");
+    var cancelButton2 = document.querySelector("#editAppointmentModal .modal-footer button[data-dismiss='modal']");
+    cancelButton2.addEventListener("click", function() {
+        var modal = document.getElementById("editAppointmentModal");
+        modal.style.display = "none";
+    });
+    cancelButton1.addEventListener("click", function() {
+        var modal = document.getElementById("editAppointmentModal");
+        modal.style.display = "none";
+    });
+    var modal = document.getElementById("editAppointmentModal");
+    modal.style.display = "none";
+    // 监听按钮点击事件，显示编辑预约模态框
+    // document.getElementById('showEditAppointmentModalBtn').addEventListener('click', function() {
+    //     showEditAppointmentModal();
+    // });
+
+    document.getElementById("saveEditAppointmentBtn").addEventListener("click", function() {
+
+
+        modal.style.display = "none";
+    });
+
+
+    // 显示编辑预约模态框
+    // function showEditAppointmentModal(){
+    //     var modal = document.getElementById("editAppointmentModal");
+    //     modal.style.display = "block";
+    // }
+
+</script>
+
+<script th:src="@{/view.js}"></script>
+
+</body>
+</html>
+

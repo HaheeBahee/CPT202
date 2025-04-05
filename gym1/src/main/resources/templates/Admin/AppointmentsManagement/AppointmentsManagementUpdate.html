@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">  
+        <title>Appointments Management: Edit Appointment</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto rounded border p-4 m-4">
+                    <h2 class="text-center mb-5">Edit Appointment</h2>
+
+                    <form method="post" th:object="${AM_DTO}">
+
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">ID</label>
+                            <div class="col-sm-8">
+                                <input readonly class="form-control-plaintext" th:value="${AM.id}">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">User ID</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" th:field="${AM_DTO.customerID}">
+                                <p th:if="${#fields.hasErrors('customerID')}" th:errorclass="text-danger" 
+                                    th:errors="${AM_DTO.customerID}"></p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">Trainer ID</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" th:field="${AM_DTO.trainerID}">
+                                <p th:if="${#fields.hasErrors('trainerID')}" th:errorclass="text-danger" 
+                                    th:errors="${AM_DTO.trainerID}"></p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">Status</label>
+                            <div class="col-sm-8">
+                                <select class="form-select"  type="number" th:field="${AM_DTO.status}">
+                                    <option value="0">New</option>
+                                    <option value="1">Completed</option>
+                                    <option value="2">Cancelled</option>
+                                </select>
+                                <p th:if="${#fields.hasErrors('status')}" th:errorclass="text-danger" 
+                                    th:errors="${AM_DTO.status}"></p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">Rating</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="number" step="1" min="0" max="5" th:field="${AM_DTO.rating}">
+                                <p th:if="${#fields.hasErrors('rating')}" th:errorclass="text-danger" 
+                                    th:errors="${AM_DTO.rating}"></p>
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label" >Original Appointment Time</label>
+                            <div class="col-sm-8">
+                                <input readonly class="form-control-plaintext" th:value="|${AM.getTimeInterval()}">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">New Appointment Time</label>
+                            <div class="col-sm-8">
+                                <input type="datetime-local" class="form-control" th:field="${AM_DTO.appointmentTime}" >
+                                <p th:if="${#fields.hasErrors('appointmentTime')}" th:errorclass="text-danger" 
+                                    th:errors="${AM_DTO.appointmentTime}"></p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">Duration &#40in minutes&#41</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="number" step="1" min="0" th:field="${AM_DTO.duration}">
+                                <p th:if="${#fields.hasErrors('duration')}" th:errorclass="text-danger" 
+                                    th:errors="${AM_DTO.duration}"></p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="offset-sm-4 col-sm-4 d-grid">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                            <div class="col-sm-4 d-grid">
+                                <a class="btn btn-outline-primary" href="/Admin/Appointments_Management" role="button">Cancel</a>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+
+            
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
+</html>

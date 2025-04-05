@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Plans</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .plan {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .plan h2 {
+            margin-top: 0;
+        }
+        .plan ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .plan ul li {
+            margin-bottom: 10px;
+        }
+        .purchase6silver-btn {
+            background-color: #C0C0C0;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .purchase12silver-btn {
+            background-color: #C0C0C0;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .purchase6gold-btn {
+            background-color: #FFD700;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .purchase12gold-btn {
+            background-color: #FFD700;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .purchase6diamond-btn {
+            background-color: #B0E0E6;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .purchase12diamond-btn {
+            background-color: #B0E0E6;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="plan">
+        <h2>Silver Plan</h2>
+        <ul>
+            <li>6 Months: $100</li>
+            <li>12 Months: $180</li>
+        </ul>
+        <button class="purchase6silver-btn" onclick="redirectToSilver6Months()">Purchase 6 Months</button>
+        <button class="purchase12silver-btn" onclick="redirectToSilver12Months()">Purchase 12 Months</button>
+    </div>
+    <div class="plan">
+        <h2>Gold Plan</h2>
+        <ul>
+            <li>6 Months: $150</li>
+            <li>12 Months: $250</li>
+        </ul>
+        <button class="purchase6gold-btn" onclick="redirectToGold6Months()">Purchase 6 Months</button>
+        <button class="purchase12gold-btn" onclick="redirectToGold12Months()">Purchase 12 Months</button>
+    </div>
+    <div class="plan">
+        <h2>Diamond Plan</h2>
+        <ul>
+            <li>6 Months: $200</li>
+            <li>12 Months: $300</li>
+        </ul>
+        <button class="purchase6diamond-btn" onclick="redirectToDiamond6Months()">Purchase 6 Months</button>
+        <button class="purchase12diamond-btn" onclick="redirectToDiamond12Months()">Purchase 12 Months</button>
+    </div>
+    <script>
+
+        function redirectToSilver6Months(){
+            window.location.href = "/Plan_One"
+        }
+        function redirectToSilver12Months(){
+            window.location.href = "/Plan_Two"
+        }
+        function redirectToGold6Months(){
+            window.location.href = "/Plan_Three"
+        }
+        function redirectToGold12Months(){
+            window.location.href = "/Plan_Four"
+        }
+        function redirectToDiamond6Months(){
+            window.location.href = "/Plan_Four"
+        }
+        function redirectToDiamond12Months(){
+            window.location.href = "/Plan_Six"
+        }
+
+
+
+
+
+
+
+    </script>
+</body>
+
+
+
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+    <head>
+        <title>A list of trainers</title>
+    </head>
+    <body>
+        <h1>I am a trainer</h1>
+        <table>
+            <tr th:each="Trainer: ${Trainers}">
+                <td th:text="*{Trainer.name}"></td>
+            </tr>
+        </table>
+    </body>
+</html>

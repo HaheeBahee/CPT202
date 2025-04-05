@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .container h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Add New User</h1>
+    </header>
+    <div class="container">
+        <form method="POST" th:action="@{/add_User}" th:object="${User}">
+            <div class="form-group">
+                <label for="userEmail">Email:</label>
+                <input type="email" th:field="*{userEmail}" id="userEmail" name="userEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="userPassword">Password:</label>
+                <input type="text" th:field="*{userPassword}" id="userPassword" name="userPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="userName">Name:</label>
+                <input type="text" th:field="*{userName}" id="userName" name="userName" required>
+            </div>
+            <div class="form-group">
+                <label for="userAge">Age:</label>
+                <input type="number" th:field="*{userAge}" id="userAge" name="userAge" required min="0">
+            </div>
+            <button type="submit" class="btn">Add</button>
+        </form>
+    </div>
+</body>
+</html>

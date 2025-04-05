@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Trainer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .container h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Add New Trainer</h1>
+    </header>
+    <div class="container">
+        <form method="POST" th:action="@{/add_Trainer}" th:object="${Trainer}">
+            <div class="form-group">
+                <label for="trainerEmail">Email:</label>
+                <input type="email" th:field="*{trainerEmail}" id="trainerEmail" name="trainerEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="trainerPassword">Password:</label>
+                <input type="text" th:field="*{trainerPassword}" id="trainerPassword" name="trainerPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="trainerName">Name:</label>
+                <input type="text" th:field="*{trainerName}" id="trainerName" name="trainerName" required>
+            </div>
+            <div class="form-group">
+                <label for="trainerRanking">Rank:</label>
+                <input type="number" th:field="*{trainerRanking}" id="trainerRanking" name="trainerRanking" required min="3" max="5">
+            </div>
+            <div class="form-group">
+                <label for="trainerIntroduction">Introduction:</label>
+                <textarea th:field="*{trainerIntroduction}" id="trainerIntroduction" name="trainerIntroduction" required></textarea>
+            </div>
+           
+            <button type="submit" class="btn">Add</button>
+        </form>
+    </div>
+</body>
+</html>

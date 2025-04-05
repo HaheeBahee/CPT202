@@ -1,0 +1,26 @@
+Index: src/main/java/com/gym1/gym1/Controller/AppointmentController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.gym1.gym1.Controller;\n\nimport com.gym1.gym1.Model.Appointment;\nimport com.gym1.gym1.Model.Trainer;\nimport com.gym1.gym1.Repository.AppointmentRepo;\nimport com.gym1.gym1.Repository.userRepo;\nimport com.gym1.gym1.Service.*;\nimport org.springframework.beans.factory.annotation.Autowired;\nimport org.springframework.http.HttpStatus;\nimport org.springframework.http.ResponseEntity;\nimport org.springframework.web.bind.annotation.*;\n\nimport java.util.List;\nimport java.util.Optional;\n\n@RestController\n@RequestMapping(\"/api\")\npublic class AppointmentController {\n\n    @Autowired\n    private AppointmentRepo appointmentRepo;\n    @Autowired\n    private AppointmentService appointmentService;\n    @Autowired\n    private PlanService planService;\n    @Autowired\n    private TrainerService trainerServicel;\n    @Autowired\n    private UserAndPlanService userAndPlanService;\n    @Autowired\n    private UseService useService;\n@Autowired\nprivate userRepo userrepo;\n    @PostMapping(\"/submit\")\n    public ResponseEntity<?> createAppointment(@RequestBody Appointment appointment) {\n//        System.out.println(\"appointment time\"+appointment.getAppointmentTime());\n//\n//        appointment.setCreateTime(LocalDateTime.now());\n//        System.out.println(\"Create time\"+appointment.getCreateTime());\n        try{\n        Appointment createdAppointment = appointmentService.createAppointment(appointment);\n        return ResponseEntity.ok(createdAppointment);}\n        catch (Exception e){\n            String errorMessage = \"无法创建预约：\" + e.getMessage();\n            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);\n        }\n    }\n\n    @GetMapping(\"/rating/{email}\")\n    public ResponseEntity<?> getRatingFromEmail(@PathVariable String email) {\n    Integer rating= planService.getratingfromemail(email);\n        return ResponseEntity.ok(rating);\n    }\n\n    @GetMapping(\"/idid/{email}\")\n    public ResponseEntity<?> getidfromid(@PathVariable String email){\n     Integer id= userAndPlanService.getidFromid(userrepo.getUserIdByEmail(email));\n        return ResponseEntity.ok(id);\n    }\n\n    @GetMapping(\"/trainer/{rating}\")\n    public List<Trainer> gettrainerbyrating(@PathVariable Integer rating){\n        return trainerServicel.getTrainersByrating(rating);\n    }\n   @GetMapping(\"/trainerbyemail/{email}\")\n    public List<Trainer> gettrainerbyemail(@PathVariable String email){\n       return trainerServicel.getTrainersByrating(planService.getratingfromemail(email));\n    }\n    @GetMapping(\"/getall/{id}\")\n    public List<Appointment> getallbyid(@PathVariable Integer id){\n        return appointmentService.getAppointmentByuserId(id);\n    }\n    @PostMapping(\"/updateappointment\")\n    public ResponseEntity<?> updateAppointment(@RequestBody Appointment appointmentDTO) {\n        // 检查是否存在该预约信息\n        Optional<Appointment> existingAppointment = appointmentRepo.findById(appointmentDTO.getId());\n        if (existingAppointment.isPresent()) {\n            // 存在该预约信息，调用服务层方法更新预约信息\n\n            appointmentService.updateAppointment(appointmentDTO);\n            return ResponseEntity.ok(\"预约信息已成功更新\");\n        } else {\n            // 不存在该预约信息，返回错误响应\n            return ResponseEntity.ok(\"appointment not found\"+appointmentDTO.getId());\n        }\n\n    }\n    @DeleteMapping(\"/delete/{id}\")\n    public ResponseEntity<Void> deleteAppointment(\n            @PathVariable(\"id\") int id) {\n        appointmentService.deleteAppointment(id);\n        return ResponseEntity.ok().build();\n    }\n}\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/gym1/gym1/Controller/AppointmentController.java b/src/main/java/com/gym1/gym1/Controller/AppointmentController.java
+--- a/src/main/java/com/gym1/gym1/Controller/AppointmentController.java	(revision 5c244d1d1e5892bd720973c5ada90065442cc338)
++++ b/src/main/java/com/gym1/gym1/Controller/AppointmentController.java	(date 1714878274484)
+@@ -10,6 +10,7 @@
+ import org.springframework.http.ResponseEntity;
+ import org.springframework.web.bind.annotation.*;
+ 
++import java.time.LocalDateTime;
+ import java.util.List;
+ import java.util.Optional;
+ 
+@@ -72,6 +73,7 @@
+     }
+     @PostMapping("/updateappointment")
+     public ResponseEntity<?> updateAppointment(@RequestBody Appointment appointmentDTO) {
++      LocalDateTime time= appointmentDTO.getAppointmentTime();
+         // 检查是否存在该预约信息
+         Optional<Appointment> existingAppointment = appointmentRepo.findById(appointmentDTO.getId());
+         if (existingAppointment.isPresent()) {

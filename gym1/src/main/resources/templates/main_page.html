@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gym Online Booking System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .container h2 {
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+    }
+    .form-group input {
+      width: 97%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .btn:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gym Online Booking System</h1>
+  </header>
+  <div class="container">
+    <h2>Sign In as User</h2>
+    <form action="/userLogin" method="POST">
+      <div class="form-group">
+        <label for="userEmail">Email:</label>
+        <input type="email" id="userEmail" name="userEmail" required>
+      </div>
+      <div class="form-group">
+        <label for="userPassword">Password:</label>
+        <input type="password" id="userPassword" name="userPassword" required>
+      </div>
+      <button type="submit" class="btn">Sign In</button>
+    </form>
+    <p>Don't have an account? <a href="/userType" class="btn">Sign Up</a></p>
+  </div>
+
+
+      
+    
+    
+    
+    
+    
+    
+    
+    <div class="container">
+      <h2>Sign In As Trainer</h2>
+      <form action="/trainerLogin" method="POST">
+        <div class="form-group">
+          <label for="trainerEmail">Email:</label>
+          <input type="email" id="trainerEmail" name="trainerEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="trainerPassword">Password:</label>
+          <input type="password" id="trainerPassword" name="trainerPassword" required>
+    </div>
+      <button type="submit" class="btn">Sign In</button>
+    </form>
+    <p>Don't have an account? <a href="/userType" class="btn">Trainer's Sign Up</a></p>
+      </div>
+
+      <div class="container">
+        <button onclick="window.location.href='/shopManagerlogin'" class="btn">Are you a shop manager?</button>
+      </div>
+
+</body>
+</html>
+
+
+
+
+
+
+

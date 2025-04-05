@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trainer Page - Gym Online Booking System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .container h2 {
+      text-align: center;
+    }
+    .trainer-list {
+      list-style: none;
+      padding: 0;
+    }
+    .trainer-list li {
+      margin-bottom: 10px;
+    }
+    .trainer {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+    }
+    .trainer h3 {
+      margin-top: 0;
+    }
+    .trainer p {
+      margin-bottom: 5px;
+    }
+    .view-my-appointment-btn, .update-my-information-btn {
+      background-color: #333;
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .view-my-appointment-btn:hover, .update-my-information-btn:hover {
+      background-color: #555;
+    }
+    /* 第二个 HTML 文件的样式 */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    th {
+        background-color: #444;
+        color: white;
+    }
+    .modal {
+        display: none;
+        position: absolute;
+
+        z-index: 1;
+        left: 0;
+        top: 30px;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    .modal-content {
+
+        background-color: #f4f4f4;
+        margin: 0 auto;
+        padding: 5px;
+
+        border: 1px solid #888;
+        width: 80%;
+    }
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Trainer Page - Gym Online Booking System</h1>
+  </header>
+  <div class="container">
+    <h2>My Page</h2>
+    <ul class="trainer-list">
+      <!-- Sample trainer -->
+      <li>
+        <div class="trainer">
+          <h3>User Name: <span id="trainer-name"></span></h3>
+          <p>Today's Date: <span id="current-date"></span></p>
+          <p>My Ranking: <span id="trainer-ranking"></span></p>
+          <button class="view-my-appointment-btn" onclick="openModal()">View My Appointment</button>
+          <button class="update-my-information-btn" onclick="redirectToMyinformation()">Log out</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 模态框容器 -->
+  <div id="appointmentModal" class="modal">
+      <div class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <header>
+              <h1>Trainer Page - Gym Online Booking System</h1>
+          </header>
+          <div>
+              <p id="trainer-id"></p>
+              <table id="appointmentTable">
+                  <thead>
+                  <tr>
+                      <th>Time Interval</th>
+                      <th>Customer</th>
+                  </tr>
+                  </thead>
+                  <tbody id="appointmentBody"></tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+
+ <script>
+   // Function to format date as yy/mm/dd
+   function formatDate(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}/${month}/${day}`;
+    }
+
+    // Get current date and time
+    const currentDate = new Date();
+    // Display current date in yy/mm/dd format
+    document.getElementById('current-date').textContent = formatDate(currentDate);
+
+
+    fetch('/getTrainerData')
+  .then(response => response.json()) // Parse JSON response
+  .then(data => {
+    if (data.trainerName) {
+      document.getElementById("trainer-name").textContent = data.trainerName;
+    } else {
+      console.error('Error fetching trainer data:', data.error);
+    }
+  })
+  .catch(error => console.error('Error fetching trainer data:', error));
+
+  fetch('/getTrainerData1')
+  .then(response => response.json()) // Parse JSON response
+  .then(data => {
+    if (data.trainerRanking) {
+      document.getElementById("trainer-ranking").textContent = data.trainerRanking;
+    } else {
+      console.error('Error fetching trainer data:', data.error);
+    }
+  })
+  .catch(error => console.error('Error fetching trainer data:', error));
+
+
+
+
+      function redirectToMyinformation() {
+      window.location.href = "/trainerLogout";
+    }
+    function redirectViewappointment(){
+        window.location.href = "/trainerview";
+    }
+   var modal=document.getElementById("appointmentModal");
+    function openModal(){
+        modal.style.display = "block";
+
+        fetchAppointments();
+    }
+   function closeModal() {
+       modal.style.display = "none";
+   }
+   function fetchAppointments(){
+       fetch('/getTrainerid')
+           .then(response => response.json())
+           .then(data => {
+               if (data.trainerid === '-1') {
+                   window.location.href = '/Main_page';
+               } else if (data.trainerid) {
+                   const trainerId = data.trainerid;
+                   // document.getElementById("trainer-id").textContent = "Your ID is: " + trainerId;
+                   fetch(`/api/getappointment/trainer/${trainerId}`)
+                       .then(response => response.json())
+                       .then(appointments => {
+                           // Sort appointments by timeInterval
+                           appointments.sort((a, b) => {
+                               const dateA = new Date(a.timeInterval.replace(/ /g, 'T'));
+                               const dateB = new Date(b.timeInterval.replace(/ /g, 'T'));
+                               return dateA - dateB;
+                           });
+
+                           const appointmentBody = document.getElementById('appointmentBody');
+                           appointmentBody.innerHTML = '';
+                           appointments.forEach(appointment => {
+                               const row = document.createElement('tr');
+                               // row.innerHTML = `
+                               //     <td>${appointment.timeInterval}</td>
+                               //     <td>${appointment.user.userName}</td>
+                               //     <td>${appointment.trainer.trainerName}</td>
+                               // `;
+                               row.innerHTML = `
+                                <td>${appointment.timeInterval}</td>
+                                <td>${appointment.user.userName}</td>
+
+                            `;
+                               appointmentBody.appendChild(row);
+                           });
+                       })
+                       .catch(error => console.error('Error fetching appointment data:', error));
+               } else {
+                   console.error('Error fetching trainer data:', data.error);
+               }
+           })
+           .catch(error => console.error('Error fetching trainer data:', error));
+   }
+
+ </script>
+</body>
+</html>

@@ -1,0 +1,1563 @@
+Index: src/main/java/com/gym1/gym1/Model/Appointment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.gym1.gym1.Model;\r\nimport java.time.LocalDateTime;\r\n\r\n\r\nimport com.gym1.gym1.Model.Trainer;\r\nimport com.gym1.gym1.Model.User;\r\nimport jakarta.persistence.*;\r\n\r\n@Entity\r\npublic class Appointment {\r\n    @Id\r\n    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = \"appointgene\")\r\n    @SequenceGenerator(sequenceName = \"appointgene\", name=\"appointgene\", allocationSize=1)\r\n    private int id;\r\n    @ManyToOne\r\n    @JoinColumn(name = \"userId\")\r\n    private User user;\r\n    @ManyToOne\r\n    @JoinColumn(name = \"trainerId\")\r\n    private Trainer trainer;\r\n    private int status; // 0 - new, 1 - completed, 2 - cancelled\r\n    private int rating;\r\n\r\n    private LocalDateTime appointmentTime;\r\n    private int duration;   //in minutes\r\n    private LocalDateTime createTime;\r\n\r\n\r\n    public Appointment() {\r\n    }\r\n\r\n\r\n\r\n\r\n    public Appointment(int id, User user, Trainer trainer, int status, int rating, LocalDateTime appointmentTime,\r\n                       int duration, LocalDateTime createTime) {\r\n        System.out.println(appointmentTime);\r\n        this.id = id;\r\n        this.user = user;\r\n        this.trainer = trainer;\r\n        this.status = status;\r\n        this.rating = rating;\r\n        this.appointmentTime = appointmentTime;\r\n        this.duration = duration;\r\n        this.createTime = createTime;\r\n    }\r\n\r\n\r\n\r\n\r\n    public int getId() {\r\n        return id;\r\n    }\r\n\r\n\r\n    public void setId(int id) {\r\n        this.id = id;\r\n    }\r\n\r\n\r\n    public User getUser() {\r\n        return user;\r\n    }\r\n\r\n\r\n    public void setUser(User user) {\r\n        this.user = user;\r\n    }\r\n\r\n\r\n    public Trainer getTrainer() {\r\n        return trainer;\r\n    }\r\n\r\n\r\n    public void setTrainer(Trainer trainer) {\r\n        this.trainer = trainer;\r\n    }\r\n\r\n\r\n    public int getStatus() {\r\n        return status;\r\n    }\r\n\r\n    public String getStatusText() {\r\n        if(this.status==0){\r\n            return \"UNCOMPLETED\";\r\n        }\r\n        else if(this.status==1){\r\n            return \"COMPLETED\";\r\n        }\r\n        else if(this.status==2){\r\n            return \"CANCELLED\";\r\n        }\r\n        return \"ERROR\";\r\n    }\r\n\r\n\r\n    public void setStatus(int status) {\r\n        this.status = status;\r\n    }\r\n\r\n\r\n    public int getRating() {\r\n        return rating;\r\n    }\r\n\r\n\r\n    public void setRating(int rating) {\r\n        this.rating = rating;\r\n    }\r\n\r\n\r\n    public LocalDateTime getAppointmentTime() {\r\n        return appointmentTime;\r\n    }\r\n\r\n\r\n    public void setAppointmentTime(LocalDateTime appointmentTime) {\r\n        this.appointmentTime = appointmentTime;\r\n    }\r\n\r\n\r\n    public int getDuration() {\r\n        return duration;\r\n    }\r\n\r\n\r\n    public void setDuration(int duration) {\r\n        this.duration = duration;\r\n    }\r\n\r\n\r\n    public LocalDateTime getAppointmentEndTime(){\r\n        return this.appointmentTime.plusMinutes(this.duration);\r\n    }\r\n\r\n\r\n    public LocalDateTime getCreateTime() {\r\n        return createTime;\r\n    }\r\n\r\n\r\n    public void setCreateTime(LocalDateTime createTime) {\r\n        this.createTime = createTime;\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/gym1/gym1/Model/Appointment.java b/src/main/java/com/gym1/gym1/Model/Appointment.java
+--- a/src/main/java/com/gym1/gym1/Model/Appointment.java	(revision 33b44d7db4b4e4df69c2f58444e93ef3ab50a9a1)
++++ b/src/main/java/com/gym1/gym1/Model/Appointment.java	(date 1714822008172)
+@@ -25,6 +25,9 @@
+     private int duration;   //in minutes
+     private LocalDateTime createTime;
+ 
++    @Column(name = "appointmentEndTime")
++    private  LocalDateTime appointmentEndTime;
++
+ 
+     public Appointment() {
+     }
+@@ -43,6 +46,7 @@
+         this.appointmentTime = appointmentTime;
+         this.duration = duration;
+         this.createTime = createTime;
++
+     }
+ 
+ 
+@@ -112,22 +116,27 @@
+ 
+ 
+     public LocalDateTime getAppointmentTime() {
++
+         return appointmentTime;
+     }
+ 
+ 
+     public void setAppointmentTime(LocalDateTime appointmentTime) {
++
+         this.appointmentTime = appointmentTime;
+     }
+ 
+ 
+     public int getDuration() {
++
++
+         return duration;
+     }
+ 
+ 
+     public void setDuration(int duration) {
+         this.duration = duration;
++        this.appointmentEndTime = this.appointmentTime.plusMinutes(this.duration);
+     }
+ 
+ 
+@@ -144,6 +153,21 @@
+     public void setCreateTime(LocalDateTime createTime) {
+         this.createTime = createTime;
+     }
++    public void setAppointmentEndTime(LocalDateTime appointmentEndTime){
++        this.appointmentEndTime=appointmentEndTime;
++    }
++    public void getAppointmentEndTime(LocalDateTime appointmentEndTime){
++        this.appointmentEndTime=appointmentEndTime;
++    }
++
++
++
++//    private void updateAppointmentEndTime() {
++//        this.appointmentEndTime = this.appointmentTime.plusMinutes(this.duration);
++//    }
++
++
++
+ 
+ 
+ }
+Index: src/main/java/com/gym1/gym1/Controller/LoginController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.gym1.gym1.Controller;\n\nimport org.springframework.beans.factory.annotation.Autowired;\nimport org.springframework.stereotype.Controller;\nimport org.springframework.ui.Model;\nimport org.springframework.web.bind.annotation.PostMapping;\nimport org.springframework.web.bind.annotation.RequestParam;\n\nimport com.gym1.gym1.Model.CustomerRegister;\nimport com.gym1.gym1.Model.TrainerRegister;\nimport com.gym1.gym1.Repository.CustomerRegisterRepo;\nimport com.gym1.gym1.Repository.TrainerRegisterRepo;\n\nimport jakarta.servlet.http.HttpSession;\nimport org.springframework.web.bind.annotation.GetMapping;\n\n@Controller\npublic class LoginController {\n    @Autowired\n    private TrainerRegisterRepo trainerRegisterRepo;\n    @Autowired\n    private CustomerRegisterRepo customerRegisterRepo;\n\n    @GetMapping(\"/login\")\n    public String getlogin() {\n        return \"login\";\n    }\n\n    @PostMapping(\"/customerLogin\")\n    public String customerLogin(\n            @RequestParam String email,\n            @RequestParam String password,\n            Model model,\n            HttpSession session) {\n\n        CustomerRegister customerRegiser = customerRegisterRepo.findByEmail(email);\n\n        if (customerRegiser != null && customerRegiser.getPassword().equals(password)) {\n            // 성공적으로 로그인 처리\n            session.setAttribute(\"customerEmail\", customerRegiser.getEmail());\n            session.setAttribute(\"userType\", \"customer\");\n            return \"main\"; // 성공시 리다이렉트\n        } else {\n            // 실패시 에러 메시지와 함께 로그인 페이지로 다시 리다이렉트\n            model.addAttribute(\"loginError\", \"Invalid email or password.\");\n            return \"login\"; // 로그인 뷰 페이지로 리다이렉트\n        }\n    }\n\n    @PostMapping(\"/trainerLogin\")\n    public String trainerLogin(\n            @RequestParam String email,\n            @RequestParam String password,\n            Model model,\n            HttpSession session) {\n\n        TrainerRegister trainerRegister = trainerRegisterRepo.findByEmail(email);\n\n        if (trainerRegister != null && trainerRegister.getPassword().equals(password)) {\n            // 성공적으로 로그인 처리\n            session.setAttribute(\"trainerEmail\", trainerRegister.getEmail());\n            session.setAttribute(\"userType\", \"trainer\"); // Identify user as trainer\n\n            return \"main\"; // 성공시 리다이렉트\n        } else {\n            // 실패시 에러 메시지와 함께 로그인 페이지로 다시 리다이렉트\n            model.addAttribute(\"loginError\", \"Invalid email or password.\");\n            return \"login\"; // 로그인 뷰 페이지로 리다이렉트\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/gym1/gym1/Controller/LoginController.java b/src/main/java/com/gym1/gym1/Controller/LoginController.java
+--- a/src/main/java/com/gym1/gym1/Controller/LoginController.java	(revision 33b44d7db4b4e4df69c2f58444e93ef3ab50a9a1)
++++ b/src/main/java/com/gym1/gym1/Controller/LoginController.java	(date 1714724972804)
+@@ -1,71 +1,71 @@
+-package com.gym1.gym1.Controller;
+-
+-import org.springframework.beans.factory.annotation.Autowired;
+-import org.springframework.stereotype.Controller;
+-import org.springframework.ui.Model;
+-import org.springframework.web.bind.annotation.PostMapping;
+-import org.springframework.web.bind.annotation.RequestParam;
+-
+-import com.gym1.gym1.Model.CustomerRegister;
+-import com.gym1.gym1.Model.TrainerRegister;
+-import com.gym1.gym1.Repository.CustomerRegisterRepo;
+-import com.gym1.gym1.Repository.TrainerRegisterRepo;
+-
+-import jakarta.servlet.http.HttpSession;
+-import org.springframework.web.bind.annotation.GetMapping;
+-
+-@Controller
+-public class LoginController {
+-    @Autowired
+-    private TrainerRegisterRepo trainerRegisterRepo;
+-    @Autowired
+-    private CustomerRegisterRepo customerRegisterRepo;
+-
+-    @GetMapping("/login")
+-    public String getlogin() {
+-        return "login";
+-    }
+-
+-    @PostMapping("/customerLogin")
+-    public String customerLogin(
+-            @RequestParam String email,
+-            @RequestParam String password,
+-            Model model,
+-            HttpSession session) {
+-
+-        CustomerRegister customerRegiser = customerRegisterRepo.findByEmail(email);
+-
+-        if (customerRegiser != null && customerRegiser.getPassword().equals(password)) {
+-            // 성공적으로 로그인 처리
+-            session.setAttribute("customerEmail", customerRegiser.getEmail());
+-            session.setAttribute("userType", "customer");
+-            return "main"; // 성공시 리다이렉트
+-        } else {
+-            // 실패시 에러 메시지와 함께 로그인 페이지로 다시 리다이렉트
+-            model.addAttribute("loginError", "Invalid email or password.");
+-            return "login"; // 로그인 뷰 페이지로 리다이렉트
+-        }
+-    }
+-
+-    @PostMapping("/trainerLogin")
+-    public String trainerLogin(
+-            @RequestParam String email,
+-            @RequestParam String password,
+-            Model model,
+-            HttpSession session) {
+-
+-        TrainerRegister trainerRegister = trainerRegisterRepo.findByEmail(email);
+-
+-        if (trainerRegister != null && trainerRegister.getPassword().equals(password)) {
+-            // 성공적으로 로그인 처리
+-            session.setAttribute("trainerEmail", trainerRegister.getEmail());
+-            session.setAttribute("userType", "trainer"); // Identify user as trainer
+-
+-            return "main"; // 성공시 리다이렉트
+-        } else {
+-            // 실패시 에러 메시지와 함께 로그인 페이지로 다시 리다이렉트
+-            model.addAttribute("loginError", "Invalid email or password.");
+-            return "login"; // 로그인 뷰 페이지로 리다이렉트
+-        }
+-    }
+-}
++//package com.gym1.gym1.Controller;
++//
++//import org.springframework.beans.factory.annotation.Autowired;
++//import org.springframework.stereotype.Controller;
++//import org.springframework.ui.Model;
++//import org.springframework.web.bind.annotation.PostMapping;
++//import org.springframework.web.bind.annotation.RequestParam;
++//
++//import com.gym1.gym1.Model.CustomerRegister;
++//import com.gym1.gym1.Model.TrainerRegister;
++//import com.gym1.gym1.Repository.CustomerRegisterRepo;
++//import com.gym1.gym1.Repository.TrainerRegisterRepo;
++//
++//import jakarta.servlet.http.HttpSession;
++//import org.springframework.web.bind.annotation.GetMapping;
++//
++//@Controller
++//public class LoginController {
++//    @Autowired
++//    private TrainerRegisterRepo trainerRegisterRepo;
++//    @Autowired
++//    private CustomerRegisterRepo customerRegisterRepo;
++//
++//    @GetMapping("/login")
++//    public String getlogin() {
++//        return "login";
++//    }
++//
++//    @PostMapping("/customerLogin")
++//    public String customerLogin(
++//            @RequestParam String email,
++//            @RequestParam String password,
++//            Model model,
++//            HttpSession session) {
++//
++//        CustomerRegister customerRegiser = customerRegisterRepo.findByEmail(email);
++//
++//        if (customerRegiser != null && customerRegiser.getPassword().equals(password)) {
++//            // 성공적으로 로그인 처리
++//            session.setAttribute("customerEmail", customerRegiser.getEmail());
++//            session.setAttribute("userType", "customer");
++//            return "main"; // 성공시 리다이렉트
++//        } else {
++//            // 실패시 에러 메시지와 함께 로그인 페이지로 다시 리다이렉트
++//            model.addAttribute("loginError", "Invalid email or password.");
++//            return "login"; // 로그인 뷰 페이지로 리다이렉트
++//        }
++//    }
++//
++//    @PostMapping("/trainerLogin")
++//    public String trainerLogin(
++//            @RequestParam String email,
++//            @RequestParam String password,
++//            Model model,
++//            HttpSession session) {
++//
++//        TrainerRegister trainerRegister = trainerRegisterRepo.findByEmail(email);
++//
++//        if (trainerRegister != null && trainerRegister.getPassword().equals(password)) {
++//            // 성공적으로 로그인 처리
++//            session.setAttribute("trainerEmail", trainerRegister.getEmail());
++//            session.setAttribute("userType", "trainer"); // Identify user as trainer
++//
++//            return "main"; // 성공시 리다이렉트
++//        } else {
++//            // 실패시 에러 메시지와 함께 로그인 페이지로 다시 리다이렉트
++//            model.addAttribute("loginError", "Invalid email or password.");
++//            return "login"; // 로그인 뷰 페이지로 리다이렉트
++//        }
++//    }
++//}
+Index: src/main/java/com/gym1/gym1/Repository/AppointmentRepo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.gym1.gym1.Repository;\r\n\r\nimport com.gym1.gym1.Model.Appointment;\r\nimport org.springframework.data.jpa.repository.JpaRepository;\r\nimport org.springframework.data.jpa.repository.Query;\r\nimport org.springframework.stereotype.Repository;\r\n\r\nimport java.util.List;\r\nimport java.util.Optional;\r\n\r\n\r\n@Repository\r\npublic interface AppointmentRepo extends JpaRepository<Appointment, Integer> {\r\n    @Query(\"SELECT a FROM Appointment a WHERE a.id = ?1\")\r\n    List<Appointment> findAppointmentByid(Integer id);\r\n\r\n    @Query(\"SELECT a FROM Appointment a WHERE a.user.userId = ?1\")\r\n    List<Appointment> findAppointmentByuserid(Integer id);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/gym1/gym1/Repository/AppointmentRepo.java b/src/main/java/com/gym1/gym1/Repository/AppointmentRepo.java
+--- a/src/main/java/com/gym1/gym1/Repository/AppointmentRepo.java	(revision 33b44d7db4b4e4df69c2f58444e93ef3ab50a9a1)
++++ b/src/main/java/com/gym1/gym1/Repository/AppointmentRepo.java	(date 1714835269753)
+@@ -1,10 +1,13 @@
+ package com.gym1.gym1.Repository;
+ 
+ import com.gym1.gym1.Model.Appointment;
++import com.gym1.gym1.Model.Trainer;
++import com.gym1.gym1.Model.User;
+ import org.springframework.data.jpa.repository.JpaRepository;
+ import org.springframework.data.jpa.repository.Query;
+ import org.springframework.stereotype.Repository;
+ 
++import java.time.LocalDateTime;
+ import java.util.List;
+ import java.util.Optional;
+ 
+@@ -16,4 +19,22 @@
+ 
+     @Query("SELECT a FROM Appointment a WHERE a.user.userId = ?1")
+     List<Appointment> findAppointmentByuserid(Integer id);
++
++
++    @Query("SELECT a FROM Appointment a WHERE a.user = :user AND a.appointmentTime BETWEEN :start AND :end AND a.appointmentEndTime BETWEEN :start AND :end")
++
++    List<Appointment> findByUserAndAppointmentTimeBetween(User user, LocalDateTime start, LocalDateTime end);
++
++    @Query("SELECT a FROM Appointment a WHERE a.user = :user AND :time between a.appointmentTime AND a.appointmentEndTime")
++    List<Appointment> findByUserAndAppointmentTimeBetween(User user, LocalDateTime time);
++
++    @Query("SELECT a FROM Appointment a WHERE a.trainer = :trainer AND a.appointmentTime BETWEEN :start AND :end AND a.appointmentEndTime BETWEEN :start AND :end")
++    List<Appointment> findByTrainerAndAppointmentTimeBetween(Trainer trainer, LocalDateTime start, LocalDateTime end);
++
++
++    @Query("SELECT a FROM Appointment a WHERE a.trainer = :trainer AND :time between a.appointmentTime AND a.appointmentEndTime")
++    List<Appointment> findByTrainerAndAppointmentTimeBetween(Trainer trainer, LocalDateTime time);
++
++    @Query("SELECT a from Appointment a where a.user= :user and a.appointmentTime between :start and :end")
++    List<Appointment> findByUserAppointmentTimesame(User user,LocalDateTime start, LocalDateTime end);
+ }
+Index: src/main/resources/templates/customer/view.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!--<!DOCTYPE html>-->\n<!--<html lang=\"en\">-->\n<!--<head>-->\n<!--    <meta charset=\"UTF-8\">-->\n<!--    <title>Title</title>-->\n<!--    <link href=\"/static/view.css\" rel=\"stylesheet\" type=\"text/css\" >-->\n<!--</head>-->\n<!--<body>-->\n<!--<nav id=\"navbar\">-->\n<!--    <div id=\"logo-container\">-->\n<!--        <img src=\"/static/image/img_1.png\" id=\"logo\" alt=\"logo\">-->\n<!--    </div>-->\n<!--    <ul>-->\n<!--        <li><a href=\"/home\">Home Page</a></li>-->\n<!--        <li><a href=\"/appointment\">Appointment</a></li>-->\n<!--        <li><a href=\"/view\">View appointment</a></li>-->\n<!--    </ul>-->\n<!--</nav>-->\n\n<!--<div id=\"container1\">-->\n<!--    <h2>My Appointments</h2>-->\n<!--    <table class=\"appointment-table\" id=\"appointmentTable\">-->\n<!--        <thead>-->\n<!--        <tr>-->\n<!--            <th>Date</th>-->\n<!--            <th>Time</th>-->\n<!--            <th>Trainer</th>-->\n<!--        </tr>-->\n<!--        </thead>-->\n<!--        <tbody id=\"appointmentBody\">-->\n<!--        &lt;!&ndash; Appointment items will be added here using JavaScript &ndash;&gt;-->\n<!--        </tbody>-->\n<!--    </table>-->\n<!--</div>-->\n\n<!--<script>-->\n<!--    var username = localStorage.getItem(\"username\"); // 获取当前用户的用户名-->\n<!--    fetch('/appointments/views/' + username)-->\n<!--        .then(response => {-->\n<!--            if (!response.ok) {-->\n<!--                throw new Error('Network response was not ok');-->\n<!--            }-->\n<!--            return response.json();-->\n<!--        })-->\n<!--        .then(appointments => {-->\n<!--            displayAppointment(appointments);-->\n<!--        })-->\n<!--        .catch(error => {-->\n<!--            console.error('There was a problem with the fetch operation:', error);-->\n<!--        });-->\n\n\n<!--    // 将预约信息显示在表格中-->\n<!--    function displayAppointment(appointments) {-->\n<!--        var appointmentBody = document.getElementById(\"appointmentBody\");-->\n<!--        appointments.forEach(appointment => {-->\n<!--            var row = document.createElement(\"tr\");-->\n<!--            row.innerHTML = \"<td>\" + appointment.date + \"</td>\" +-->\n<!--                \"<td>\" + appointment.time + \"</td>\" +-->\n<!--                \"<td>\" + appointment.trainer + \"</td>\";-->\n<!--            appointmentBody.appendChild(row);-->\n<!--        });-->\n<!--    }-->\n<!--</script>-->\n<!--</body>-->\n<!--</html>-->\n\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Title</title>\n    <link href=\"/static/view.css\" rel=\"stylesheet\" type=\"text/css\" >\n</head>\n<body>\n<nav id=\"navbar\">\n    <div id=\"logo-container\">\n        <img src=\"/static/image/img_1.png\" id=\"logo\" alt=\"logo\">\n    </div>\n    <ul>\n        <li><a href=\"/home\">Home Page</a></li>\n        <li><a href=\"/appointment\">Appointment</a></li>\n        <li><a href=\"/view\">View appointment</a></li>\n        <li><a href=\"/account\">Account</a></li>\n    </ul>\n</nav>\n\n<div id=\"container1\">\n    <h2>My Appointments</h2>\n    <table class=\"appointment-table\" id=\"appointmentTable\">\n        <thead>\n        <tr>\n            <th>Date</th>\n            <th>Time</th>\n            <th>Trainer</th>\n            <th>Actions</th>\n        </tr>\n        </thead>\n        <tbody id=\"appointmentBody\">\n        <!-- Appointment items will be added here using JavaScript -->\n        </tbody>\n    </table>\n</div>\n<script src=\"/static/view.js\"></script>\n<!--<script>-->\n<!--    var username = localStorage.getItem(\"username\"); // 获取当前用户的用户名-->\n<!--    fetch('/appointments/views/' + username)-->\n<!--        .then(response => {-->\n<!--            if (!response.ok) {-->\n<!--                throw new Error('Network response was not ok');-->\n<!--            }-->\n<!--            return response.json();-->\n<!--        })-->\n<!--        .then(appointments => {-->\n<!--            displayAppointment(appointments);-->\n<!--        })-->\n<!--        .catch(error => {-->\n<!--            console.error('There was a problem with the fetch operation:', error);-->\n<!--        });-->\n\n<!--    // 将预约信息显示在表格中-->\n<!--    function displayAppointment(appointments) {-->\n<!--        var appointmentBody = document.getElementById(\"appointmentBody\");-->\n<!--        appointments.forEach(appointment => {-->\n<!--            var row = document.createElement(\"tr\");-->\n<!--            row.innerHTML = \"<td>\" + appointment.date + \"</td>\" +-->\n<!--                \"<td>\" + appointment.time + \"</td>\" +-->\n<!--                \"<td>\" + appointment.trainer + \"</td>\" +-->\n\n<!--                \"<td><button onclick='editAppointment(\\\"\" + appointment.id + \"\\\", \\\"\" + appointment.date + \"\\\", \\\"\" + appointment.time + \"\\\", \\\"\" + appointment.trainer + \"\\\")'>Edit</button></td>\"+-->\n<!--            \"<td><button onclick='cancelAppointment(\\\"\" + appointment.id + \"\\\")'>Cancel</button></td>\"; // Add c-->\n<!--            appointmentBody.appendChild(row);-->\n<!--        });-->\n<!--    }-->\n\n<!--    // 编辑预约信息-->\n<!--    function editAppointment(id, date, time, trainer) {-->\n<!--        var newRow = document.createElement(\"tr\");-->\n<!--        newRow.innerHTML = \"<td><input type='text' id='newDate' value='\" + date + \"'></td>\" +-->\n<!--            \"<td><input type='text' id='newTime' value='\" + time + \"'></td>\" +-->\n<!--            \"<td><input type='text' id='newTrainer' value='\" + trainer + \"'></td>\" +-->\n<!--            \"<td><button onclick='updateAppointment(\\\"\" + id + \"\\\")'>Update</button></td>\";-->\n\n<!--        var oldRow = document.getElementById(\"appointmentBody\").querySelector(\"tr\");-->\n<!--        oldRow.parentNode.replaceChild(newRow, oldRow);-->\n<!--    }-->\n\n<!--    // 更新预约信息-->\n<!--    function updateAppointment(id) {-->\n<!--        var newDate = document.getElementById(\"newDate\").value;-->\n<!--        var newTime = document.getElementById(\"newTime\").value;-->\n<!--        var newTrainer = document.getElementById(\"newTrainer\").value;-->\n\n<!--        var updateData = {-->\n<!--            id: id,-->\n<!--            date: newDate,-->\n<!--            time: newTime,-->\n<!--            trainer: newTrainer-->\n<!--        };-->\n\n<!--        fetch('/appointments/update', {-->\n<!--            method: 'POST',-->\n<!--            headers: {-->\n<!--                'Content-Type': 'application/json'-->\n<!--            },-->\n<!--            body: JSON.stringify(updateData)-->\n<!--        })-->\n<!--            .then(response => {-->\n<!--                if (!response.ok) {-->\n<!--                    throw new Error('Network response was not ok');-->\n<!--                }-->\n<!--                location.reload(); // This will refresh the page-->\n<!--                // return response.json();-->\n\n<!--            })-->\n<!--            .then(updatedAppointment => {-->\n<!--                // 更新成功后重新加载预约信息-->\n<!--                // fetchAppointments();-->\n<!--                location.reload(); // This will refresh the page-->\n<!--            })-->\n<!--            .catch(error => {-->\n<!--                console.error('There was a problem with the fetch operation:', error);-->\n<!--            });-->\n<!--    }-->\n<!--    function cancelAppointment(id) {-->\n<!--        fetch('/appointments/delete/' + id, {-->\n<!--            method: 'DELETE'-->\n<!--        })-->\n<!--            .then(response => {-->\n<!--                if (!response.ok) {-->\n<!--                    throw new Error('Network response was not ok');-->\n<!--                }-->\n<!--                location.reload(); // This will refresh the page-->\n<!--            })-->\n<!--            .catch(error => {-->\n<!--                console.error('There was a problem with the fetch operation:', error);-->\n<!--            });-->\n<!--    }-->\n\n<!--    // // 重新加载预约信息-->\n<!--    // function fetchAppointments() {-->\n<!--    //     fetch('/appointments/views/' + username)-->\n<!--    //         .then(response => {-->\n<!--    //             if (!response.ok) {-->\n<!--    //                 throw new Error('Network response was not ok');-->\n<!--    //             }-->\n<!--    //             return response.json();-->\n<!--    //         })-->\n<!--    //         .then(appointments => {-->\n<!--    //             var appointmentBody = document.getElementById(\"appointmentBody\");-->\n<!--    //             appointmentBody.innerHTML = \"\"; // 清空表格内容-->\n<!--    //             displayAppointment(appointments);-->\n<!--    //         })-->\n<!--    //         .catch(error => {-->\n<!--    //             console.error('There was a problem with the fetch operation:', error);-->\n<!--    //         });-->\n<!--    // }-->\n<!--</script>-->\n</body>\n</html>\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/templates/customer/view.html b/src/main/resources/templates/customer/view.html
+--- a/src/main/resources/templates/customer/view.html	(revision 33b44d7db4b4e4df69c2f58444e93ef3ab50a9a1)
++++ b/src/main/resources/templates/customer/view.html	(date 1714830543082)
+@@ -1,70 +1,3 @@
+-<!--<!DOCTYPE html>-->
+-<!--<html lang="en">-->
+-<!--<head>-->
+-<!--    <meta charset="UTF-8">-->
+-<!--    <title>Title</title>-->
+-<!--    <link href="/static/view.css" rel="stylesheet" type="text/css" >-->
+-<!--</head>-->
+-<!--<body>-->
+-<!--<nav id="navbar">-->
+-<!--    <div id="logo-container">-->
+-<!--        <img src="/static/image/img_1.png" id="logo" alt="logo">-->
+-<!--    </div>-->
+-<!--    <ul>-->
+-<!--        <li><a href="/home">Home Page</a></li>-->
+-<!--        <li><a href="/appointment">Appointment</a></li>-->
+-<!--        <li><a href="/view">View appointment</a></li>-->
+-<!--    </ul>-->
+-<!--</nav>-->
+-
+-<!--<div id="container1">-->
+-<!--    <h2>My Appointments</h2>-->
+-<!--    <table class="appointment-table" id="appointmentTable">-->
+-<!--        <thead>-->
+-<!--        <tr>-->
+-<!--            <th>Date</th>-->
+-<!--            <th>Time</th>-->
+-<!--            <th>Trainer</th>-->
+-<!--        </tr>-->
+-<!--        </thead>-->
+-<!--        <tbody id="appointmentBody">-->
+-<!--        &lt;!&ndash; Appointment items will be added here using JavaScript &ndash;&gt;-->
+-<!--        </tbody>-->
+-<!--    </table>-->
+-<!--</div>-->
+-
+-<!--<script>-->
+-<!--    var username = localStorage.getItem("username"); // 获取当前用户的用户名-->
+-<!--    fetch('/appointments/views/' + username)-->
+-<!--        .then(response => {-->
+-<!--            if (!response.ok) {-->
+-<!--                throw new Error('Network response was not ok');-->
+-<!--            }-->
+-<!--            return response.json();-->
+-<!--        })-->
+-<!--        .then(appointments => {-->
+-<!--            displayAppointment(appointments);-->
+-<!--        })-->
+-<!--        .catch(error => {-->
+-<!--            console.error('There was a problem with the fetch operation:', error);-->
+-<!--        });-->
+-
+-
+-<!--    // 将预约信息显示在表格中-->
+-<!--    function displayAppointment(appointments) {-->
+-<!--        var appointmentBody = document.getElementById("appointmentBody");-->
+-<!--        appointments.forEach(appointment => {-->
+-<!--            var row = document.createElement("tr");-->
+-<!--            row.innerHTML = "<td>" + appointment.date + "</td>" +-->
+-<!--                "<td>" + appointment.time + "</td>" +-->
+-<!--                "<td>" + appointment.trainer + "</td>";-->
+-<!--            appointmentBody.appendChild(row);-->
+-<!--        });-->
+-<!--    }-->
+-<!--</script>-->
+-<!--</body>-->
+-<!--</html>-->
+-
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+@@ -90,10 +23,12 @@
+     <table class="appointment-table" id="appointmentTable">
+         <thead>
+         <tr>
+-            <th>Date</th>
+-            <th>Time</th>
+-            <th>Trainer</th>
+-            <th>Actions</th>
++            <th>Start time</th>
++            <th>Duration</th>
++            <th>End time</th>
++            <th>trainer</th>
++            <th>action</th>
++            <th>delete</th>
+         </tr>
+         </thead>
+         <tbody id="appointmentBody">
+@@ -101,6 +36,98 @@
+         </tbody>
+     </table>
+ </div>
++
++
++
++<div class="modal" id="editAppointmentModal" tabindex="-1" role="dialog">
++    <div class="modal-dialog" role="document">
++        <div class="modal-content">
++            <div class="modal-header">
++                <h5 class="modal-title">Edit Appointment</h5>
++                <button type="button" class="close" data-dismiss="modal" id="X" aria-label="Close">
++                    <span aria-hidden="true">&times;</span>
++                </button>
++            </div>
++            <div class="modal-body">
++                <form id="editAppointmentForm">
++                    <div id="trainers">
++                        <label for="choosetrainer">Trainer:</label>
++                        <select name="trainer" id="trainer1" required>
++                            <option value="trainer1">trainer1</option>
++                            <option value="trainer2">trainer2</option>
++                            <option value="trainer3">trainer3</option>
++                        </select>
++                    </div>
++                    <div class="form-group">
++                        <label for="editStartDateTime">Start Date</label>
++                        <input type="date" id="myDate1">
++                        <br>
++                        <label for="editStartDateTime">Start Time</label>
++
++                        <select id="startTimeSelect">
++                            <option value="09:00">09:00</option>
++                            <option value="10:00">10:00</option>
++                            <option value="11:00">11:00</option>
++                            <option value="12:00">12:00</option>
++                            <option value="13:00">13:00</option>
++                            <option value="14:00">14:00</option>
++                            <option value="15:00">15:00</option>
++                            <option value="16:00">16:00</option>
++                            <option value="17:00">17:00</option>
++                            <!-- 添加更多时间选项 -->
++                        </select>
++                    </div>
++                    <br>
++                    <div class="form-group">
++                        <label for="editDuration">Duration (in minutes):</label>
++                        <select id="durationSelect1">
++                            <!--                <option value="0.5">0.5小时</option>-->
++                            <option value="1">1 hour</option>
++                            <option value="2">2 hour</option>
++                            <option value="3">3 hour</option>
++                            <!-- 添加更多持续时间选项 -->
++                        </select>
++                    </div>
++                </form>
++            </div>
++            <div class="modal-footer">
++                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
++                <button type="button" class="btn btn-primary" id="saveEditAppointmentBtn">Save Changes</button>
++            </div>
++        </div>
++    </div>
++</div>
++
++
++<script>
++    var cancelButton1=  document.getElementById("X");
++    var cancelButton2 = document.querySelector("#editAppointmentModal .modal-footer button[data-dismiss='modal']");
++    cancelButton2.addEventListener("click", function() {
++        var modal = document.getElementById("editAppointmentModal");
++        modal.style.display = "none";
++    });
++    cancelButton1.addEventListener("click", function() {
++        var modal = document.getElementById("editAppointmentModal");
++        modal.style.display = "none";
++    });
++    var modal = document.getElementById("editAppointmentModal");
++    modal.style.display = "none";
++    // 监听按钮点击事件，显示编辑预约模态框
++    document.getElementById('showEditAppointmentModalBtn').addEventListener('click', function() {
++        showEditAppointmentModal();
++    });
++
++    document.getElementById("saveEditAppointmentBtn").addEventListener("click", function() {
++
++
++        modal.style.display = "none";
++    });
++
++
++    // 显示编辑预约模态框
++
++</script>
++
+ <script src="/static/view.js"></script>
+ <!--<script>-->
+ <!--    var username = localStorage.getItem("username"); // 获取当前用户的用户名-->
+Index: src/main/java/com/gym1/gym1/Controller/AppointmentController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.gym1.gym1.Controller;\n\nimport com.gym1.gym1.Model.Appointment;\nimport com.gym1.gym1.Model.Trainer;\nimport com.gym1.gym1.Repository.AppointmentRepo;\nimport com.gym1.gym1.Repository.userRepo;\nimport com.gym1.gym1.Service.*;\nimport org.springframework.beans.factory.annotation.Autowired;\nimport org.springframework.http.ResponseEntity;\nimport org.springframework.web.bind.annotation.*;\n\nimport java.util.List;\nimport java.util.Optional;\n\n@RestController\n@RequestMapping(\"/api\")\npublic class AppointmentController {\n\n    @Autowired\n    private AppointmentRepo appointmentRepo;\n    @Autowired\n    private AppointmentService appointmentService;\n    @Autowired\n    private PlanService planService;\n    @Autowired\n    private TrainerService trainerServicel;\n    @Autowired\n    private UserAndPlanService userAndPlanService;\n    @Autowired\n    private UseService useService;\n@Autowired\nprivate userRepo userrepo;\n    @PostMapping(\"/submit\")\n    public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment) {\n//        System.out.println(\"appointment time\"+appointment.getAppointmentTime());\n//\n//        appointment.setCreateTime(LocalDateTime.now());\n//        System.out.println(\"Create time\"+appointment.getCreateTime());\n        Appointment createdAppointment = appointmentService.createAppointment(appointment);\n        return ResponseEntity.ok(createdAppointment);\n    }\n\n    @GetMapping(\"/rating/{email}\")\n    public ResponseEntity<?> getRatingFromEmail(@PathVariable String email) {\n    Integer rating= planService.getratingfromemail(email);\n        return ResponseEntity.ok(rating);\n    }\n\n    @GetMapping(\"/idid/{email}\")\n    public ResponseEntity<?> getidfromid(@PathVariable String email){\n     Integer id= userAndPlanService.getidFromid(userrepo.getUserIdByEmail(email));\n        return ResponseEntity.ok(id);\n    }\n\n    @GetMapping(\"/trainer/{rating}\")\n    public List<Trainer> gettrainerbyrating(@PathVariable Integer rating){\n        return trainerServicel.getTrainersByrating(rating);\n    }\n   @GetMapping(\"/trainerbyemail/{email}\")\n    public List<Trainer> gettrainerbyemail(@PathVariable String email){\n       return trainerServicel.getTrainersByrating(planService.getratingfromemail(email));\n    }\n    @GetMapping(\"/getall/{id}\")\n    public List<Appointment> getallbyid(@PathVariable Integer id){\n        return appointmentService.getAppointmentByuserId(id);\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/gym1/gym1/Controller/AppointmentController.java b/src/main/java/com/gym1/gym1/Controller/AppointmentController.java
+--- a/src/main/java/com/gym1/gym1/Controller/AppointmentController.java	(revision 33b44d7db4b4e4df69c2f58444e93ef3ab50a9a1)
++++ b/src/main/java/com/gym1/gym1/Controller/AppointmentController.java	(date 1714834129732)
+@@ -6,6 +6,7 @@
+ import com.gym1.gym1.Repository.userRepo;
+ import com.gym1.gym1.Service.*;
+ import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.http.HttpStatus;
+ import org.springframework.http.ResponseEntity;
+ import org.springframework.web.bind.annotation.*;
+ 
+@@ -31,13 +32,18 @@
+ @Autowired
+ private userRepo userrepo;
+     @PostMapping("/submit")
+-    public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment) {
++    public ResponseEntity<?> createAppointment(@RequestBody Appointment appointment) {
+ //        System.out.println("appointment time"+appointment.getAppointmentTime());
+ //
+ //        appointment.setCreateTime(LocalDateTime.now());
+ //        System.out.println("Create time"+appointment.getCreateTime());
++        try{
+         Appointment createdAppointment = appointmentService.createAppointment(appointment);
+-        return ResponseEntity.ok(createdAppointment);
++        return ResponseEntity.ok(createdAppointment);}
++        catch (Exception e){
++            String errorMessage = "无法创建预约：" + e.getMessage();
++            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
++        }
+     }
+ 
+     @GetMapping("/rating/{email}")
+@@ -64,4 +70,26 @@
+     public List<Appointment> getallbyid(@PathVariable Integer id){
+         return appointmentService.getAppointmentByuserId(id);
+     }
++    @PostMapping("/updateappointment")
++    public ResponseEntity<?> updateAppointment(@RequestBody Appointment appointmentDTO) {
++        // 检查是否存在该预约信息
++        Optional<Appointment> existingAppointment = appointmentRepo.findById(appointmentDTO.getId());
++        if (existingAppointment.isPresent()) {
++            // 存在该预约信息，调用服务层方法更新预约信息
++
++            appointmentService.updateAppointment(appointmentDTO);
++            return ResponseEntity.ok("预约信息已成功更新");
++        } else {
++            // 不存在该预约信息，返回错误响应
++            return ResponseEntity.ok("appointment not found"+appointmentDTO.getId());
++        }
++
++    }
++    @DeleteMapping("/delete/{id}")
++    public ResponseEntity<Void> deleteAppointment(
++            @PathVariable("id") int id) {
++        appointmentService.deleteAppointment(id);
++        return ResponseEntity.ok().build();
++    }
+ }
++
+Index: src/main/resources/static/view.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>fetch('/getUserData')\n    .then(response => {\n        if (!response.ok) {\n            throw new Error('Failed to fetch user data');\n        }\n        return response.json();\n    })\n    .then(data => {\n        if (data.error) {\n            console.error('Error:', data.error);\n        } else {\n            const userEmail = data.userEmail;\n            console.log('User email:', userEmail);\n\n            // 根据用户邮箱获取用户ID\n            fetch('/getUserIdByEmail/' + userEmail)\n                .then(response => {\n                    if (!response.ok) {\n                        throw new Error('Failed to fetch user ID');\n                    }\n\n                    return response.json();\n\n                })\n                .then(userData => {\n\n                    const userId = userData;\n                    console.log('User ID:', userId);\n\n                    // 根据用户ID获取用户的所有预约信息\n                    fetch('/api/getall/' + userId)\n                        .then(response => {\n                            if (!response.ok) {\n                                throw new Error('Failed to fetch appointments');\n                            }\n                            console.log('Appointments response:', response);\n                            return response.json();\n                        })\n                        .then(appointments => {\n                            // 在这里处理获取到的预约数据\n                            displayAppointments(appointments);\n                            console.log(appointments);\n                        })\n                        .catch(error => {\n                            console.error('Error fetching appointments:', error);\n                        });\n                })\n                .catch(error => {\n                    console.error('Error fetching user ID:', error);\n                });\n        }\n    })\n    .catch(error => {\n        console.error('Error fetching user data:', error);\n    });\n\nfunction displayAppointments(appointments) {\n    var appointmentBody = document.getElementById(\"appointmentBody\");\n    appointmentBody.innerHTML = \"\"; // 清空表格内容\n    appointments.forEach(appointment => {\n        var row = document.createElement(\"tr\");\n        row.innerHTML = \"<td>\" + appointment.appointmentTime + \"</td>\" +\n            \"<td>\" + appointment.appointmentEndTime + \"</td>\" +\n            \"<td>\" + appointment.trainer.trainerName + \"</td>\";\n        appointmentBody.appendChild(row);\n    });\n}\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/static/view.js b/src/main/resources/static/view.js
+--- a/src/main/resources/static/view.js	(revision 33b44d7db4b4e4df69c2f58444e93ef3ab50a9a1)
++++ b/src/main/resources/static/view.js	(date 1714834410109)
+@@ -12,18 +12,41 @@
+             const userEmail = data.userEmail;
+             console.log('User email:', userEmail);
+ 
++            let ranking ;
++            fetch('/api/trainerbyemail/' + userEmail)
++                .then(response => {
++                    if (!response.ok) {
++                        throw new Error('Failed to fetch trainers');
++                    }
++                    return response.json();
++                })
++                .then(trainers => {
++                    // 获取到训练师数据后，填充到<select>元素中
++                    const trainerSelect = document.getElementById('trainer1');
++                    trainerSelect.innerHTML = ''; // 清空原有的选项
++
++                    // 循环遍历训练师数组，并将每个训练师信息添加到<select>元素中
++                    trainers.forEach(trainer => {
++                        ranking = trainer.trainerRanking;
++                        const option = document.createElement('option');
++                        option.value = trainer.trainerId; // 使用trainerId作为值
++                        option.textContent = trainer.trainerName; // 使用trainerName作为显示文本
++                        trainerSelect.appendChild(option);
++                    });
++                })
++                .catch(error => {
++                    console.error('Error fetching trainers:', error);
++                });
++
+             // 根据用户邮箱获取用户ID
+             fetch('/getUserIdByEmail/' + userEmail)
+                 .then(response => {
+                     if (!response.ok) {
+                         throw new Error('Failed to fetch user ID');
+                     }
+-
+                     return response.json();
+-
+                 })
+                 .then(userData => {
+-
+                     const userId = userData;
+                     console.log('User ID:', userId);
+ 
+@@ -33,13 +56,11 @@
+                             if (!response.ok) {
+                                 throw new Error('Failed to fetch appointments');
+                             }
+-                            console.log('Appointments response:', response);
+                             return response.json();
+                         })
+                         .then(appointments => {
+                             // 在这里处理获取到的预约数据
+                             displayAppointments(appointments);
+-                            console.log(appointments);
+                         })
+                         .catch(error => {
+                             console.error('Error fetching appointments:', error);
+@@ -53,16 +74,199 @@
+     .catch(error => {
+         console.error('Error fetching user data:', error);
+     });
+-
+ function displayAppointments(appointments) {
+     var appointmentBody = document.getElementById("appointmentBody");
+     appointmentBody.innerHTML = ""; // 清空表格内容
+     appointments.forEach(appointment => {
++        // 格式化日期时间
++
++        var startDateTime = formatDateTime(new Date(appointment.appointmentTime));
++        var endDateTime = formatDateTime(new Date(appointment.appointmentEndTime));
++        var duration = calculateDuration(startDateTime, endDateTime);
+         var row = document.createElement("tr");
+-        row.innerHTML = "<td>" + appointment.appointmentTime + "</td>" +
+-            "<td>" + appointment.appointmentEndTime + "</td>" +
+-            "<td>" + appointment.trainer.trainerName + "</td>";
++        row.innerHTML = "<td>" + startDateTime + "</td>" +
++            "<td>" + duration + "</td>" +
++            "<td>" + endDateTime + "</td>" +
++            "<td>" + appointment.trainer.trainerName + "</td>"+
++        "<td><button onclick='editappointment(\"" +appointment.id + "\", \"" + startDateTime + "\", \"" + duration + "\", \"" + appointment.trainer+ "\")'>edit</button></td>"+
++        "<td><button onclick='deleteappointment(\"" + appointment.id + "\", \"" + startDateTime + "\", \"" + endDateTime + "\", \"" + appointment.trainer.trainerName + "\")'>delete</button></td>";
+         appointmentBody.appendChild(row);
+     });
+ }
+ 
++// 格式化日期时间函数
++function formatDateTime(date) {
++    var year = date.getFullYear();
++    var month = ('0' + (date.getMonth() + 1)).slice(-2);
++    var day = ('0' + date.getDate()).slice(-2);
++    var hours = ('0' + date.getHours()).slice(-2);
++    var minutes = ('0' + date.getMinutes()).slice(-2);
++    return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
++}
++function calculateDuration(startDateTime, endDateTime) {
++    var start = new Date(startDateTime).getTime();
++    var end = new Date(endDateTime).getTime();
++    var durationMs = end - start;
++    var durationMinutes = durationMs / (1000 * 60); // 将持续时间转换为分钟
++    return durationMinutes;
++}
++
++function deleteappointment(id) {
++    fetch(`/api/delete/${id}`, {
++        method: 'DELETE'
++    })
++        .then(response => {
++            if (!response.ok) {
++                throw new Error('Failed to delete appointment');
++
++            }
++            document.getElementById('deleteMessage').innerText = 'Appointment deleted successfully!';
++            // 删除成功后重新获取预约列表并显示
++            fetch('/api/getall/' + userId) // Assuming you have access to userId
++                .then(response => {
++                    if (!response.ok) {
++                        throw new Error('Failed to fetch appointments');
++                    }
++                    return response.json();
++                })
++                .then(appointments => {
++                    // 重新显示预约列表
++                    // displayAppointments(appointments);
++                    window.location.reload();
++                })
++                .catch(error => {
++                    console.error('Error fetching appointments:', error);
++                });
++        })
++        .catch(error => {
++            console.error('Error deleting appointment:', error);
++        });
++}
++
++
++//编辑部分
++
++// 点击编辑按钮显示模态框
++    function editappointment(id, startDateTime, duration, trainer) {
++
++        // 将原始预约信息填入模态框
++        // document.getElementById('editStartDateTime').value = startDateTime;
++        // document.getElementById('editDuration').value = duration;
++
++        //默认trainer
++        // var selectElement = document.getElementById('editTrainerName');
++        // for (var i = 0; i < selectElement.options.length; i++) {
++        //     if (selectElement.options[i].value === trainerName) {
++        //         selectElement.options[i].selected = true;
++        //         break;
++        //     }
++        // }
++
++        // 显示模态框
++        var editModal = document.getElementById('editAppointmentModal');
++        editModal.style.display = 'block';
++
++        // // 提交编辑后的预约信息
++        document.getElementById("saveEditAppointmentBtn").addEventListener("click", function() {
++
++            var newDate = document.getElementById("myDate1").value;
++            var newTime = document.getElementById("startTimeSelect").value;
++            console.log(newDate);
++            console.log(newTime);
++            var dateTimeString = newDate + "T" + newTime;
++
++            var dateTime = new Date(dateTimeString);
++
++// 获取年、月、日、小时和分钟
++            var year = dateTime.getFullYear();
++            var month = (dateTime.getMonth() + 1).toString().padStart(2, '0'); // 月份从 0 开始，需要加 1
++            var day = dateTime.getDate().toString().padStart(2, '0');
++            var hours = dateTime.getHours().toString().padStart(2, '0');
++            var minutes = dateTime.getMinutes().toString().padStart(2, '0');
++
++// 格式化为指定格式的日期时间字符串
++            var formattedDateTimeString = `${year}-${month}-${day}T${hours}:${minutes}`;
++
++            console.log("Formatted date time:", formattedDateTimeString);
++            var trainerId = document.getElementById("trainer1").value;
++
++            gettrainerByid(trainerId)
++                .then(trainer => {
++
++                    // document.getElementById("appointment-form").addEventListener("submit", function (event) {
++                    //     event.preventDefault(); // 阻止表单默认提交行为
++
++                     newTrainer=trainer;
++
++                    saveEditedAppointment(id, formattedDateTimeString, duration, newTrainer);
++                });
++                    // 显示模态框
++                    modal.style.display = "none";
++
++                });
++
++
++}
++
++// 保存编辑后的预约信息
++function saveEditedAppointment(id, newDatetime, duration, newTrainer) {
++    if (!newTrainer) {
++        console.error("新训练师不能为空");
++        return; // 如果newTrainer为空，则不发送请求
++    }
++    if(!newDatetime){
++        console.error("新时间不能为空");
++        return;
++    }
++    if(!duration){
++        console.error("新时长不能为空");
++        return;
++    }
++
++    // 构建要发送的数据对象
++
++    var data = {
++        id: id,
++        appointmentTime: newDatetime,
++        duration: duration,
++        trainer: newTrainer,
++    };
++    console.log(data);
++
++    // 发送fetch请求
++    fetch('/api/updateappointment', {
++        method: 'POST',
++        headers: {
++            'Content-Type': 'application/json'
++        },
++        body: JSON.stringify(data)
++    })
++        .then(response => {
++            if (response.ok) {
++                console.log("提交成功");
++                window.location.reload();
++            } else {
++                console.error("提交失败: " + response.status);
++            }
++        })
++        .catch(error => {
++            console.error("提交失败: " + error);
++        });
++}
++
++
++
++function gettrainerByid(id) {
++    return new Promise((resolve, reject) => {
++        fetch('/gettrainerbyid/' + id)
++            .then(response => response.json())
++            .then(trainer => {
++                // console.log('User data:', user);
++                resolve(trainer); // 返回解析后的用户数据
++            })
++            .catch(error => {
++                reject('Error fetching user: ' + error);
++            });
++    });
++}
++
+Index: src/main/java/com/gym1/gym1/Service/AppointmentServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.gym1.gym1.Service;\n\nimport com.gym1.gym1.Model.Appointment;\nimport com.gym1.gym1.Repository.AppointmentRepo;\nimport com.gym1.gym1.Repository.userRepo;\nimport org.springframework.beans.factory.annotation.Autowired;\nimport org.springframework.stereotype.Service;\n\nimport java.util.List;\nimport java.util.Optional;\n@Service\npublic class AppointmentServiceImpl implements AppointmentService {\n\n    @Autowired\n    private AppointmentRepo appointmentRepository;\n    @Autowired\n    private userRepo userepo;\n\n    @Override\n    public List<Appointment> getAllAppointments() {\n        return appointmentRepository.findAll();\n    }\n\n    @Override\n    public List<Appointment> getAppointmentByuserId(Integer id) {\n        return appointmentRepository.findAppointmentByuserid(id);\n    }\n\n    @Override\n    public Appointment createAppointment(Appointment appointment) {\n        return appointmentRepository.save(appointment);\n    }\n\n\n\n    @Override\n    public void deleteAppointment(int id) {\n        Optional<Appointment> appointment = appointmentRepository.findById(id);\n        appointment.ifPresent(value -> appointmentRepository.delete(value));\n    }\n\n\n    @Override\n    public void updateAppointment(Appointment updatedAppointment) {\n\n    }\n\n\n\n\n    @Override\n    public List<Appointment> getAppointmentsByid(Integer id) {\n        return appointmentRepository.findAppointmentByid(id);\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/gym1/gym1/Service/AppointmentServiceImpl.java b/src/main/java/com/gym1/gym1/Service/AppointmentServiceImpl.java
+--- a/src/main/java/com/gym1/gym1/Service/AppointmentServiceImpl.java	(revision 33b44d7db4b4e4df69c2f58444e93ef3ab50a9a1)
++++ b/src/main/java/com/gym1/gym1/Service/AppointmentServiceImpl.java	(date 1714835174903)
+@@ -1,11 +1,14 @@
+ package com.gym1.gym1.Service;
+ 
+ import com.gym1.gym1.Model.Appointment;
++import com.gym1.gym1.Model.User;
+ import com.gym1.gym1.Repository.AppointmentRepo;
++import com.gym1.gym1.Repository.trainerrepo;
+ import com.gym1.gym1.Repository.userRepo;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Service;
+ 
++import java.time.LocalDateTime;
+ import java.util.List;
+ import java.util.Optional;
+ @Service
+@@ -15,6 +18,8 @@
+     private AppointmentRepo appointmentRepository;
+     @Autowired
+     private userRepo userepo;
++    @Autowired
++    private trainerrepo trainerRepo;
+ 
+     @Override
+     public List<Appointment> getAllAppointments() {
+@@ -28,21 +33,64 @@
+ 
+     @Override
+     public Appointment createAppointment(Appointment appointment) {
++        try{
++
++        LocalDateTime start = appointment.getAppointmentTime();
++        LocalDateTime end = start.plusMinutes(appointment.getDuration());
++        int userid=appointment.getUser().getuserId();
++        int trainerid=appointment.getTrainer().gettrainerId();
++        List<Appointment> conflictingAppointments = appointmentRepository.findByUserAndAppointmentTimeBetween(appointment.getUser(), start, end);
++        List<Appointment> conflictingAppointments2 = appointmentRepository.findByTrainerAndAppointmentTimeBetween(appointment.getTrainer(), start,end);
++        List<Appointment> conflictingAppointments3 = appointmentRepository.findByUserAndAppointmentTimeBetween(appointment.getUser(), start);
++        List<Appointment> conflictingAppointments4 = appointmentRepository.findByTrainerAndAppointmentTimeBetween(appointment.getTrainer(), start);
++        List<Appointment> conflictingAppointments5 = appointmentRepository.findByUserAndAppointmentTimeBetween(appointment.getUser(), end);
++        List<Appointment> conflictingAppointments6 = appointmentRepository.findByTrainerAndAppointmentTimeBetween(appointment.getTrainer(), end);
++            List<Appointment> existingAppointments7 = appointmentRepository.findByUserAppointmentTimesame(appointment.getUser(),start, end);
++            if(!existingAppointments7.isEmpty()){
++                throw new RuntimeException("预约时间与现有预约冲突，请选择其他时间。");
++            }
++        if (!conflictingAppointments.isEmpty()||!conflictingAppointments2.isEmpty()||!conflictingAppointments3.isEmpty()||!conflictingAppointments4.isEmpty()||!conflictingAppointments5.isEmpty()||!conflictingAppointments6.isEmpty()) {
++            throw new RuntimeException("预约时间与现有预约冲突，请选择其他时间。");
++        }
++        }
++        catch (Exception e){
++            throw new RuntimeException("预约时间与现有预约冲突，请选择其他时间。");
++        }
++
+         return appointmentRepository.save(appointment);
+     }
+ 
+ 
+ 
++
++
+     @Override
+     public void deleteAppointment(int id) {
+-        Optional<Appointment> appointment = appointmentRepository.findById(id);
+-        appointment.ifPresent(value -> appointmentRepository.delete(value));
++        Optional<Appointment> appointmentOptional = appointmentRepository.findById(id);
++        if (appointmentOptional.isPresent()) {
++            appointmentRepository.delete(appointmentOptional.get());
++            System.out.println("预约已删除");
++        } else {
++            // 如果预约不存在，抛出异常或提供其他反馈
++            throw new RuntimeException("找不到指定的预约");
++        }
+     }
+ 
+ 
+     @Override
+     public void updateAppointment(Appointment updatedAppointment) {
++   int id= updatedAppointment.getId();
++        updatedAppointment.setUser(appointmentRepository.findById(id).get().getUser());
++   updatedAppointment.setCreateTime(appointmentRepository.findById(id).get().getCreateTime());
++   updatedAppointment.setRating(appointmentRepository.findById(id).get().getRating());
++ try {
+ 
++     deleteAppointment(updatedAppointment.getId());
++     createAppointment(updatedAppointment);
++ }
++    catch (Exception e) {
++        throw new RuntimeException("找不到指定的预约");
++    }
+     }
+ 
+ 
+Index: src/main/resources/templates/customer/appointment.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Appointment Form</title>\n    <link href=\"/static/appointment.css\" rel=\"stylesheet\" type=\"text/css\" >\n</head>\n<body>\n\n<nav id=\"navbar\">\n    <div id=\"logo-container\">\n        <img src=\"/static/image/img_1.png\" id=\"logo\" alt=\"logo\">\n    </div>\n    <ul>\n        <li><a href=\"/home\">Home Page</a></li>\n        <li><a href=\"/appointment\">Appointment</a></li>\n        <!--        <li><a href=\"/change\">Change appointmment</a></li>-->\n        <li><a href=\"/view\">View appointmment</a></li>\n        <li><a href=\"/account\">Account</a></li>\n    </ul>\n    <img id=\"nav-control\" onclick=\"toggleNavbar()\"  src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAARUlEQVR4nO3TOwoAIAwE0dz/WHqoTSptJYWIhR+YB+kCW40ZcEJIbbxnhl2q+Wf1XKq3hsv2MLAt6DihY/wn6DihY8AmOrJBLqA7C45ZAAAAAElFTkSuQmCC\">\n</nav>\n<div id=\"appointment\">\n\n\n    <h1>Appointment now!</h1>\n    <h3>User Email: <span id=\"user-email\"></span></h3>\n    <div id=\"error-message\"></div>\n    <form id=\"appointment-form\">\n        <div id=\"trainers\">\n            <label for=\"choosetrainer\">Trainer:</label>\n            <select name=\"trainer\" id=\"trainer\" required>\n                <option value=\"trainer1\">trainer1</option>\n                <option value=\"trainer2\">trainer2</option>\n                <option value=\"trainer3\">trainer3</option>\n            </select>\n        </div>\n        <div id=\"datetimes\">\n            <label for=\"datetime\">Date and Time:</label>\n            <input type=\"datetime-local\" id=\"datetime\" name=\"datetime\" required>\n        </div>\n        <div id=\"duration\">\n            <label for=\"duration\">Duration:</label>\n            <input type=\"number\" id=\"duration_input\" name=\"duration\" min=\"1\" required>\n            <select name=\"duration_unit\" id=\"duration_unit\" required>\n                <option value=\"hours\">Hours</option>\n            </select>\n        </div>\n        <div id=\"submit\">\n            <input type=\"submit\" value=\"Submit\">\n        </div>\n    </form>\n</div>\n\n<script>\n    function getCurrentDateTime() {\n        var now = new Date();\n        var year = now.getFullYear();\n        var month = (now.getMonth() + 1).toString().padStart(2, '0'); // Months are zero based\n        var day = now.getDate().toString().padStart(2, '0');\n        var hours = now.getHours().toString().padStart(2, '0');\n        var minutes = now.getMinutes().toString().padStart(2, '0');\n\n        // Format: YYYY-MM-DDTHH:MM\n        return `${year}-${month}-${day}T${hours}:${minutes}`;\n    }\n\n    fetch('/getUserData')\n        .then(response => response.json()) // Parse JSON response\n        .then(data => {\n            const userEmail=data.userEmail;\n            document.getElementById('user-email').textContent=userEmail\n            // 在这里继续执行获取训练师数据的逻辑\n            fetch('/api/trainerbyemail/' + userEmail)\n                .then(response => {\n                    if (!response.ok) {\n                        throw new Error('Failed to fetch trainers');\n                    }\n                    return response.json();\n                })\n                .then(trainers => {\n                    // 获取到训练师数据后，填充到<select>元素中\n                    const trainerSelect = document.getElementById('trainer');\n                    trainerSelect.innerHTML = ''; // 清空原有的选项\n\n                    // 循环遍历训练师数组，并将每个训练师信息添加到<select>元素中\n                    trainers.forEach(trainer => {\n                        const option = document.createElement('option');\n                        option.value = trainer.trainerId; // 使用trainerId作为值\n                        option.textContent = trainer.trainerName; // 使用trainerName作为显示文本\n                        trainerSelect.appendChild(option);\n                    });\n                })\n                .catch(error => {\n                    console.error('Error fetching trainers:', error);\n                });\n\n            // 处理获取到的用户数据\n            getUserByEmail(data.userEmail)\n                .then(user => { // 处理获取到的用户对象\n                    // 在这里执行基于用户对象的操作\n                    document.getElementById('appointment-form').addEventListener('submit', function (event) {\n                        event.preventDefault(); // 阻止表单默认提交行为\n\n\n                        // var selectedTrainerId = document.getElementById('trainer').value;\n\n                        // 获取表单中的值\n                        var trainerId = document.getElementById('trainer').value;\n\n                        gettrainerByid(trainerId)\n                            .then(trainer => {\n                                var datetime = document.getElementById('datetime').value;\n                                var localDatetimeString = datetime.toLocaleString();\n                                var duration = parseInt(document.getElementById('duration_input').value);\n\n                                // 构建表单数据\n                                var formData = {\n                                    user: user,\n                                    trainer: trainer, // 使用选择的训练师ID\n                                    appointmentTime: localDatetimeString,\n                                    duration: duration, // 将持续时间和单位合并\n                                    createTime: getCurrentDateTime() // Add create-time with current time\n                                };\n\n\n                                // 发送 POST 请求将数据提交给服务器\n                                fetch('/api/submit', {\n                                    method: 'POST',\n                                    headers: {\n                                        'Content-Type': 'application/json'\n                                    },\n                                    body: JSON.stringify(formData)\n                                })\n                                    .then(response => {\n                                        if (response.ok) {\n                                            // 处理成功响应\n                                            console.log('Appointment submitted successfully!');\n                                            // 在此处可以添加一些反馈或重定向用户到其他页面\n                                        } else {\n                                            // 处理错误响应\n                                            console.error('Failed to submit appointment:', response.status);\n                                            // 在此处可以添加一些错误处理逻辑\n                                        }\n                                    })\n                                    .catch(error => {\n                                        console.error('Error submitting appointment:', error);\n                                        // 在此处可以添加一些错误处理逻辑\n                                    });\n                            });\n                    })\n                })\n                .catch(error => {\n                    console.error('Error fetching user:', error);\n                });\n        })\n        .catch(error => {\n            console.error('Error fetching user data:', error);\n        });\n\n    fetch('/trainerbyemail/' + userEmail)\n        .then(response => {\n            if (!response.ok) {\n                throw new Error('Failed to fetch trainers');\n            }\n            return response.json();\n        })\n        .then(trainers => {\n            // 获取到训练师数据后，填充到<select>元素中\n            const trainerSelect = document.getElementById('trainer');\n            trainerSelect.innerHTML = ''; // 清空原有的选项\n\n            // 循环遍历训练师数组，并将每个训练师信息添加到<select>元素中\n            trainers.forEach(trainer => {\n                const option = document.createElement('option');\n                option.value = trainer.trainerId; // 使用trainerId作为值\n                option.textContent = trainer.trainerName; // 使用trainerName作为显示文本\n                trainerSelect.appendChild(option);\n            });\n        })\n        .catch(error => {\n            console.error('Error fetching trainers:', error);\n        });\n\n\n    function gettrainerByid(id) {\n        return new Promise((resolve, reject) => {\n            fetch('/gettrainerbyid/' + id)\n                .then(response => response.json())\n                .then(trainer => {\n                    // console.log('User data:', user);\n                    resolve(trainer); // 返回解析后的用户数据\n                })\n                .catch(error => {\n                    reject('Error fetching user: ' + error);\n                });\n        });\n    }\n\n\n\n    function getUserByEmail(email) {\n        return new Promise((resolve, reject) => {\n            fetch('/getUserByEmail/' + email)\n                .then(response => response.json())\n                .then(user => {\n                    // console.log('User data:', user);\n                    resolve(user); // 返回解析后的用户数据\n                })\n                .catch(error => {\n                    reject('Error fetching user: ' + error);\n                });\n        });\n    }\n\n</script>\n\n</body>\n</html>\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/templates/customer/appointment.html b/src/main/resources/templates/customer/appointment.html
+--- a/src/main/resources/templates/customer/appointment.html	(revision 33b44d7db4b4e4df69c2f58444e93ef3ab50a9a1)
++++ b/src/main/resources/templates/customer/appointment.html	(date 1714831839336)
+@@ -4,6 +4,7 @@
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Appointment Form</title>
++
+     <link href="/static/appointment.css" rel="stylesheet" type="text/css" >
+ </head>
+ <body>
+@@ -37,23 +38,108 @@
+             </select>
+         </div>
+         <div id="datetimes">
+-            <label for="datetime">Date and Time:</label>
+-            <input type="datetime-local" id="datetime" name="datetime" required>
++            <label for="datetime">Date:</label>
++            <input type="date" id="myDate">
++            <!--            <input type="datetime-local" id="datetime" name="datetime" required>-->
+         </div>
+-        <div id="duration">
+-            <label for="duration">Duration:</label>
+-            <input type="number" id="duration_input" name="duration" min="1" required>
+-            <select name="duration_unit" id="duration_unit" required>
+-                <option value="hours">Hours</option>
+-            </select>
++
++        <div id="appointment-scheduler">
++            <h2>Scheduler</h2>
++            <div id="timeselecr">
++                <button id="choosetime" onclick="openModal()">choose time</button>
++
++            </div>
++
+         </div>
++
++
+         <div id="submit">
+             <input type="submit" value="Submit">
+         </div>
+     </form>
++    <div id="myModal" class="modal">
++        <div class="modal-content">
++            <span class="close" onclick="closeModal()">&times;</span>
++            <h2>选择时间段</h2>
++            <label for="startTimeSelect">选择开始时间：</label>
++            <select id="startTimeSelect">
++                <option value="09:00">09:00</option>
++                <option value="10:00">10:00</option>
++                <option value="11:00">11:00</option>
++                <option value="12:00">12:00</option>
++                <option value="13:00">13:00</option>
++                <option value="14:00">14:00</option>
++                <option value="15:00">15:00</option>
++                <option value="16:00">16:00</option>
++                <option value="17:00">17:00</option>
++                <!-- 添加更多时间选项 -->
++            </select>
++
++            <label for="durationSelect">选择持续时间：</label>
++            <select id="durationSelect">
++<!--                <option value="0.5">0.5小时</option>-->
++                <option value="1">1小时</option>
++                <option value="2">2小时</option>
++                <option value="3">3小时</option>
++                <!-- 添加更多持续时间选项 -->
++            </select>
++
++            <button id="modalconfirm" onclick="updateButton()">确认</button>
++        </div>
++    </div>
++
++    <script>
++        document.getElementById("choosetime").addEventListener("click", function(event) {
++            event.preventDefault(); // Prevents the default form submission behavior
++            openModal(); // Call the openModal function
++        });
++        // 获取模态框元素
++        var modal = document.getElementById("myModal");
++
++        // 获取触发模态框显示的按钮
++        var btn = document.querySelector("button");
++        modal.style.display= "none";
++
++        // 获取关闭模态框的 <span> 元素
++        var span = document.getElementsByClassName("close")[0];
++
++        // 当用户点击按钮时打开模态框
++        function openModal() {
++            modal.style.display = "block";
++        }
++
++        // 当用户点击 <span> (x)，关闭模态框
++        function closeModal() {
++            modal.style.display = "none";
++        }
++
++        // 当用户点击确认按钮时更新按钮文本为所选时间段
++        function updateButton() {
++            var startTime = document.getElementById("startTimeSelect").value;
++            var duration = parseInt(document.getElementById("durationSelect").value);
++            var startHour = parseInt(startTime.split(":")[0]);
++            var startMinute = parseInt(startTime.split(":")[1]);
++            var endHour = startHour + duration;
++            var endMinute = startMinute;
++            var timeSlot = startTime + " - ";
++            if (endHour < 10) {
++                timeSlot += "0";
++            }
++            timeSlot += endHour + ":" + (endMinute < 10 ? "0" : "") + endMinute;
++            // btn.innerText = "选择时间段：" + timeSlot;
++            btn.innerText = timeSlot;
++            closeModal(); // 关闭模态框
++        }
++    </script>
+ </div>
+ 
+ <script>
++    // 获取当前日期
++    var today = new Date().toISOString().split('T')[0];
++
++    // 设置输入框的最小日期为当前日期
++    document.getElementById("myDate").setAttribute("min", today);
++
+     function getCurrentDateTime() {
+         var now = new Date();
+         var year = now.getFullYear();
+@@ -65,6 +151,7 @@
+         // Format: YYYY-MM-DDTHH:MM
+         return `${year}-${month}-${day}T${hours}:${minutes}`;
+     }
++    let ranking;
+ 
+     fetch('/getUserData')
+         .then(response => response.json()) // Parse JSON response
+@@ -86,6 +173,7 @@
+ 
+                     // 循环遍历训练师数组，并将每个训练师信息添加到<select>元素中
+                     trainers.forEach(trainer => {
++                         ranking = trainer.trainerRanking;
+                         const option = document.createElement('option');
+                         option.value = trainer.trainerId; // 使用trainerId作为值
+                         option.textContent = trainer.trainerName; // 使用trainerName作为显示文本
+@@ -109,20 +197,70 @@
+                         // 获取表单中的值
+                         var trainerId = document.getElementById('trainer').value;
+ 
++                        // 获取日期和时间
++                        var date = document.getElementById("myDate").value;
++                        var timeSlot = btn.innerText; // 获取选择的时间段
++                        console.log("date is"+date);
++                        console.log("timeSlot is"+timeSlot);
++
++                        // 分割时间段字符串，得到起始时间和结束时间
++                        var timeParts = timeSlot.split(" - ");
++                        var startTime = timeParts[0];
++                        var endTime = timeParts[1];
++
++// 计算持续时间
++                        var startHour = parseInt(startTime.split(":")[0]);
++                        var startMinute = parseInt(startTime.split(":")[1]);
++                        var endHour = parseInt(endTime.split(":")[0]);
++                        var endMinute = parseInt(endTime.split(":")[1]);
++
++// 计算持续时间（单位：分钟）
++                        duration = (endHour - startHour) * 60 + (endMinute - startMinute);
++
++                        console.log("开始时间：", startTime);
++                        console.log("持续时间（分钟）：", duration);
++                        var dateTimeString = date + "T" + startTime;
++
++                        var dateTime = new Date(dateTimeString);
++
++// 获取年、月、日、小时和分钟
++                        var year = dateTime.getFullYear();
++                        var month = (dateTime.getMonth() + 1).toString().padStart(2, '0'); // 月份从 0 开始，需要加 1
++                        var day = dateTime.getDate().toString().padStart(2, '0');
++                        var hours = dateTime.getHours().toString().padStart(2, '0');
++                        var minutes = dateTime.getMinutes().toString().padStart(2, '0');
++
++// 格式化为指定格式的日期时间字符串
++                        var formattedDateTimeString = `${year}-${month}-${day}T${hours}:${minutes}`;
++
++                        console.log("Formatted date time:", formattedDateTimeString);
++
++
++
+                         gettrainerByid(trainerId)
+                             .then(trainer => {
+-                                var datetime = document.getElementById('datetime').value;
+-                                var localDatetimeString = datetime.toLocaleString();
+-                                var duration = parseInt(document.getElementById('duration_input').value);
++
++                                document.getElementById("appointment-form").addEventListener("submit", function(event) {
++                                    event.preventDefault(); // 阻止表单默认提交行为
++
++
++
++                                });
++                                // var datetime = document.getElementById('datetime').value;
++                                // var localDatetimeString = datetime.toLocaleString();
++                                // var duration = parseInt(document.getElementById('duration_input').value);
+ 
+                                 // 构建表单数据
+                                 var formData = {
+                                     user: user,
+                                     trainer: trainer, // 使用选择的训练师ID
+-                                    appointmentTime: localDatetimeString,
++                                    appointmentTime: formattedDateTimeString,
+                                     duration: duration, // 将持续时间和单位合并
+-                                    createTime: getCurrentDateTime() // Add create-time with current time
++                                    createTime: getCurrentDateTime(), // Add create-time with current time
++                                    rating: ranking
+                                 };
++                                console.log(formData);
++
+ 
+ 
+                                 // 发送 POST 请求将数据提交给服务器
+@@ -137,15 +275,18 @@
+                                         if (response.ok) {
+                                             // 处理成功响应
+                                             console.log('Appointment submitted successfully!');
++                                            alert('Appointment submitted successfully!');
+                                             // 在此处可以添加一些反馈或重定向用户到其他页面
+                                         } else {
+                                             // 处理错误响应
+                                             console.error('Failed to submit appointment:', response.status);
++
+                                             // 在此处可以添加一些错误处理逻辑
+                                         }
+                                     })
+                                     .catch(error => {
+                                         console.error('Error submitting appointment:', error);
++                                        alert('Error submitting appointment: ' + error.message)
+                                         // 在此处可以添加一些错误处理逻辑
+                                     });
+                             });
+@@ -153,10 +294,12 @@
+                 })
+                 .catch(error => {
+                     console.error('Error fetching user:', error);
++                    alert('Error fetching user: ' + error.message)
+                 });
+         })
+         .catch(error => {
+             console.error('Error fetching user data:', error);
++            alert('Error fetching user data: ' + error.message)
+         });
+ 
+     fetch('/trainerbyemail/' + userEmail)
+Index: src/main/java/com/gym1/gym1/Controller/trainerController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.gym1.gym1.Controller;\n\nimport java.util.HashMap;\nimport java.util.Map;\n\nimport org.springframework.beans.factory.annotation.Autowired;\nimport org.springframework.stereotype.Controller;\nimport org.springframework.ui.Model;\nimport org.springframework.web.bind.annotation.*;\nimport org.springframework.web.servlet.ModelAndView;\n\nimport com.gym1.gym1.Model.Trainer;\nimport com.gym1.gym1.Repository.trainerrepo;\n\nimport jakarta.servlet.http.HttpSession;\n\n\n\n@RestController\npublic class trainerController {\n\n    @Autowired\n    private trainerrepo trainerrepo;\n    @Autowired\n    private HttpSession session;\n\n    @GetMapping(\"/gettrainerbyid/{id}\")\n    public Trainer getTrainerById(@PathVariable Integer id) {\n        return trainerrepo.getTrainerByid(id);\n    }\n\n    \n\n    @GetMapping(\"/add_Trainer\")\n    public String getAddTrainer(Model model){\n        model.addAttribute(\"Trainer\", new Trainer());\n        return \"addTrainer\";\n    }\n\n    @PostMapping(\"/add_Trainer\")\n    public String postAddTrainer(@ModelAttribute Trainer trainer){\n        if(trainerrepo.existsByTrainerEmail(trainer.gettrainerEmail())) {\n            // Return some indication that the email already exists, \n            // you can choose to return an error message or handle it as you prefer\n            return \"/add_Trainer\";\n        }\n\n       else{ trainerrepo.save(trainer);\n        return \"success_forTrainer\";   }\n\n    }\n\n    @PostMapping(\"/trainerLogin\")\n    public ModelAndView trainerLogin(@RequestParam String trainerEmail, @RequestParam String trainerPassword) {\n        Trainer trainer = trainerrepo.findByTrainerEmail(trainerEmail);\n\n        if (trainer != null && trainer.gettrainerPassword().equals(trainerPassword)) {\n            // Trainer login successful\n            // Redirect or return some response\n            session.setAttribute(\"loggedInTrainer\", trainer);\n            return new ModelAndView(\"redirect:/trainerPage\");\n        } else {\n            // Trainer login failed\n            // Redirect back to login page with error message\n            ModelAndView modelAndView = new ModelAndView(\"main_page\");\n            modelAndView.addObject(\"trainerLoginError\", \"Invalid ID or password\");\n            return modelAndView;\n        }\n    }\n\n\n\n\n   \n   \n\n\n    @GetMapping(\"/trainerPage\")\n    public String AfterTrainerLogin() {\n        return \"trainerPage\";\n    }\n    \n    @GetMapping(\"/getTrainerData\")\n    @ResponseBody\n    public Map<String, String> getTrainerData() {\n    Map<String, String> response = new HashMap<>();\n    Trainer trainer = (Trainer) session.getAttribute(\"loggedInTrainer\");\n    if (trainer != null) {\n        response.put(\"trainerName\", trainer.gettrainerName());\n    } else {\n        response.put(\"error\", \"Trainer not logged in\");\n    }\n    return response;\n    }\n\n    @GetMapping(\"/getTrainerData1\")\n    @ResponseBody\n    public Map<String, Integer> getTrainerData1() {\n    Map<String, Integer> response = new HashMap<>();\n    Trainer trainer = (Trainer) session.getAttribute(\"loggedInTrainer\");\n    if (trainer != null) {\n        response.put(\"trainerRanking\", trainer.gettrainerRanking());\n    } else {\n        response.put(\"error\", 0);\n    }\n    return response;\n    }\n\n\n    \n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/gym1/gym1/Controller/trainerController.java b/src/main/java/com/gym1/gym1/Controller/trainerController.java
+--- a/src/main/java/com/gym1/gym1/Controller/trainerController.java	(revision 33b44d7db4b4e4df69c2f58444e93ef3ab50a9a1)
++++ b/src/main/java/com/gym1/gym1/Controller/trainerController.java	(date 1714641875885)
+@@ -29,7 +29,7 @@
+         return trainerrepo.getTrainerByid(id);
+     }
+ 
+-    
++
+ 
+     @GetMapping("/add_Trainer")
+     public String getAddTrainer(Model model){
+@@ -40,7 +40,7 @@
+     @PostMapping("/add_Trainer")
+     public String postAddTrainer(@ModelAttribute Trainer trainer){
+         if(trainerrepo.existsByTrainerEmail(trainer.gettrainerEmail())) {
+-            // Return some indication that the email already exists, 
++            // Return some indication that the email already exists,
+             // you can choose to return an error message or handle it as you prefer
+             return "/add_Trainer";
+         }
+@@ -71,15 +71,15 @@
+ 
+ 
+ 
+-   
+-   
++
++
+ 
+ 
+     @GetMapping("/trainerPage")
+     public String AfterTrainerLogin() {
+         return "trainerPage";
+     }
+-    
++
+     @GetMapping("/getTrainerData")
+     @ResponseBody
+     public Map<String, String> getTrainerData() {
+@@ -107,5 +107,5 @@
+     }
+ 
+ 
+-    
++
+ }
+\ No newline at end of file
+Index: src/main/resources/static/view.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#logo {\n    width: 50px; /* logo宽度，根据需要调整 */\n    height: auto; /* 高度自适应 */\n}\n\n/* 可选：调整logo的外边距 */\n#logo-container .logo {\n    margin-right: 1px; /* 调整logo与其他内容之间的距离 */\n}\n#navbar {\n    top:0;\n    left: 0;\n    height: 2000px;\n    position: fixed;\n    background-color: #333; /* 设置导航栏背景颜色 */\n    overflow: hidden; /* 清除浮动 */\n    width: 300px; /* 设置导航栏宽度 */\n    float: left; /* 将导航栏放在左侧 */\n    animation: slideFromRight 0.5s ease-out forwards;\n\n\n}\n@keyframes slideFromRight {\n    from {\n        transform: translateX(-100%);\n    }\n    to {\n        transform: translateX(0);\n    }\n}\n\n\n#navbar ul {\n    list-style-type: none; /* 移除列表样式 */\n    padding: 0;\n}\n\n#navbar ul li {\n    margin: 10px 0; /* 设置导航项之间的垂直间距 */\n}\n\n#navbar ul li a {\n    display: block;\n    color: white; /* 设置导航项文本颜色 */\n    text-decoration: none; /* 移除下划线 */\n    padding: 10px; /* 设置导航项内边距 */\n}\n\n/* 展开时显示按钮 */\n@media screen and (max-width: 768px) {\n    .navbar-toggle {\n        display: block;\n        float: right;\n        margin-top: 10px;\n        margin-right: 15px;\n    }\n\n    #navbar ul {\n        display: none; /* 初始隐藏 */\n    }\n\n    #navbar ul.show {\n        display: block; /* 展开时显示 */\n    }\n}\n#nav-control{\n    position: absolute;\n    right: 10px;\n    top: 10px;\n}\n\n#navbar ul li a:hover {\n    background-color: #555; /* 设置鼠标悬停时的背景颜色 */\n}\n\n#logo-container {\n    padding: 10px; /* 设置 logo 容器内边距 */\n}\n\n#logo {\n    width: 100px; /* 设置 logo 宽度 */\n}\n\n#container1{\n    position: absolute;\n    left: 400px;\n}\n.appointment-table {\n    width: 100%;\n    border-collapse: collapse;\n}\n\n.appointment-table th, .appointment-table td {\n    padding: 12px;\n    text-align: center;\n    border: 1px solid #ddd;\n}\n\n.appointment-table th {\n    background-color: #f2f2f2;\n}\n\n.appointment-table tbody tr:nth-child(even) {\n    background-color: #f9f9f9;\n}\n\n.appointment-table tbody tr:hover {\n    background-color: #f2f2f2;\n}\n\n.action-button {\n    padding: 6px 12px;\n    background-color: #007bff;\n    color: #fff;\n    border: none;\n    border-radius: 4px;\n    cursor: pointer;\n    transition: background-color 0.3s;\n}\n\n.action-button:hover {\n    background-color: #0056b3;\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/static/view.css b/src/main/resources/static/view.css
+--- a/src/main/resources/static/view.css	(revision 33b44d7db4b4e4df69c2f58444e93ef3ab50a9a1)
++++ b/src/main/resources/static/view.css	(date 1714829622520)
+@@ -121,3 +121,93 @@
+ .action-button:hover {
+     background-color: #0056b3;
+ }
++
++
++
++
++
++
++
++
++
++
++
++#editAppointmentModal {
++
++    position: fixed;
++    top: 0;
++    left: 0;
++    width: 100%;
++    height: 100%;
++    background-color: rgba(0, 0, 0, 0.5);
++    z-index: 9999;
++    display: flex;
++    justify-content: center;
++    align-items: center;
++}
++
++/* 编辑预约模态框样式 */
++#editAppointmentModal .modal-dialog {
++    margin-left: auto;
++    margin-right: auto;
++    margin-top: 20px;
++    max-width: 600px; /* 设置模态框的最大宽度 */
++
++}
++
++#editAppointmentModal .modal-content {
++    border-radius: 10px; /* 设置模态框内容的圆角 */
++    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
++    transition: all 0.3s ease; /* 添加过渡效果 */
++}
++
++#editAppointmentModal .modal-header {
++    background-color: #000000; /* 设置模态框头部的背景颜色 */
++    color: #fff; /* 设置模态框头部的文字颜色 */
++    border-radius: 10px 10px 0 0; /* 设置头部的圆角 */
++    padding: 15px 20px; /* 调整内边距 */
++}
++#X{
++
++    position: fixed;
++    right: 30%;
++    top: 8%;
++
++    font-size: 1.5rem; /* 设置关闭按钮的字体大小 */
++    font-weight: bold; /* 设置关闭按钮的字体加粗 */
++    cursor: pointer; /* 设置鼠标样式为指针 */
++}
++
++#editAppointmentModal .modal-body {
++    padding: 20px; /* 设置模态框主体部分的内边距 */
++    background-color: #f9f9f9; /* 设置模态框主体部分的背景颜色 */
++}
++
++#editAppointmentModal .modal-footer {
++    border-radius: 0 0 10px 10px; /* 设置底部的圆角 */
++    padding: 15px 20px; /* 调整内边距 */
++    border-top: none; /* 移除顶部边框 */
++    background-color: #f9f9f9; /* 设置底部的背景颜色 */
++}
++
++/* 表单字段样式 */
++#editAppointmentModal .form-group label {
++    font-weight: bold; /* 设置表单字段标签的加粗 */
++}
++
++#editAppointmentModal .form-control {
++    border-radius: 5px; /* 设置表单字段的圆角 */
++}
++
++/* 按钮样式 */
++#showEditAppointmentModalBtn {
++    border: none; /* 移除按钮边框 */
++    border-radius: 5px; /* 设置按钮的圆角 */
++    padding: 10px 20px; /* 调整内边距 */
++    cursor: pointer; /* 设置鼠标样式为指针 */
++    transition: background-color 0.3s ease; /* 添加过渡效果 */
++}
++
++#showEditAppointmentModalBtn:hover {
++    background-color: #0056b3; /* 设置鼠标悬停时按钮的背景颜色 */
++}
+\ No newline at end of file
+Index: ../fitness/Register/target/classes/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>spring.application.name=customer\n\nspring.datasource.url = jdbc:mysql://localhost:3306/register\nspring.datasource.username = root\nspring.datasource.password = yunhee9989\nspring.datasource.driver-class-name= com.mysql.cj.jdbc.Driver\nspring.jpa.database=mysql\nspring.jpa.hibernate.ddl-auto=update\nspring.jpa.show-sql=true
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/../fitness/Register/target/classes/application.properties b/../fitness/Register/target/classes/application.properties
+--- a/../fitness/Register/target/classes/application.properties	(revision 33b44d7db4b4e4df69c2f58444e93ef3ab50a9a1)
++++ b/../fitness/Register/target/classes/application.properties	(date 1714724583036)
+@@ -2,8 +2,8 @@
+ 
+ spring.datasource.url = jdbc:mysql://localhost:3306/register
+ spring.datasource.username = root
+-spring.datasource.password = yunhee9989
++spring.datasource.password = password
+ spring.datasource.driver-class-name= com.mysql.cj.jdbc.Driver
+ spring.jpa.database=mysql
+ spring.jpa.hibernate.ddl-auto=update
+-spring.jpa.show-sql=true
+\ No newline at end of file
++spring.jpa.show-sql=true
+Index: src/main/resources/static/appointment.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/* logo样式 */\n#logo {\n    width: 50px; /* logo宽度，根据需要调整 */\n    height: auto; /* 高度自适应 */\n}\n\n/* 可选：调整logo的外边距 */\n#logo-container .logo {\n    margin-right: 1px; /* 调整logo与其他内容之间的距离 */\n}\n#navbar {\n    top:0;\n    left: 0;\n    height: 2000px;\n    position: fixed;\n    background-color: #333; /* 设置导航栏背景颜色 */\n    overflow: hidden; /* 清除浮动 */\n    width: 300px; /* 设置导航栏宽度 */\n    float: left; /* 将导航栏放在左侧 */\n    animation: slideFromRight 0.5s ease-out forwards;\n\n\n}\n@keyframes slideFromRight {\n    from {\n        transform: translateX(-100%);\n    }\n    to {\n        transform: translateX(0);\n    }\n}\n\n\n#navbar ul {\n    list-style-type: none; /* 移除列表样式 */\n    padding: 0;\n}\n\n#navbar ul li {\n    margin: 10px 0; /* 设置导航项之间的垂直间距 */\n}\n\n#navbar ul li a {\n    display: block;\n    color: white; /* 设置导航项文本颜色 */\n    text-decoration: none; /* 移除下划线 */\n    padding: 10px; /* 设置导航项内边距 */\n}\n\n/* 展开时显示按钮 */\n@media screen and (max-width: 768px) {\n    .navbar-toggle {\n        display: block;\n        float: right;\n        margin-top: 10px;\n        margin-right: 15px;\n    }\n\n    #navbar ul {\n        display: none; /* 初始隐藏 */\n    }\n\n    #navbar ul.show {\n        display: block; /* 展开时显示 */\n    }\n}\n#nav-control{\n    position: absolute;\n    right: 10px;\n    top: 10px;\n}\n\n#navbar ul li a:hover {\n    background-color: #555; /* 设置鼠标悬停时的背景颜色 */\n}\n\n#logo-container {\n    padding: 10px; /* 设置 logo 容器内边距 */\n}\n\n#logo {\n    width: 100px; /* 设置 logo 宽度 */\n}\n\n\n\n\n#appointment {\n    margin-left: 300px;\n    width: 400px; /* 设置约会表单的宽度 */\n    background: gainsboro;\n    padding: 20px;\n    border: 1px solid #ccc; /* 添加边框 */\n    border-radius: 5px; /* 圆角边框 */\n}\n\nh1 {\n    text-align: center; /* 标题居中 */\n    color: #333; /* 设置标题颜色 */\n}\n\nform {\n    margin-top: 20px; /* 设置表单与标题之间的间距 */\n}\n\n#trainer select {\n    width: 100%; /* 使下拉列表宽度与父元素相等 */\n    padding: 8px; /* 添加内边距 */\n    margin-bottom: 10px; /* 设置下拉列表与其他元素之间的间距 */\n}\n\n#time {\n    margin-bottom: 10px; /* 设置时间输入框与其他元素之间的间距 */\n}\n\nlabel {\n    display: block; /* 设置标签为块级元素，使其单独显示一行 */\n}\n\ninput[type=\"datetime-local\"] {\n    width: 100%; /* 使时间输入框宽度与父元素相等 */\n    padding: 8px; /* 添加内边距 */\n    box-sizing: border-box; /* 设置盒模型为border-box，使内边距和边框不会增加元素的实际宽度 */\n}\n\n#submit input[type=\"submit\"] {\n    width: 100%; /* 使提交按钮宽度与父元素相等 */\n    padding: 10px; /* 添加内边距 */\n    background-color: #007bff; /* 设置按钮背景色 */\n    color: #fff; /* 设置文字颜色 */\n    border: none; /* 移除边框 */\n    border-radius: 5px; /* 圆角边框 */\n    cursor: pointer; /* 设置鼠标悬停样式为手型 */\n}\n\n#submit input[type=\"submit\"]:hover {\n    background-color: #0056b3; /* 设置鼠标悬停时按钮背景色 */\n}\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/static/appointment.css b/src/main/resources/static/appointment.css
+--- a/src/main/resources/static/appointment.css	(revision 33b44d7db4b4e4df69c2f58444e93ef3ab50a9a1)
++++ b/src/main/resources/static/appointment.css	(date 1714816833569)
+@@ -1,3 +1,71 @@
++#choosetime {
++    background-color: #4CAF50; /* Green background */
++    color: white; /* White text */
++    padding: 10px 20px; /* Padding around text */
++    border: none; /* No border */
++    cursor: pointer; /* Cursor style on hover */
++    border-radius: 5px; /* Rounded corners */
++   margin-bottom: 20px;
++}
++
++#choosetime:hover {
++    background-color: #45a049; /* Darker green background on hover */
++}
++
++
++/* Modal styles */
++.modal {
++    display: none; /* Hide the modal by default */
++    position: fixed;
++    z-index: 1;
++    left: 0;
++    top: 0;
++    width: 100%;
++    height: 100%;
++    overflow: auto;
++    background-color: rgba(0,0,0,0.4); /* Black background with opacity */
++}
++
++.modal-content {
++    background-color: #fefefe;
++    margin: 15% auto; /* 15% from the top and centered */
++    padding: 20px;
++    border: 1px solid #888;
++    width: 80%; /* Could be more or less, depending on screen size */
++}
++
++#modalconfirm {
++    background-color: #007bff; /* Blue background */
++    color: white; /* White text */
++    padding: 10px 20px; /* Padding around text */
++    border: none; /* No border */
++    cursor: pointer; /* Cursor style on hover */
++    border-radius: 5px; /* Rounded corners */
++    right: 10px;
++}
++
++#modalconfirm:hover {
++    background-color: #0056b3; /* Darker blue background on hover */
++}
++
++
++/* Close button styles */
++.close {
++    color: #aaa;
++    float: right;
++    font-size: 28px;
++    font-weight: bold;
++}
++
++.close:hover,
++.close:focus {
++    color: black;
++    text-decoration: none;
++    cursor: pointer;
++}
++
++
++
+ /* logo样式 */
+ #logo {
+     width: 50px; /* logo宽度，根据需要调整 */
+Index: src/main/resources/templates/customer/time_selece_Component.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/templates/customer/time_selece_Component.html b/src/main/resources/templates/customer/time_selece_Component.html
+new file mode 100644
+--- /dev/null	(date 1714829125387)
++++ b/src/main/resources/templates/customer/time_selece_Component.html	(date 1714829125387)
+@@ -0,0 +1,115 @@
++<!DOCTYPE html>
++<html lang="en">
++<head>
++    <meta charset="UTF-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1.0">
++    <title>Select Time Slot</title>
++    <style>
++        /* 模态框样式 */
++        .modal {
++            display: none;
++            position: fixed;
++            z-index: 1;
++            left: 0;
++            top: 0;
++            width: 100%;
++            height: 100%;
++            overflow: auto;
++            background-color: rgba(0,0,0,0.4);
++        }
++
++        .modal-content {
++            background-color: #fefefe;
++            margin: 15% auto;
++            padding: 20px;
++            border: 1px solid #888;
++            width: 50%;
++        }
++
++        .close {
++            color: #aaa;
++            float: right;
++            font-size: 28px;
++            font-weight: bold;
++        }
++
++        .close:hover,
++        .close:focus {
++            color: black;
++            text-decoration: none;
++            cursor: pointer;
++        }
++
++    </style>
++</head>
++<body>
++
++<!-- 显示模态框的按钮 -->
++<button onclick="openModal()">选择时间段</button>
++
++<!-- 模态框 -->
++<div id="myModal" class="modal">
++    <div class="modal-content">
++        <span class="close" onclick="closeModal()">&times;</span>
++        <h2>选择时间段</h2>
++        <label for="startTimeSelect">选择开始时间：</label>
++        <select id="startTimeSelect">
++            <option value="09:00">09:00</option>
++            <option value="10:00">10:00</option>
++            <option value="11:00">11:00</option>
++            <!-- 添加更多时间选项 -->
++        </select>
++
++        <label for="durationSelect">选择持续时间：</label>
++        <select id="durationSelect">
++            <option value="1">1小时</option>
++            <option value="2">2小时</option>
++            <option value="3">3小时</option>
++            <!-- 添加更多持续时间选项 -->
++        </select>
++
++        <button onclick="updateButton()">确认</button>
++    </div>
++</div>
++
++<script>
++    // 获取模态框元素
++    var modal = document.getElementById("myModal");
++
++    // 获取触发模态框显示的按钮
++    var btn = document.querySelector("button");
++
++    // 获取关闭模态框的 <span> 元素
++    var span = document.getElementsByClassName("close")[0];
++
++    // 当用户点击按钮时打开模态框
++    function openModal() {
++        modal.style.display = "block";
++    }
++
++    // 当用户点击 <span> (x)，关闭模态框
++    function closeModal() {
++        modal.style.display = "none";
++    }
++
++    // 当用户点击确认按钮时更新按钮文本为所选时间段
++    function updateButton() {
++        var startTime = document.getElementById("startTimeSelect").value;
++        var duration = parseInt(document.getElementById("durationSelect").value);
++        var startHour = parseInt(startTime.split(":")[0]);
++        var startMinute = parseInt(startTime.split(":")[1]);
++        var endHour = startHour + duration;
++        var endMinute = startMinute;
++        var timeSlot = startTime + " - ";
++        if (endHour < 10) {
++            timeSlot += "0";
++        }
++        timeSlot += endHour + ":" + (endMinute < 10 ? "0" : "") + endMinute;
++        // btn.innerText = "选择时间段：" + timeSlot;
++        btn.innerText = timeSlot;
++        closeModal(); // 关闭模态框
++    }
++</script>
++
++</body>
++</html>

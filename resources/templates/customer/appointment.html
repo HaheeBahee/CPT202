@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Form</title>
+    <link href="/static/appointment.css" rel="stylesheet" type="text/css" >
+</head>
+<body>
+
+<nav id="navbar">
+    <div id="logo-container">
+        <img src="/static/image/img_1.png" id="logo" alt="logo">
+    </div>
+    <ul>
+        <li><a href="/home">Home Page</a></li>
+        <li><a href="/appointment">Appointment</a></li>
+       <li><a href="/change">Change appointmment</a></li>
+        <li><a href="/view">View appointmment</a></li>
+    </ul>
+    <img id="nav-control" onclick="toggleNavbar()"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAARUlEQVR4nO3TOwoAIAwE0dz/WHqoTSptJYWIhR+YB+kCW40ZcEJIbbxnhl2q+Wf1XKq3hsv2MLAt6DihY/wn6DihY8AmOrJBLqA7C45ZAAAAAElFTkSuQmCC">
+</nav>
+<div id="appointment">
+    <h1>Appointment now!</h1>
+    <form action="/api/login" method="post">
+        <div id="trainer">
+          <select>
+              <option>trainer1</option>
+              <option>trainer2</option>
+              <option>trainer3</option>
+          </select>
+        </div>
+        <div id="time">
+            <label for="time">Time:</label>
+            <input type="datetime-local" id="time" name="time" required>
+        </div>
+        <div id="submit">
+            <input type="submit" value="Submit">
+        </div>
+
+    </form>
+</div>
+<script src="/static/appointment.js"></script>
+</body>
+</html>

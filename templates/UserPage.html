@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Website</title>
+    <link rel="stylesheet" type="text/css" href="/static/home.css">
+
+</head>
+<body>
+
+<nav id="navbar">
+    <div id="logo-container">
+        <img src="/static/image/img_1.png" id="logo">
+    </div>
+    <ul>
+        <li><a href="UserPage">Home</a></li>
+        <li><a href="/appointment">Appointment</a></li>
+        <li><a href="/trainer">Trainers</a></li>
+        <li><a href="Plan">Plan</a></li>
+        <!-- Add other navigation items as needed -->
+    </ul>
+</nav>
+
+<!--    <navigate/>-->
+<div id="account">
+    <ul>
+         <li id="tologin" style="display:none;"><a href="/logout"  class="routerdirect">Logout</a></li>
+        <div id="username_display"></div>
+    
+        <button id="logout" onclick="logout()" style="display:none;">Logout</button>
+    </div>
+    
+    <script>
+    
+                function logout() {
+    
+                    // 从 localStorage 中删除令牌信息
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('username');
+                    // 重定向到登录页面
+                    window.location.href = "/logout";
+                    // 进行其他注销操作，如重定向到登录页面等
+                }
+            </script>
+        
+
+        <script>
+            // var token = localStorage.getItem("token");
+            // if (token) {
+            //     // 发起请求获取用户信息
+            //     fetch("/user_info", {
+            //         method: "GET",
+            //         headers: {
+            //             "Authorization": token
+            //         }
+            //     })
+            //         .then(response => response.json())
+            //         .then(data => {
+            //             // 从返回的数据中获取用户名并显示在页面上
+            //             var username = data.user.username;
+            //             document.getElementById("username_display").innerText = "Welcome, " + username;
+            //         })
+            //         .catch(error => console.error("Error:", error));
+            // }
+            // 从本地存储中获取用户名
+            var username = localStorage.getItem("username");
+            // 将用户名显示在页面上
+            document.getElementById("username_display").innerText = "Welcome, " + username;
+        </script>
+
+<div id="front">
+    <p id="welcome1">Welcome to our gym! We are dedicated to helping you achieve your fitness goals and enhance your quality of life at our professional fitness club.</p>
+    </div>
+    <div id="news">
+        <p class="welcome2">
+            News
+            <button class="readmore">read more</button>
+        </p>
+
+        <div>
+            <ul>
+                <li>we have open the appointment channel</li>
+                <li>you can view our page at our website</li>
+                <li>you can ask for help with the staff with the click of right corner</li>
+            </ul>
+        </div>
+    </div>
+    <div id="aboutus">
+        <p class="welcome2">About us</p><br>
+        <a>We are a fitness club located in [location], committed to providing high-quality fitness services to our members. We strive to create a positive and healthy community for our members. Our team consists of experienced, passionate, and professional trainers, and we offer state-of-the-art equipment and a variety of fitness classes to cater to your needs.</a>
+    </div>
+
+<div id="intro">
+    <p class="welcome2">Our Facilities and Services:</p>
+    <div class="paragraph-with-image">
+        <p>Spacious and well-lit gym space equipped with the latest fitness equipment to meet all your fitness needs.</p>
+        <img src="/static/image/img_3.png" alt="Gym Space Image">
+    </div>
+    <br>
+    <div class="paragraph-with-image">
+
+        <p>Diverse group classes including yoga, pilates, aerobic exercises, and more, guided by expert trainers suitable for all ages and fitness levels.</p>
+        <img src="/static/image/img_4.png" alt="Group Classes Image">
+    </div>
+    <div class="paragraph-with-image">
+
+        <p>Personal training sessions tailored to your individual goals and fitness level, ensuring you achieve the best results.</p>
+        <img src="/static/image/img_5.png" alt="Personal Training Image">
+    </div>
+    <div class="paragraph-with-image">
+
+        <p>Comfortable lounge and shower facilities for you to relax and rejuvenate after your workout.</p>
+        <img src="/static/image/img_6.png" alt="Lounge Facilities Image">
+        <img src="/static/image/img_7.png" alt="Lounge Facilities Image">
+        <img src="/static/image/img_8.png" alt="Lounge Facilities Image">
+    </div>
+</div>
+
+    <div id="mission">
+        <p class="welcome2">Our Mission</p>
+        <p>Our mission is to inspire and guide every member towards a healthier and happier life. We believe that by adhering to a scientific training regimen and adopting a healthy lifestyle, you can have more vitality, better physical fitness, and better cope with life's challenges.</p>
+    </div>
+    <div id="joinus">
+        <p class="welcome2">Join us</p>
+        <p>Whether you're a fitness beginner or an experienced enthusiast, we welcome you to join us! Whether your goal is muscle building, weight loss, shaping, or improving fitness, we are committed to providing you with the most professional and attentive service. Join us, make health a part of your life, and let exercise become a joy of life!</p>
+        <div id="contact">
+            <p class="welcome2">Contact Information:</p>
+            <p>Address: [Gym Address]</p>
+            <p>Phone: [Contact Phone]</p>
+            <p>Email: [Contact Email]</p>
+            <p>Website: [Gym Website]</p>
+        </div>
+    </div>
+<footer>
+    <div>
+        <p>© 2024 CPT202Group37. All rights reserved.</p>
+    </div>
+    <div>
+        <a href="#">联系我们</a>
+        <a href="#">隐私政策</a>
+        <a href="#">服务条款</a>
+        <a href="#">常见问题解答</a>
+        <a href="#">网站地图</a>
+    </div>
+    <br>
+    <div>
+        <!-- 如果有社交媒体链接，可以在这里添加 -->
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+    </div>
+</footer>
+
+
+<script src="/static/home.js">
+
+</script>
+<script>
+    function checkLoginStatus() {
+        var username = localStorage.getItem("username");
+        if (username) {
+            // 用户已登录，显示用户名，并隐藏登录按钮和注册按钮，显示注销按钮
+            document.getElementById("username_display").innerText = "Welcome, " + username;
+            document.getElementById("tologin").style.display = "none";
+            document.getElementById("toregister").style.display = "none";
+            document.getElementById("logout").style.display = "block";
+        } else {
+            // 用户未登录，显示登录按钮和注册按钮，隐藏注销按钮
+            document.getElementById("username_display").innerText = "";
+            document.getElementById("tologin").style.display = "block";
+            document.getElementById("toregister").style.display = "block";
+            document.getElementById("logout").style.display = "none";
+        }
+    }
+    checkLoginStatus();
+</script>
+</body>
+</html>

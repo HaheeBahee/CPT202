@@ -1,0 +1,74 @@
+<changelist name="在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]" date="1714835639747" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/shelved.patch" />
+  <option name="DESCRIPTION" value="在进行更新之前于 2024/5/4, 23:12 取消提交了更改 [更改]" />
+  <binary>
+    <option name="BEFORE_PATH" value="../fitness/Register/target/classes/com/register/customer/controller/CheckoutController.class" />
+    <option name="AFTER_PATH" value="../fitness/Register/target/classes/com/register/customer/controller/CheckoutController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/CheckoutController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../fitness/Register/target/classes/com/register/customer/model/CustomerRegister.class" />
+    <option name="AFTER_PATH" value="../fitness/Register/target/classes/com/register/customer/model/CustomerRegister.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/CustomerRegister.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../fitness/Register/target/classes/com/register/customer/CustomerApplication.class" />
+    <option name="AFTER_PATH" value="../fitness/Register/target/classes/com/register/customer/CustomerApplication.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/CustomerApplication.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../fitness/Register/target/classes/com/register/customer/repository/PurchasedPlanRepo.class" />
+    <option name="AFTER_PATH" value="../fitness/Register/target/classes/com/register/customer/repository/PurchasedPlanRepo.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/PurchasedPlanRepo.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../fitness/Register/target/classes/com/register/customer/model/PaymentDetails.class" />
+    <option name="AFTER_PATH" value="../fitness/Register/target/classes/com/register/customer/model/PaymentDetails.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/PaymentDetails.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../fitness/Register/target/classes/com/register/customer/repository/TrainerRegisterRepo.class" />
+    <option name="AFTER_PATH" value="../fitness/Register/target/classes/com/register/customer/repository/TrainerRegisterRepo.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/TrainerRegisterRepo.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../fitness/Register/target/classes/com/register/customer/repository/PayingCustomerRepo.class" />
+    <option name="AFTER_PATH" value="../fitness/Register/target/classes/com/register/customer/repository/PayingCustomerRepo.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/PayingCustomerRepo.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../fitness/Register/target/classes/com/register/customer/controller/RegisterController.class" />
+    <option name="AFTER_PATH" value="../fitness/Register/target/classes/com/register/customer/controller/RegisterController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/RegisterController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../fitness/Register/target/classes/com/register/customer/controller/LoginController.class" />
+    <option name="AFTER_PATH" value="../fitness/Register/target/classes/com/register/customer/controller/LoginController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/LoginController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../fitness/Register/target/classes/com/register/customer/repository/CustomerRegisterRepo.class" />
+    <option name="AFTER_PATH" value="../fitness/Register/target/classes/com/register/customer/repository/CustomerRegisterRepo.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/CustomerRegisterRepo.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../fitness/Register/target/classes/com/register/customer/model/PurchasedPlan.class" />
+    <option name="AFTER_PATH" value="../fitness/Register/target/classes/com/register/customer/model/PurchasedPlan.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/PurchasedPlan.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../fitness/Register/target/classes/com/register/customer/model/PayingCustomer.class" />
+    <option name="AFTER_PATH" value="../fitness/Register/target/classes/com/register/customer/model/PayingCustomer.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/PayingCustomer.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../fitness/Register/target/classes/com/register/customer/model/TrainerRegister.class" />
+    <option name="AFTER_PATH" value="../fitness/Register/target/classes/com/register/customer/model/TrainerRegister.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/TrainerRegister.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="../fitness/Register/target/classes/com/register/customer/repository/PaymentDetailsRepo.class" />
+    <option name="AFTER_PATH" value="../fitness/Register/target/classes/com/register/customer/repository/PaymentDetailsRepo.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在进行更新之前于_2024_5_4,_23_12_取消提交了更改_[更改]/PaymentDetailsRepo.class" />
+  </binary>
+</changelist>

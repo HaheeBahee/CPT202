@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">  
+        <title>Trainers Management</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="text-center my-4">Trainers Administrator Management</h1>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Overall details:</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Average Number of Appointments Per Trainer in Recent One Month:</td>
+                    <td th:text="${avgTrainerAppNoThirty}"></td>
+                  </tr>
+                  <tr>
+                    <td>Average Rating in Recent One Month</td>
+                    <td th:text="${avgRatingThirty}"></td>
+                  </tr>
+
+                  <tr><td>&nbsp;</td></tr>
+
+                  <tr>
+                    <td>ID of Trainer with Highest Number of Appointments in Recent One Month</td>
+                    <td th:text="${highestAppNoThirtyTID}"></td>
+                  </tr>
+                  <tr>
+                    <td>Highest Number of Appointments in Recent One Month</td>
+                    <td th:text="${highestAppNoThirty}"></td>
+                  </tr>
+                  <tr>
+                    <td>ID of Trainer with Highest Average Rating in Recent One Month</td>
+                    <td th:text="${highestTrainerAvgRatingThirtyTID}"></td>
+                  </tr>
+                  <tr>
+                    <td>Highest Average Rating in Recent One Month</td>
+                    <td th:text="${highestTrainerAvgRatingThirty}"></td>
+                  </tr>
+
+                  <tr><td>&nbsp;</td></tr>
+                  <tr><td>&nbsp;</td></tr>
+
+                  <tr>
+                    <td>Average Number of Appointments Per Trainer in Current Year:</td>
+                    <td th:text="${avgTrainerAppNoYear}"></td>
+                  </tr>
+                  <tr>
+                    <td>Average Rating in Current Year</td>
+                    <td th:text="${avgRatingYear}"></td>
+                  </tr>
+
+                  <tr><td>&nbsp;</td></tr>
+
+                  <tr>
+                    <td>ID of Trainer with Highest Number of Appointments in Current Year</td>
+                    <td th:text="${highestAppNoYearTID}"></td>
+                  </tr>
+                  <tr>
+                    <td>Highest Number of Appointments in Current Year</td>
+                    <td th:text="${highestAppNoYear}"></td>
+                  </tr>
+                  <tr>
+                    <td>ID of Trainer with Highest Average Rating in Current Year</td>
+                    <td th:text="${highestTrainerAvgRatingYearTID}"></td>
+                  </tr>
+                  <tr>
+                    <td>Highest Average Rating in Current Year</td>
+                    <td th:text="${highestTrainerAvgRatingYear}"></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              <p>&nbsp;</p>
+              <p>&nbsp;</p>
+              <p>&nbsp;</p>
+
+              
+              <p>
+                <h2>Details:</h2>
+              </p>
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Trainer ID</th>
+                    <th>Name</th>
+                    <th>Ranking</th>
+                    <th>Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="Trainer: ${Trainers}">
+                    <td th:text="${Trainer.gettrainerId()}"></td>
+                    <td th:text="${Trainer.gettrainerName()}"></td>
+                    <td th:text="${Trainer.gettrainerRanking()}"></td>
+                    <th th:text="${Trainer.getTrainerEmail()}"></th>
+                    <td style="white-space: nowrap">
+                      <a class="btn btn-primary btn-sm" 
+                        th:href="@{/Trainers_Management/view_trainer_details(id=*{Trainer.gettrainerId()})}">View Details</a>
+                      <a class="btn btn-primary btn-sm" 
+                      th:href="@{/Trainers_Management/trainer_ranking_change(id=*{Trainer.gettrainerId()})}">Promote/Demote</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Policy Documents</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    .checkbox-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Policy Documents</h1>
+    <p>Please read the following policy documents carefully before purchasing a plan:</p>
+    <ul>
+      <li><a href="terms_of_service.html" target="_blank">Terms of Service</a></li>
+      <li><a href="privacy_policy.html" target="_blank">Privacy Policy</a></li>
+      <li><a href="refund_policy.html" target="_blank">Refund Policy</a></li>
+    </ul>
+    <p>By purchasing a plan, you agree to abide by our terms and policies.</p>
+    <div class="checkbox-container">
+      <label>
+        <input type="checkbox" id="agreeCheckbox"> I agree to the terms and policies
+      </label>
+    </div>
+    <div style="text-align: center;">
+      <form id="purchaseForm" action="/Plan_Five" method="post">
+        <input type="hidden" name="checkboxChecked" value="false">
+        <button type="button" onclick="purchasePlan()">Purchase Plan</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function purchasePlan() {
+      if (document.getElementById('agreeCheckbox').checked) {
+        document.getElementById('purchaseForm').submit();
+      } else {
+        alert("Please agree to the terms and policies before purchasing.");
+      }
+    }
+  </script>
+</body>
+</html>

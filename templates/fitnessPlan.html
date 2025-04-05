@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account - Fitness</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+      }
+      header {
+        padding: 20px;
+      }
+      header h1 {
+        margin: 0 0 30px;
+      }
+      hr {
+        border: 0;
+        height: 1px;
+        background-color: #333;
+        margin-top: 0;
+        margin-bottom: 20px;
+      }
+
+      .container {
+        width: 95%; /* 브라우저 창 너비의 95%를 사용 */
+        max-width: 1100px; /* 최대 너비를 1200픽셀로 설정 */
+        margin: 40px auto;
+        padding: 30px;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: relative; /* 상대 위치 설정 */
+      }
+      .container h1 {
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 50px;
+        font-size: 3em; /* 이 값을 조절하여 텍스트 크기를 변경하세요 */
+      }
+      .main {
+        padding-left: 60px;
+        padding-right: 60px;
+        display: flex;
+        justify-content: space-between; /* 중앙 정렬에서 균등 간격으로 변경 */
+        margin-top: 20px;
+      }
+
+      h3 {
+        position: absolute; /* 절대 위치 설정 */
+        top: -50px; /* main 상단에서 40px 위 */
+        left: 0; /* main 왼쪽에서 30px 떨어진 곳 */
+        color: rgb(112, 112, 112);
+        padding: 0 10px; /* 좌우 패딩 추가 */
+      }
+
+      .plan {
+        background: #ffffff;
+        box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px; /* 간격 설정 */
+        flex: 1; /* Flexbox: all .plan elements will take up equal width */
+        margin: 0 10px; /* add margin between plans */
+      }
+      .plan-header,
+      .plan-price,
+      .description,
+      .purchase {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* 내용을 중앙으로 정렬 */
+      }
+      .plan-header {
+        background: rgb(228, 51, 39); /* 이름 섹션 배경색 */
+        color: white; /* 이름 섹션 텍스트 색상 */
+        height: 35px;
+        text-align: center;
+      }
+      #name {
+        font-size: 1em; /* 크기 조정 */
+      }
+      .plan-price {
+        background: rgb(228, 51, 39); /* 가격 섹션 배경색 */
+        color: #ffffff; /* 가격 섹션 텍스트 색상 */
+        border-bottom: 1px solid #ddd; /* 구분선 추가 */
+        text-align: center;
+        height: 60px;
+        font-weight: bold; /* 글자를 굵게 */
+        font-size: 2em; /* 크기 조정 */
+      }
+
+      .description {
+        background: #ffffff; /* 가격 섹션 배경색 */
+        min-height: 300px;
+      }
+      .purchase {
+        background: #ffffff; /* 구매 버튼 배경색 */
+        color: white; /* 구매 버튼 텍스트 색상 */
+        height: 50px;
+      }
+      #purchase-button {
+        display: block;
+        margin: 30px;
+        margin-bottom: 50px;
+        padding: 10px 20px;
+        background-color: rgb(228, 51, 39);
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      #purchase-button:hover {
+        background-color: rgb(216, 50, 28);
+        box-shadow: 4px 8px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .duration-select {
+        text-align: center;
+        padding: 1px;
+        background-color: #ffffff;
+
+        box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+        display: inline-block;
+        margin-left: 70px;
+        margin-right: auto;
+        margin-bottom: 20px;
+        position: relative;
+      }
+      .duration-select button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #ffffff;
+        color: rgb(172, 172, 172);
+        cursor: pointer;
+      }
+      .duration-select button.active {
+        background-color: #000000;
+        color: rgb(255, 255, 255);
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 2;
+      }
+      /* 모달창 내용 스타일 */
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        z-index: 3;
+      }
+      .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        padding-top: 20px;
+      }
+
+      .close-button {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close-button:hover,
+      .close-button:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Fitness</h1>
+      <hr />
+    </header>
+
+    <div class="container">
+      <h1>Fitness Plan</h1>
+      <div class="duration-select">
+        <button id="6" class="duration-button">6 Months</button>
+        <button id="12" class="duration-button">12 Months</button>
+      </div>
+      <div class="main">
+        <div class="plan" id="Silver">
+          <div class="plan-header">
+            <p id="name">SILVER</p>
+          </div>
+          <div class="plan-price">
+            <p id="silver-price">$50</p>
+          </div>
+          <div class="description">
+            <ul>
+              <li>3-star trainer</li>
+              <li>Group Fitness Classes</li>
+              <li>Weight Training Intro</li>
+              <li>Group Yoga Sessions</li>
+              <li>Basic Diet Plan</li>
+            </ul>
+          </div>
+          <div class="purchase">
+            <button id="purchase-button">Purchase</button>
+          </div>
+        </div>
+
+        <!-- 반복해서 Gold와 Diamond 등급에도 동일하게 적용 -->
+        <div class="plan" id="Gold">
+          <div class="plan-header">
+            <p id="name">GOLD</p>
+          </div>
+          <div class="plan-price">
+            <p id="gold-price">$100</p>
+          </div>
+          <div class="description">
+            <ul>
+              <li>4-star trainer</li>
+              <li>Specialty Fitness Classes</li>
+              <li>Intensive Weight Training</li>
+              <li>Progressive Yoga Techniques</li>
+              <li>Personalized Diet Plan</li>
+            </ul>
+          </div>
+          <div class="purchase">
+            <button id="purchase-button">Purchase</button>
+          </div>
+        </div>
+
+        <div class="plan" id="Diamond">
+          <div class="plan-header">
+            <p id="name">DIAMOND</p>
+          </div>
+          <div class="plan-price">
+            <p id="diamond-price">$140</p>
+          </div>
+          <div class="description">
+            <ul>
+              <li>5-star trainer</li>
+              <li>One-to-One Fitness Coaching</li>
+              <li>Tailored Weight Training</li>
+              <li>Private Yoga Instruction</li>
+              <li>Comprehensive Diet and Wellness Plan</li>
+            </ul>
+          </div>
+          <div class="purchase">
+            <button id="purchase-button">Purchase</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="purchaseModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <p id="modal-text">Are you sure you want to purchase this plan?</p>
+        <div class="button-container">
+          <button onclick="closeModal()">Cancel</button>
+          <button id="confirm-purchase">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var globalPlanName, globalDuration, globalPrice;
+
+      document.addEventListener("DOMContentLoaded", function () {
+        selectDuration("6");
+
+        document.querySelectorAll(".duration-button").forEach((button) => {
+          button.addEventListener("click", function () {
+            selectDuration(this.id);
+          });
+        });
+
+        document.querySelectorAll(".purchase button").forEach((button) => {
+          button.addEventListener("click", function () {
+            const planElement = this.closest(".plan");
+            const planId = planElement.id.toLowerCase();
+            const planName =
+              planElement.querySelector(".plan-header p").innerText;
+            const price = planElement.querySelector(".plan-price p").innerText;
+            const duration = document.querySelector(
+              ".duration-button.active"
+            ).innerText;
+            openModal(planName, duration, price);
+          });
+        });
+
+        document
+          .getElementById("confirm-purchase")
+          .addEventListener("click", function () {
+            confirmPurchase(globalPlanName, globalDuration, globalPrice);
+          });
+      });
+      function selectDuration(durationId) {
+        document.querySelectorAll(".duration-button").forEach((button) => {
+          button.classList.remove("active");
+        });
+        const activeButton = document.getElementById(durationId);
+        activeButton.classList.add("active");
+        updatePrices(durationId);
+      }
+      function updatePrices(selectedDuration) {
+        const planPrices = {
+          silver: { 6: 50, 12: 90 },
+          gold: { 6: 100, 12: 180 },
+          diamond: { 6: 140, 12: 260 },
+        };
+        document.querySelectorAll(".plan").forEach((plan) => {
+          const planId = plan.id.toLowerCase();
+          const newPrice = planPrices[planId][selectedDuration];
+          plan.querySelector(".plan-price p").textContent = `$${newPrice}`;
+        });
+      }
+      function openModal(planName, duration, price) {
+        globalPlanName = planName;
+        globalDuration = duration;
+        globalPrice = price;
+        const modalText = `Are you sure you want to purchase the ${planName} plan for ${duration} at ${price}?`;
+        document.getElementById("modal-text").innerText = modalText;
+        document.getElementById("purchaseModal").style.display = "block";
+      }
+      function closeModal() {
+        document.getElementById("purchaseModal").style.display = "none";
+      }
+      function confirmPurchase(planName, duration, price) {
+        window.location.href = `/checkout?plan=${encodeURIComponent(
+          planName
+        )}&duration=${encodeURIComponent(duration)}&price=${encodeURIComponent(
+          price
+        )}`;
+      }
+    </script>
+
+    <script th:inline="javascript">
+      var alreadyPurchased = [[${alreadyPurchased}]];
+      var trainerAlert = [[${trainerAlert}]];
+      if (alreadyPurchased) {
+        var purchaseAlert = [[${purchaseAlert}]];
+        alert(purchaseAlert);
+        console.log(purchaseAlert);
+        window.location.href = '/fitnessPlan';
+      }
+      if(trainerAlert){
+        alert(trainerAlert);
+        console.log(trainerAlert);
+        window.location.href = '/fitnessPlan';
+      }
+    </script>
+  </body>
+</html>
