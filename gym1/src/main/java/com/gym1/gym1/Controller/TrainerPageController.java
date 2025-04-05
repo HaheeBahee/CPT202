@@ -26,24 +26,24 @@ public class TrainerPageController {
     @Autowired
     private TrainerService trainerService;
 
-
-
     @GetMapping("/add_Trainer")
-    public String getAddTrainer(Model model){
+    public String getAddTrainer(Model model) {
         model.addAttribute("Trainer", new Trainer());
         return "/addTrainer";
     }
 
     @PostMapping("/add_Trainer")
-    public String postAddTrainer(@ModelAttribute Trainer trainer){
-        if(trainerrepo.existsByTrainerEmail(trainer.gettrainerEmail())) {
-            // Return some indication that the email already exists,
+    public String postAddTrainer(@ModelAttribute Trainer trainer) {
+        if (trainerrepo.existsByTrainerEmail(trainer.gettrainerEmail())) {
+            // Return some indication that the email already exists,ㅎㅎ
             // you can choose to return an error message or handle it as you prefer
             return "/add_Trainer";
         }
 
-       else{ trainerrepo.save(trainer);
-        return "success_forTrainer";   }
+        else {
+            trainerrepo.save(trainer);
+            return "success_forTrainer";
+        }
 
     }
 
@@ -66,7 +66,7 @@ public class TrainerPageController {
     }
 
     @GetMapping("/trainerLogout")
-    public String trainerLogout(){
+    public String trainerLogout() {
         Trainer trainer = (Trainer) session.getAttribute("loggedInTrainer");
         if (trainer != null) {
             session.removeAttribute("loggedInTrainer");
@@ -74,16 +74,10 @@ public class TrainerPageController {
         return "redirect:/Main_page";
     }
 
-
-
-
-
-
-
     @GetMapping("/trainerPage")
     public String AfterTrainerLogin() {
         Trainer trainer = (Trainer) session.getAttribute("loggedInTrainer");
-        if (trainer == null){
+        if (trainer == null) {
             return "/main_page";
         }
         return "/trainerPage.html";
